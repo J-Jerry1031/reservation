@@ -118,7 +118,41 @@ insert into app_users (
   '1',
   '01000000000',
   'admin'
-) on conflict (login_id) do nothing;
+) on conflict (login_id) do update set
+  password_hash = excluded.password_hash,
+  name = excluded.name,
+  birth_first6 = excluded.birth_first6,
+  birth_gender_digit = excluded.birth_gender_digit,
+  phone = excluded.phone,
+  role = 'admin',
+  is_blacklisted = false,
+  updated_at = now();
+
+insert into adult_verifications (
+  user_id,
+  name,
+  phone,
+  birth_first6,
+  birth_gender_digit,
+  carrier,
+  status
+)
+select
+  id,
+  name,
+  phone,
+  birth_first6,
+  birth_gender_digit,
+  'ADMIN',
+  'self_declared'
+from app_users
+where login_id = 'admin'
+  and not exists (
+    select 1
+    from adult_verifications
+    where adult_verifications.user_id = app_users.id
+      and adult_verifications.status in ('self_declared', 'carrier_verified')
+  );
 
 insert into staff_profiles (
   nickname,
