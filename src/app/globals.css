@@ -24,6 +24,8 @@ body {
   background: var(--background);
   color: var(--text);
   font-family: Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
 }
 
 a {
@@ -51,10 +53,17 @@ a {
 }
 
 .main-nav {
+  flex: 1;
   display: flex;
   gap: 4px;
   overflow: auto;
   white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.main-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .main-nav a {
@@ -360,6 +369,11 @@ textarea {
   display: flex;
   justify-content: space-between;
   gap: 12px;
+  align-items: flex-start;
+}
+
+.post-meta strong {
+  overflow-wrap: anywhere;
 }
 
 .post-meta span,
@@ -564,10 +578,63 @@ textarea {
 }
 
 @media (max-width: 760px) {
+  body {
+    font-size: 14px;
+  }
+
   .site-header {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 8px 12px;
+    overflow: hidden;
+  }
+
+  .brand {
+    flex: 0 0 auto;
+  }
+
+  .brand img {
+    width: 112px;
+  }
+
+  .main-nav {
+    gap: 2px;
+    min-width: 0;
+    padding-bottom: 2px;
+  }
+
+  .main-nav a,
+  .nav-button {
+    height: 34px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .hero {
+    min-height: 190px;
+    padding: 28px 16px;
+    background-position: 58% center;
+    border-bottom-width: 3px;
+  }
+
+  .hero-content h1 {
+    font-size: 38px;
+  }
+
+  .notice-band,
+  .board-shell,
+  .content-grid {
+    width: calc(100% - 24px);
+    margin: 16px auto;
+  }
+
+  .notice-band,
+  .board-shell,
+  .auth-panel,
+  .admin-panel {
+    padding: 16px;
+    border-radius: 8px;
   }
 
   .notice-band,
@@ -575,8 +642,23 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .notice-band {
+    gap: 14px;
+  }
+
+  .notice-band h2,
+  .board-heading h2 {
+    font-size: 20px;
+  }
+
   .content-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .legacy-card {
+    min-height: 104px;
+    padding: 16px;
   }
 
   .inline-fields,
@@ -590,11 +672,137 @@ textarea {
     grid-template-columns: 1fr;
   }
 
-  .hero {
-    min-height: 240px;
+  .filter-row {
+    gap: 8px;
+  }
+
+  .button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .button.compact {
+    width: 100%;
+    min-height: 38px;
+  }
+
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .post-card {
+    padding: 14px;
+  }
+
+  .post-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .write-form {
+    margin-top: 18px;
+    padding-top: 18px;
+  }
+
+  .staff-card {
+    min-height: auto;
+    padding: 12px;
+  }
+
+  .staff-card img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .profile-page,
+  .admin-page {
+    width: calc(100% - 24px);
+    margin: 16px auto;
+  }
+
+  .profile-hero {
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .spec-grid {
+    gap: 8px;
+  }
+
+  .spec-grid div {
+    padding: 12px;
+  }
+
+  .admin-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .admin-header h1 {
+    font-size: 24px;
+  }
+
+  .attendance-row {
+    gap: 8px;
+  }
+
+  .admin-item,
+  .attendance-row {
+    padding: 10px;
+  }
+
+  .gate-page {
+    align-items: start;
+    padding: 24px 12px;
+  }
+
+  .gate,
+  .auth-panel {
+    padding: 18px;
+  }
+
+  .auth-panel img {
+    width: 120px;
   }
 
   .site-footer {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-header {
+    gap: 8px;
+  }
+
+  .brand img {
+    width: 96px;
+  }
+
+  .main-nav a,
+  .nav-button {
+    height: 32px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  .hero {
+    min-height: 160px;
+    padding: 22px 12px;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .notice-band,
+  .board-shell,
+  .content-grid,
+  .profile-page,
+  .admin-page {
+    width: calc(100% - 16px);
   }
 }
