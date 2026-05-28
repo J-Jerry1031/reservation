@@ -221,7 +221,7 @@ export async function createPostAction(_state: ActionState, formData: FormData):
   }
 
   revalidatePath(`/xe/${board === "review" ? "epilogue" : "kissqna"}`);
-  return { ok: true };
+  redirect(`/xe/${board === "review" ? "epilogue" : "kissqna"}`);
 }
 
 export async function adminCreatePostAction(_state: ActionState, formData: FormData): Promise<ActionState> {

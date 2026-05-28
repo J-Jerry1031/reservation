@@ -58,6 +58,7 @@ create table if not exists board_posts (
   author_name text not null,
   visibility text not null default 'public' check (visibility in ('public','private')),
   password_hash text,
+  view_count integer not null default 0,
   recommendation_count integer not null default 0,
   answer text,
   answered_by uuid references app_users(id) on delete set null,
@@ -65,6 +66,9 @@ create table if not exists board_posts (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table board_posts
+add column if not exists view_count integer not null default 0;
 
 create table if not exists staff_profiles (
   id uuid primary key default gen_random_uuid(),

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createPostAction, logoutAction } from "@/app/actions";
-import { ActionForm } from "@/components/action-form";
+import { logoutAction } from "@/app/actions";
 import { requireVerifiedUser } from "@/lib/auth";
 import { getPosts, getSeoulTodayLabel, getTodayAttendance, type Board, type SortKey } from "@/lib/data";
 import {
@@ -135,10 +134,20 @@ async function BoardContent({
 }) {
   const posts = await getPosts({ board, query, sort });
   const title = board === "notice" ? "공지사항" : board === "review" ? "방문후기" : "Q&A";
+  const writeHref = board === "review" ? "/write/review" : board === "qna" ? "/write/qna" : null;
 
   return (
     <section className="board-shell">
-      <div className="board-heading">
+      <div className="board-toolbar">
+        <div className="board-tabs" aria-label={`${title} 필터`}>
+          <Link className="active" href={board === "review" ? "/xe/epilogue" : board === "qna" ? "/xe/kissqna" : "/xe/notice"}>전체글</Link>
+          <span>일반</span>
+          {board === "notice" ? <span>공지</span> : null}
+        </div>
+        {writable && writeHref ? <Link className="write-button" href={writeHref}>글쓰기</Link> : null}
+      </div>
+
+      <div className="board-heading compact-heading">
         <h2>{title}</h2>
         <form className="filter-row">
           <input name="q" placeholder="키워드 검색" defaultValue={query} />
@@ -151,49 +160,72 @@ async function BoardContent({
         </form>
       </div>
 
-      <div className="post-list">
-        {posts.length ? posts.map((post) => (
-          <article className="post-card" key={post.id}>
-            <div className="post-meta">
-              <Link href={`/post/${post.id}`}><strong>{post.title}</strong></Link>
-              <span>{post.author_name} · {new Date(post.created_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}</span>
-            </div>
-            {post.visibility === "private" ? (
-              <p className="locked-text">비공개 Q&A입니다. 작성자 또는 관리자만 본문을 확인할 수 있습니다.</p>
-            ) : (
-              <p>{post.content}</p>
-            )}
-            {post.answer ? <div className="answer-box"><strong>관리자 답변</strong><p>{post.answer}</p></div> : null}
-            <span className="chip">추천 {post.recommendation_count}</span>
-          </article>
-        )) : <div className="empty-state"><strong>게시글이 없습니다.</strong></div>}
-      </div>
-
-      {writable ? (
-        <ActionForm action={createPostAction} className="write-form" successMessage="게시글이 등록되었습니다.">
-          <input type="hidden" name="board" value={board} />
-          <h3>{title} 작성</h3>
-          <input name="title" placeholder="제목" />
-          <textarea name="content" placeholder="내용" rows={5} />
-          {board === "qna" ? (
-            <div className="inline-fields">
-              <label>
-                공개 설정
-                <select name="visibility" defaultValue="public">
-                  <option value="public">공개</option>
-                  <option value="private">비공개</option>
-                </select>
-              </label>
-              <label>
-                비공개 비밀번호
-                <input name="postPassword" type="password" placeholder="비공개 선택 시 입력" />
-              </label>
-            </div>
-          ) : null}
-        </ActionForm>
-      ) : null}
+      {posts.length ? (
+        <div className="board-table-wrap">
+          <table className="board-table">
+            <thead>
+              <tr>
+                <th className="col-no">번호</th>
+                <th className="col-type">말머리</th>
+                <th>제목</th>
+                <th className="col-author">글쓴이</th>
+                <th className="col-date">작성일</th>
+                <th className="col-count">조회</th>
+                <th className="col-count">추천</th>
+              </tr>
+            </thead>
+            <tbody>
+              {posts.map((post, index) => (
+                <tr key={post.id}>
+                  <td className="col-no">{posts.length - index}</td>
+                  <td className="col-type">{board === "notice" ? "공지" : "일반"}</td>
+                  <td className="title-cell">
+                    <Link href={`/post/${post.id}`}>
+                      {post.visibility === "private" ? <span className="lock-mark">🔒</span> : null}
+                      {post.title}
+                      {post.answer ? <span className="reply-mark">답변</span> : null}
+                    </Link>
+                  </td>
+                  <td className="col-author">{maskAuthor(post.author_name)}</td>
+                  <td className="col-date">{formatBoardDate(post.created_at)}</td>
+                  <td className="col-count">{post.view_count ?? 0}</td>
+                  <td className="col-count">{post.recommendation_count ?? 0}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : <div className="empty-state"><strong>게시글이 없습니다.</strong></div>}
     </section>
   );
+}
+
+function maskAuthor(name: string) {
+  if (!name) return "-";
+  if (name.length <= 2) return `${name[0] ?? ""}*`;
+  return `${name.slice(0, 2)}${"*".repeat(Math.min(3, name.length - 2))}`;
+}
+
+function formatBoardDate(value: string) {
+  const date = new Date(value);
+  const now = new Date();
+  const sameDay = date.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" }) === now.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" });
+
+  if (sameDay) {
+    return date.toLocaleTimeString("ko-KR", {
+      timeZone: "Asia/Seoul",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    });
+  }
+
+  return date.toLocaleDateString("ko-KR", {
+    timeZone: "Asia/Seoul",
+    year: "2-digit",
+    month: "2-digit",
+    day: "2-digit"
+  }).replaceAll(". ", ".").replace(".", "").replace(/\.$/, "");
 }
 
 async function ScheduleContent() {

@@ -232,6 +232,132 @@ a {
   border-bottom: 1px solid #e8e8ec;
 }
 
+.compact-heading {
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 520px);
+  gap: 16px;
+  align-items: center;
+}
+
+.board-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.board-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.board-tabs a,
+.board-tabs span,
+.write-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 22px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.board-tabs .active {
+  background: #33408f;
+  border-color: #33408f;
+  color: white;
+}
+
+.write-button {
+  border-color: #33408f;
+  color: #23307c;
+}
+
+.board-table-wrap {
+  overflow-x: auto;
+}
+
+.board-table {
+  width: 100%;
+  min-width: 820px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.board-table th {
+  height: 48px;
+  border-bottom: 2px solid #33408f;
+  color: #2d2f36;
+  font-size: 15px;
+  text-align: center;
+}
+
+.board-table td {
+  height: 44px;
+  padding: 0 10px;
+  border-bottom: 1px solid #e6e6ea;
+  color: #33353b;
+  font-size: 14px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.board-table .title-cell {
+  text-align: left;
+}
+
+.title-cell a {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 6px;
+  color: #2d2f36;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.title-cell a:hover {
+  color: var(--accent);
+}
+
+.lock-mark,
+.reply-mark {
+  flex: 0 0 auto;
+}
+
+.reply-mark {
+  padding: 2px 6px;
+  background: var(--accent-soft);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.col-no {
+  width: 88px;
+}
+
+.col-type {
+  width: 88px;
+}
+
+.col-author {
+  width: 140px;
+}
+
+.col-date {
+  width: 110px;
+}
+
+.col-count {
+  width: 70px;
+}
+
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -406,6 +532,12 @@ textarea {
   margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid var(--line);
+}
+
+.write-form.standalone {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
 }
 
 .staff-grid {
@@ -649,6 +781,59 @@ textarea {
   .notice-band h2,
   .board-heading h2 {
     font-size: 20px;
+  }
+
+  .compact-heading {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .board-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .board-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .board-tabs a,
+  .board-tabs span,
+  .write-button {
+    min-height: 38px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .board-table {
+    min-width: 680px;
+  }
+
+  .board-table th,
+  .board-table td {
+    font-size: 13px;
+  }
+
+  .col-type,
+  .col-count:last-child {
+    display: none;
+  }
+
+  .col-no {
+    width: 64px;
+  }
+
+  .col-author {
+    width: 96px;
+  }
+
+  .col-date {
+    width: 86px;
+  }
+
+  .col-count {
+    width: 58px;
   }
 
   .content-grid {

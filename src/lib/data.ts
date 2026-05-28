@@ -15,7 +15,7 @@ export async function getPosts({
   const supabase = getSupabaseAdmin();
   let request = supabase
     .from("board_posts")
-    .select("id, board, title, content, author_name, visibility, recommendation_count, answer, created_at, updated_at")
+    .select("id, board, title, content, author_name, visibility, view_count, recommendation_count, answer, created_at, updated_at")
     .eq("board", board);
 
   if (query) {
@@ -45,6 +45,24 @@ export async function getPost(id: string) {
 
   if (error) throw error;
   return data;
+}
+
+export async function incrementPostView(id: string) {
+  const supabase = getSupabaseAdmin();
+  const { data: post } = await supabase
+    .from("board_posts")
+    .select("view_count")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (!post) {
+    return;
+  }
+
+  await supabase
+    .from("board_posts")
+    .update({ view_count: (post.view_count ?? 0) + 1 })
+    .eq("id", id);
 }
 
 export function getSeoulTodayLabel() {
