@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useActionState } from "react";
 
 type FormState = {
@@ -19,6 +20,12 @@ export function ActionForm({
   successMessage?: string;
 }) {
   const [state, formAction, pending] = useActionState(action, {});
+
+  useEffect(() => {
+    if (state.ok) {
+      window.alert(successMessage || "저장되었습니다.");
+    }
+  }, [state.ok, successMessage]);
 
   return (
     <form action={formAction} className={className}>

@@ -1,12 +1,18 @@
-import { adminAnswerQnaAction, adminBlacklistAction, adminCreatePostAction, adminDeletePostAction, adminToggleAttendanceAction, adminUpsertStaffAction, logoutAction } from "@/app/actions";
+import { adminAnswerQnaAction, adminBlacklistAction, adminCreatePostAction, adminDeletePostAction, adminToggleAttendanceAction, adminUpdatePostAction, adminUpsertStaffAction, logoutAction } from "@/app/actions";
 import { ActionForm } from "@/components/action-form";
+import { StatusAlert } from "@/components/status-alert";
 import { requireAdmin } from "@/lib/auth";
 import { getAllStaffWithAttendance, getPosts, getSeoulTodayLabel } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminPage() {
+export default async function AdminPage({
+  searchParams
+}: {
+  searchParams: Promise<{ status?: string }>;
+}) {
   const admin = await requireAdmin();
+  const { status } = await searchParams;
   const [notices, reviews, qnas, staffRows] = await Promise.all([
     getPosts({ board: "notice" }),
     getPosts({ board: "review" }),
@@ -16,6 +22,7 @@ export default async function AdminPage() {
 
   return (
     <main className="admin-page">
+      <StatusAlert status={status} />
       <header className="admin-header">
         <div>
           <h1>관리자 페이지</h1>
@@ -68,10 +75,11 @@ export default async function AdminPage() {
 
       <ActionForm action={adminUpsertStaffAction} className="admin-panel" successMessage="프로필이 저장되었습니다.">
         <h2>직원 프로필 추가</h2>
-        <div className="inline-fields">
-          <input name="nickname" placeholder="닉네임" />
-          <input name="imageUrl" placeholder="사진 URL" />
-        </div>
+        <input name="nickname" placeholder="닉네임" />
+        <label>
+          프로필 사진
+          <input accept="image/*" name="imageFile" type="file" />
+        </label>
         <div className="inline-fields">
           <input name="heightCm" placeholder="키" />
           <input name="weightKg" placeholder="몸무게" />
@@ -105,9 +113,13 @@ function AdminPostList({ title, posts }: { title: string; posts: Awaited<ReturnT
       <h2>{title} 관리</h2>
       <div className="admin-list">
         {posts.map((post) => (
-          <div className="admin-item" key={post.id}>
-            <strong>{post.title}</strong>
-            <span>{post.author_name}</span>
+          <div className="admin-item vertical" key={post.id}>
+            <ActionForm action={adminUpdatePostAction} className="answer-form" successMessage="저장되었습니다.">
+              <input type="hidden" name="postId" value={post.id} />
+              <input name="title" defaultValue={post.title} />
+              <textarea name="content" defaultValue={post.content} rows={3} />
+              <span>{post.author_name}</span>
+            </ActionForm>
             <form action={adminDeletePostAction}>
               <input type="hidden" name="postId" value={post.id} />
               <button className="text-button danger" type="submit">삭제</button>

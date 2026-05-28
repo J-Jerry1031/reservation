@@ -16,6 +16,39 @@ function text(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim();
 }
 
+function nullableText(formData: FormData, key: string) {
+  const value = text(formData, key);
+  return value || null;
+}
+
+async function uploadStaffImage(formData: FormData, fallbackUrl: string | null) {
+  const file = formData.get("imageFile");
+  if (!(file instanceof File) || file.size === 0) {
+    return fallbackUrl;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    throw new Error("이미지 파일만 업로드할 수 있습니다.");
+  }
+
+  const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const fileName = `staff/${Date.now()}-${crypto.randomUUID()}.${extension}`;
+  const supabase = getSupabaseAdmin();
+  const { error } = await supabase.storage
+    .from("staff-photos")
+    .upload(fileName, file, {
+      contentType: file.type,
+      upsert: false
+    });
+
+  if (error) {
+    throw error;
+  }
+
+  const { data } = supabase.storage.from("staff-photos").getPublicUrl(fileName);
+  return data.publicUrl;
+}
+
 async function createSession(userId: string) {
   const token = createSessionToken();
   const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 14).toISOString();
@@ -231,13 +264,15 @@ export async function adminAnswerQnaAction(formData: FormData) {
     .update({
       answer,
       answered_by: admin.id,
-      answered_at: new Date().toISOString()
+      answered_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
     })
     .eq("id", postId)
     .eq("board", "qna");
 
   revalidatePath("/admin");
   revalidatePath("/xe/kissqna");
+  redirect("/admin?status=saved");
 }
 
 export async function adminDeletePostAction(formData: FormData) {
@@ -249,14 +284,54 @@ export async function adminDeletePostAction(formData: FormData) {
   revalidatePath("/xe/notice");
   revalidatePath("/xe/epilogue");
   revalidatePath("/xe/kissqna");
+  redirect("/admin?status=deleted");
+}
+
+export async function adminUpdatePostAction(_state: ActionState, formData: FormData): Promise<ActionState> {
+  await requireAdmin();
+  const postId = text(formData, "postId");
+  const title = text(formData, "title");
+  const content = text(formData, "content");
+
+  if (!postId || !title || !content) {
+    return { error: "제목과 내용을 입력해주세요." };
+  }
+
+  const supabase = getSupabaseAdmin();
+  const { error } = await supabase
+    .from("board_posts")
+    .update({
+      title,
+      content,
+      updated_at: new Date().toISOString()
+    })
+    .eq("id", postId);
+
+  if (error) {
+    return { error: "게시글을 수정하지 못했습니다." };
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/xe/notice");
+  revalidatePath("/xe/epilogue");
+  revalidatePath("/xe/kissqna");
+  return { ok: true };
 }
 
 export async function adminUpsertStaffAction(_state: ActionState, formData: FormData): Promise<ActionState> {
   await requireAdmin();
   const id = text(formData, "id");
+  let imageUrl: string | null = nullableText(formData, "existingImageUrl");
+
+  try {
+    imageUrl = await uploadStaffImage(formData, imageUrl);
+  } catch {
+    return { error: "이미지 업로드에 실패했습니다. Storage 버킷 staff-photos를 확인해주세요." };
+  }
+
   const payload = {
     nickname: text(formData, "nickname"),
-    image_url: text(formData, "imageUrl") || null,
+    image_url: imageUrl,
     height_cm: Number(text(formData, "heightCm")) || null,
     weight_kg: Number(text(formData, "weightKg")) || null,
     age: Number(text(formData, "age")) || null,
@@ -310,6 +385,7 @@ export async function adminToggleAttendanceAction(formData: FormData) {
 
   revalidatePath("/admin");
   revalidatePath("/xe/schedule");
+  redirect("/admin?status=saved");
 }
 
 export async function adminBlacklistAction(_state: ActionState, formData: FormData): Promise<ActionState> {

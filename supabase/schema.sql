@@ -1,5 +1,9 @@
 create extension if not exists pgcrypto;
 
+insert into storage.buckets (id, name, public)
+values ('staff-photos', 'staff-photos', true)
+on conflict (id) do update set public = true;
+
 create table if not exists app_users (
   id uuid primary key default gen_random_uuid(),
   login_id text not null unique,
@@ -171,3 +175,88 @@ insert into staff_profiles (
   ('하린', '/pop/girlsgeneration.jpg', 165, 48, 24, 'A', 'ENFP', '밝은 분위기', '필라테스', '상담 응대', '구로', '차분하고 친근한 분위기의 프로필입니다.'),
   ('서아', '/xe/files/faceOff/037/178/images/topmanagerphoto.jpg', 168, 50, 25, 'O', 'ISFJ', '단정한 이미지', '영화 감상', '예약 응대', '신도림', '깔끔한 응대와 안정적인 일정 관리가 장점입니다.')
 on conflict do nothing;
+
+with sample_staff as (
+  insert into staff_profiles (
+    nickname,
+    image_url,
+    height_cm,
+    weight_kg,
+    age,
+    blood_type,
+    mbti,
+    style,
+    hobby,
+    specialty,
+    working_area,
+    intro,
+    is_active
+  ) values (
+    '유나',
+    '/pop/girlsgeneration.jpg',
+    166,
+    49,
+    24,
+    'B',
+    'ENFJ',
+    '밝고 차분한 이미지',
+    '요가',
+    '고객 응대',
+    '구로',
+    '테스트 노출용 샘플 프로필입니다.',
+    true
+  )
+  on conflict do nothing
+  returning id
+),
+target_staff as (
+  select id from sample_staff
+  union all
+  select id from staff_profiles where nickname = '유나'
+  limit 1
+)
+insert into attendance_entries (
+  staff_id,
+  work_date,
+  starts_at,
+  ends_at,
+  is_visible,
+  note
+)
+select
+  id,
+  ((now() at time zone 'Asia/Seoul')::date),
+  '11:00',
+  '20:00',
+  true,
+  '샘플 출근 프로필'
+from target_staff
+on conflict (staff_id, work_date) do update set
+  starts_at = excluded.starts_at,
+  ends_at = excluded.ends_at,
+  is_visible = true,
+  note = excluded.note,
+  updated_at = now();
+
+insert into board_posts (
+  board,
+  title,
+  content,
+  author_id,
+  author_name,
+  visibility
+)
+select
+  board,
+  '테스트 중입니다',
+  '테스트 중입니다',
+  (select id from app_users where login_id = 'admin'),
+  '관리자',
+  'public'
+from (values ('notice'), ('review'), ('qna')) as boards(board)
+where not exists (
+  select 1
+  from board_posts
+  where board_posts.board = boards.board
+    and board_posts.title = '테스트 중입니다'
+);
