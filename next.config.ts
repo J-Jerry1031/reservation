@@ -17,6 +17,11 @@ const nextConfig: NextConfig = {
         source: "/xe/index.php",
         destination: "/xe/main",
         permanent: false
+      },
+      {
+        source: "/xemain",
+        destination: "/xe/main",
+        permanent: false
       }
     ];
   },

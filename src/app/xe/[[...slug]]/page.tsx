@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import { createPostAction } from "@/app/actions";
 import { ActionForm } from "@/components/action-form";
 import { requireVerifiedUser } from "@/lib/auth";
@@ -53,7 +53,7 @@ export default async function LegacySectionPage({ params, searchParams }: PagePr
   const section = getSection(activeSlug);
 
   if (!section) {
-    notFound();
+    redirect("/xe/main");
   }
 
   return (
