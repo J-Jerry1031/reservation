@@ -1,0 +1,33 @@
+# Legacy PHP/XE source kept for reference only.
+_SuperLog/
+xe/
+image1/
+img/
+menu/
+pop/
+temp/
+
+# Root legacy static/PHP files.
+a.jpg
+hosting_index.html
+index.html
+index.php
+index12.html
+index2.html
+index_back.html
+pop1.htm
+pop2.htm
+test.html
+testtime.html
+
+# Local build/runtime artifacts.
+node_modules/
+.next/
+.git/
+.DS_Store
+tsconfig.tsbuildinfo
+
+# Do not upload local env files.
+.env
+.env.*
+!.env.example
