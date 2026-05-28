@@ -17,7 +17,6 @@ export default async function StaffPage({ params }: PageProps) {
   }
 
   const specs = [
-    ["닉네임", profile.nickname],
     ["키", profile.height_cm ? `${profile.height_cm}cm` : "미입력"],
     ["몸무게", profile.weight_kg ? `${profile.weight_kg}kg` : "미입력"],
     ["나이", profile.age ? `${profile.age}세` : "미입력"],
@@ -32,20 +31,27 @@ export default async function StaffPage({ params }: PageProps) {
   return (
     <main className="profile-page">
       <Link className="text-button" href="/xe/schedule">출근부로 돌아가기</Link>
-      <section className="profile-hero">
-        <img src={profile.image_url || "/xe/files/faceOff/037/178/images/logo.gif"} alt="" />
-        <div>
+      <section className="staff-profile-hero">
+        <div className="staff-profile-copy">
+          <span className="profile-kicker">Profile</span>
           <h1>{profile.nickname}</h1>
-          <p>{profile.intro}</p>
-        </div>
-      </section>
-      <section className="spec-grid">
-        {specs.map(([label, value]) => (
-          <div key={label}>
-            <span>{label}</span>
-            <strong>{value || "미입력"}</strong>
+          <p className="profile-intro">{profile.intro || "아직 등록된 소개글이 없습니다."}</p>
+          <div className="profile-highlight">
+            <span>오늘의 출근 프로필</span>
+            <strong>{profile.working_area || "지역 미입력"}</strong>
           </div>
-        ))}
+          <section className="spec-grid">
+            {specs.map(([label, value]) => (
+              <div key={label}>
+                <span>{label}</span>
+                <strong>{value || "미입력"}</strong>
+              </div>
+            ))}
+          </section>
+        </div>
+        <figure className="staff-profile-photo">
+          <img src={profile.image_url || "/xe/files/faceOff/037/178/images/logo.gif"} alt={`${profile.nickname} 프로필 사진`} />
+        </figure>
       </section>
     </main>
   );

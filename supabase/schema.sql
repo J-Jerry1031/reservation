@@ -196,18 +196,18 @@ with sample_staff as (
     intro,
     is_active
   ) values (
-    '유나',
-    '/pop/girlsgeneration.jpg',
+    '서린',
+    '/staff/serin-sample.png',
     166,
     49,
     24,
     'B',
     'ENFJ',
-    '밝고 차분한 이미지',
-    '요가',
-    '고객 응대',
+    '차분하고 여성스러운 분위기',
+    '필라테스',
+    '섬세한 응대',
     '구로',
-    '테스트 노출용 샘플 프로필입니다.',
+    '부드러운 인상과 안정적인 응대가 돋보이는 샘플 프로필입니다.',
     true
   )
   on conflict do nothing
@@ -216,7 +216,7 @@ with sample_staff as (
 target_staff as (
   select id from sample_staff
   union all
-  select id from staff_profiles where nickname = '유나'
+  select id from staff_profiles where nickname = '서린'
   limit 1
 )
 insert into attendance_entries (
