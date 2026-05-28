@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'a:4:{s:5:\"color\";O:8:\"stdClass\":3:{s:10:\"module_srl\";s:7:\"2917885\";s:4:\"name\";s:5:\"color\";s:5:\"value\";s:6:\"333333\";}s:12:\"duration_new\";O:8:\"stdClass\":3:{s:10:\"module_srl\";s:7:\"2917885\";s:4:\"name\";s:12:\"duration_new\";s:5:\"value\";s:2:\"12\";}s:9:\"sub_title\";O:8:\"stdClass\":3:{s:10:\"module_srl\";s:7:\"2917885\";s:4:\"name\";s:9:\"sub_title\";s:5:\"value\";s:44:\"매월 정기 이벤트 게시판 입니다.\";}s:5:\"title\";O:8:\"stdClass\":3:{s:10:\"module_srl\";s:7:\"2917885\";s:4:\"name\";s:5:\"title\";s:5:\"value\";s:15:\"정기이벤트\";}}';

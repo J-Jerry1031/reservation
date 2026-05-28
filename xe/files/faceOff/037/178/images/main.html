@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml2/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title> Stu Nicholls | CSSplay | Professional drop down menu #3</title>
+
+
+<style type="text/css">
+
+/* ================================================================ 
+This copyright notice must be kept untouched in the stylesheet at 
+all times.
+
+The original version of this stylesheet and the associated (x)html
+is available at http://www.cssplay.co.uk/menu/pro_drop3.html
+Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
+This stylesheet and the associated (x)html may be modified in any 
+way to fit your requirements.
+=================================================================== */
+.preload1 {background:#fff;}
+.preload2 {background:#fff;}
+
+.menu1 {padding:10px 0px 0px 0px; margin:0px; list-style:none; height:36px; background:#fff; position:relative; z-index:550; font-family:돋움, dotum, arial, verdana, sans-serif;}
+.menu1 li.top {display:block; float:left;}
+.menu1 li a.top_link {display:block; float:left; height:36px; line-height:36px; color:#414141; text-decoration:none; font-size:12px; font-weight:bold; padding:0px 0px 0px 0px; cursor:pointer; background: #fff; }
+.menu1 li a.top_link span {float:left; display:block; padding:0px 15px 0px 0px; height:36px; background:#fff;}
+.menu1 li a.top_link span.down {float:left; display:block; padding:0px 15px 0px 0px; height:36px; background: #fff;}
+.menu1 li a.top_link:hover {color:#FF0000; background:#fff;}
+.menu1 li a.top_link:hover span {background:#fff;}
+.menu1 li a.top_link:hover span.down {background:#fff;}
+
+.menu1 li:hover > a.top_link {color:#FF0000; background:#fff;}
+.menu1 li:hover > a.top_link span {background:#fff;}
+.menu1 li:hover > a.top_link span.down {background:#fff;}
+
+
+.menu1 table {border-collapse:collapse; width:0; height:0; position:absolute; top:0; left:0;}
+
+/* Default link styling */
+
+/* Style the list OR link hover. Depends on which browser is used */
+
+.menu1 a:hover {visibility:visible; position:relative; z-index:200;}
+.menu1 li:hover {position:relative; z-index:200;}
+
+/* keep the 'next' level invisible by placing it off screen. */
+.menu1 ul, 
+.menu1 :hover ul ul, 
+.menu1 :hover ul :hover ul ul,
+.menu1 :hover ul :hover ul :hover ul ul,
+.menu1 :hover ul :hover ul :hover ul :hover ul ul {position:absolute; left:-9999px; top:-9999px; width:0; height:0; margin:0; padding:0; list-style:none;}
+
+.menu1 :hover ul.sub {left:0; top:35px; background: #fff; padding:1px; border:1px solid #000000; white-space:nowrap; width:114px; height:auto; z-index:300;}
+.menu1 :hover ul.sub li {display:block; height:20px; position:relative; float:left; width:114px; font-weight:normal;}
+.menu1 :hover ul.sub li a {display:block; font-size:11px; height:20px; width:114px; line-height:20px; text-indent:5px; color:#000; text-decoration:none;}
+.menu1 :hover ul.sub li a.fly {background:#fff 80px 7px no-repeat;}
+.menu1 :hover ul.sub li a:hover {background:#000000; color:#fff;}
+.menu1 :hover ul.sub li a.fly:hover {background:#000000 80px 7px no-repeat; color:#fff;}
+.menu1 :hover ul li:hover > a.fly {background:#000000 80px 7px no-repeat; color:#fff;} 
+
+.menu1 :hover ul :hover ul,
+.menu1 :hover ul :hover ul :hover ul,
+.menu1 :hover ul :hover ul :hover ul :hover ul,
+.menu1 :hover ul :hover ul :hover ul :hover ul :hover ul
+{left:114px; top:-4px; background: #fff; padding:1px; border:1px solid #F06EAA; white-space:nowrap; width:114px; z-index:400; height:auto;}
+</style>
+
+</head>
+
+<body>
+<span class="preload1"></span>
+<span class="preload2"></span>
+
+<ul class="menu1">
+    <li class="top"><a href="http://www.goggg.co.kr/xe/main" id="home" class="top_link"><span class="down">HOME</span></a></li>
+	<li class="top"><a href="http://www.goggg.co.kr/xe/event" id="home" class="top_link"><span class="down">GO.GGG</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul class="sub">
+		    <li><a href="http://www.goggg.co.kr/xe/NOTICE" class="fly">▶ 공지사항</a></li>
+			<li><a href="http://www.goggg.co.kr/xe/event" class="fly">▶ 이벤트</a></li>
+		    <li><a href="http://www.goggg.co.kr/xe/hotnews" class="fly">▶ 핫뉴스</a></li>
+		</ul>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	<!--
+	<li class="top"><a href="#" id="products" class="top_link"><span class="down">제휴업소</span></a>
+		<ul class="sub">
+			<li><a href="http://www.goggg.co.kr/xe/main1" class="fly">▶ [구로] 소녀시대</a>
+					<ul>
+						<li><a href="http://www.goggg.co.kr/xe/nnews1">▶ 새소식</a></li>
+						<li><a href="http://www.goggg.co.kr/xe/notice1">▶ 공지사항</a></li>
+						<li><a href="http://www.goggg.co.kr/xe/profile1ss">▶ 매니저프로필</a></li>
+						<li><a href="http://www.goggg.co.kr/xe/schedule1s">▶ 매니저스케줄</a></li>
+						<li><a href="http://www.goggg.co.kr/xe/rptlvks1">▶ 소녀시대게시판</a></li>
+					</ul>
+			</ul>
+	</li>
+	-->
+	<li class="top"><a href="http://www.goggg.co.kr/xe/freeboard" id="home" class="top_link"><span class="down">커뮤니티</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul class="sub">
+		    <li><a href="http://www.goggg.co.kr/xe/memo" class="fly">▶ 축하메세지</a></li>
+		    <li><a href="http://www.goggg.co.kr/xe/freeepilogue" class="fly">▶ 자유후기게시판</a></li>
+			<li><a href="http://www.goggg.co.kr/xe/freeboard" class="fly">▶ 자유게시판</a></li>
+			<li><a href="http://www.goggg.co.kr/xe/happy" class="fly">▶ 유머게시판</a></li>
+			<li><a href="http://www.goggg.co.kr/xe/msuda" class="fly">▶ 매니저놀이터</a></li>
+			<li><a href="http://www.goggg.co.kr/xe/specialboard" class="fly">▶ 특별회원전용</a></li>
+			<li><a href="http://www.goggg.co.kr/xe/qna" class="fly">▶ 질문.건의</a></li>
+
+		</ul>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		<!--
+		<ul class="sub">
+			<li><a href="http://www.goggg.co.kr/xe/mfreeboard" class="fly">▶ 업체게시판</a></li>
+			<li><a href="http://www.goggg.co.kr/xe/mrequest" class="fly">▶ 삭제게시물</a></li>
+			<li><a href="http://www.goggg.co.kr/xe/mrequests" class="fly">▶ 신고게시물</a></li>
+			<li><a href="http://www.goggg.co.kr/xe/master1" class="fly">▶ 운영자자료실</a></li>
+		</ul>
+		-->
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	<li class="top"><a href="http://www.goggg.co.kr/xe/ilban" id="home" class="top_link"><span class="down">갤러리</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+	</li>	
+	<!-- 쿠폰응용이 확실할때풀자 20151003 수정
+	<li class="top"><a href="http://www.goggg.co.kr/xe/index.php?module=coupon" onclick="popopen(this.href); return false">
+	<img src="http://www.goggg.co.kr/xe/modules/coupon/tpl/img/sample2.png" width="151" height="30" alt="쿠폰 사용" /></a>
+	</li>
+	-->
+</ul>
+</body>
+</html>

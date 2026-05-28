@@ -1,0 +1,18 @@
+<block cond="Context::get('act') == 'dispBoardWrite' && Context::get('logged_info') && !$document_srl && !$_COOKIE['window-agree']">
+<load target="./css/style.css"/>
+<load target="./js/window.js"/>
+<load target="./js/jquery.cookie.js"/>
+<div id="showindow">
+	<div class="show-group">
+		<div class="show-middle">
+			<div class="show-content">
+				<div class="show-title">{$addon_info->title}</div>
+				<div class="show-desc">{$addon_info->content}</div>
+				<div class="show-footer">
+					<button class="window-agree">{$addon_info->button}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>

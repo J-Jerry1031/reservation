@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title xml:lang="ko">sejin7940 - 조회수 기능 확장</title>
+    <description xml:lang="ko">
+        조회수 중복 증가 기능 / 랜덤 조회수 증가 기능.
+    </description>
+    <version>1.6</version>
+    <date>2011-08-22</date>
+
+    <author email_address="sejin7940@nate.com" link="http://sejin7940.co.kr">
+        <name xml:lang="ko">sejin7940</name>
+    </author>
+    <link>http://sejin7940.co.kr</link>
+
+    <extra_vars>
+		<group>
+			<title xml:lang="ko">랜덤 조회수 증가 기능 사용</title>		
+			<var name="random_use" type="select">
+				<title xml:lang="ko">랜덤 조회수 증가 기능 사용 대상</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안 함</title>
+				</options>
+				<options value="admin">
+					<title xml:lang="ko">관리자만 적용</title>
+				</options>
+				<options value="all">
+					<title xml:lang="ko">모든 사용자에게 적용</title>
+				</options>
+			</var>
+
+			<var name="random_max_admin">
+				<title xml:lang="ko">램덤 조회수 증가 기능 사용시 최대값 - 관리자용</title>
+				<description xml:lang="ko">(기본값 : 1) (다만, 최대값을 20 이상으로 한 경우 20으로 제한됩니다)</description>
+			</var>
+			<var name="random_min_admin">
+				<title xml:lang="ko">램덤 조회수 증가 기능 사용시 최소값 - 관리자용</title>
+				<description xml:lang="ko">랜덤 추천수 최대값과 최소값을 동일하게 하면 일정한 조회수로 증가되게 할 수도 있습니다. (기본값:1)</description>
+			</var>
+
+			<var name="random_max">
+				<title xml:lang="ko">램덤 조회수 증가 기능 사용시 최대값 - 일반</title>
+				<description xml:lang="ko">(기본값 : 1) (다만, 최대값을 10 이상으로 한 경우 10으로 제한됩니다)</description>
+			</var>
+			<var name="random_min">
+				<title xml:lang="ko">램덤 조회수 증가 기능 사용시 최소값 - 일반</title>
+				<description xml:lang="ko">랜덤 추천수 최대값과 최소값을 동일하게 하면 일정한 조회수로 증가되게 할 수도 있습니다. (기본값:1)</description>
+			</var>
+		</group>
+
+		<group>
+			<title xml:lang="ko">조회수 중복 증가 기능</title>	
+			<var name="multi_use" type="select">
+				<title xml:lang="ko">조회수 중복 증가 기능 사용 대상</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안 함</title>
+				</options>
+				<options value="admin">
+					<title xml:lang="ko">관리자만 적용</title>
+				</options>
+				<options value="all">
+					<title xml:lang="ko">모든 사용자에게 적용</title>
+				</options>
+			</var>
+
+			<var name="multi_limit">
+				<title xml:lang="ko">게시물당 추천수 증가가 몇번까지 적용되는지 제한</title>
+				<description xml:lang="ko">별도 설정 없으면 무제한으로 가능 (단, 관리자는 항상 무제한 가능)</description>
+			</var>
+		</group>
+
+    </extra_vars>
+</addon>

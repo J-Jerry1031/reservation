@@ -1,0 +1,329 @@
+<load target="ie.css" targetie="ie 8"/>
+ <load target="ie7.css" targetie="ie 7"/>
+        <load target="assets/css/font-awesome.min.css" />
+        <load target="css/skin 4/style.css" />
+        <load target="js/jquery.newheights.js" />
+        <load target="js/jquery.leanModal.min.js" />
+        <load target="../../common/js/plugins/ui/jquery-ui.min.js" />
+        <load target="js/jquery.easing.js" />           
+        <load target="js/common.js" />
+        <load target="nextep.css" />
+          <style type="text/css">
+		  <!--@if($layout_info->Backimg)-->
+    body {background-image:url({$layout_info->Backimg});background-repeat:repeat;background-attachment:fixed;background-position:center;}
+	<!--@else-->
+	body {background-image:url(layouts/nextep/img/bckg.jpg);background-repeat:repeat;background-attachment:fixed;background-position:center;}
+	<!--@end-->
+	<!--@if($layout_info->Backimgsmall)-->
+	@media screen and (max-width: 400px) {
+	body {background-image:url({$layout_info->Backimgsmall});background-repeat:repeat;background-attachment:fixed;background-position:top;}
+	}
+	<!--@else-->
+	@media screen and (max-width: 400px) {
+	body {background-image:url(layouts/nextep/img/bckg_small.jpg);background-repeat:repeat;background-attachment:fixed;background-position:top;}
+	}
+	<!--@end-->
+  </style>
+  
+<div id="logos" class="logo-h">
+<div class="hblock"><ul><li><a href="{$layout_info->index_url}"><i class="fa fa-home"></i>홈</a></li><li cond="!$is_logged"> <a rel="leanModal" name="im_login_btn" href="#im_modal_login"><i class="fa fa-sign-in"></i>로그인</a></li><li cond="$is_logged"><a href="{getUrl('act','dispMemberLogout')}"><i class="fa fa-sign-out"></i>로그아웃</a></li><li cond="!$is_logged"><a href="{getUrl('act','dispMemberSignUpForm')}"><i class="fa fa-user"></i>회원가입</a></li><li cond="$is_logged"><a href="{getUrl('act','dispMemberInfo')}"><i class="fa fa-info-circle"></i>회원정보</a></li><li cond="$logged_info->is_admin=='Y' && !$site_module_info->site_srl"><a href="{getUrl('','module','admin')}" onclick="window.open(this.href);return false;"><i class="fa fa-cog"></i>관리자</a></li></ul></div>
+<div class="hblock">
+<div class="logo-i" align="center"><a href="{geturl('')}" id="siteTitle">
+		<img src="img/s4u_logo.png" alt="site4u" width="284" height="100"  cond="!Context::getSiteTitle() && !$layout_info->logo_image && !$layout_info->logo_text">
+		<block cond="Context::getSiteTitle() && !$layout_info->logo_image && !$layout_info->logo_text">{Context::getSiteTitle()}</block>
+        <img src="{$layout_info->logo_image}" alt="{$layout_info->logo_text}" cond="$layout_info->logo_image">
+        <block cond="!$layout_info->logo_image && $layout_info->logo_text"><h1 style="padding:35px 20px 0;font-size:38px; color:#fff; font-weight:600;">{$layout_info->logo_text}</h1></block></a>
+</div>
+</div>
+<div class="hblock" align="right"><div class="hbanner"><a href="{$layout_info->BANNERTOP_LINK}" title="{$layout_info->BANNERTOP_TITLE}" cond="$layout_info->BANNERTOP_IMG"><img src="{$layout_info->BANNERTOP_IMG}" alt="{$layout_info->BANNERTOP_TITLE}" border="0" /></a><a href="{$layout_info->index_url}" cond="!$layout_info->BANNERTOP_IMG"><img src="img/top-banner.jpg" width="399" height="89" alt="배너" /></a></div></div>
+</div>
+
+<div class="mainmenu-h">
+
+<div class="mainmenu-wrap">
+
+<div class="mainmenu-menu">
+     <ul class="depth1">
+               <li loop="$main_menu->list=>$key1,$val1" class="active"|cond="$val1['selected']"><a href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']}<span cond="$val1['list']" class="arrow-up"></span><span cond="$val1['list']" class="arrow-up-back"></span></a>
+                  <ul class="depth2" cond="$val1['list']">
+                     <li loop="$val1['list']=>$key2,$val2" class="active"|cond="$val2['selected']" >
+                     <a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}<span cond="$val2['list']" class="arrow-right"><i class="fa fa-angle-right"></i></span></a>
+                     	<ul class="depth3" cond="$val2['list']">
+                     		<li loop="$val2['list']=>$key3,$val3" class="active"|cond="$val3['selected']"><a href="{$val3['href']}" target="_blank"|cond="$val3['open_window']=='Y'">{$val3['link']}</a></li>
+                  		</ul>	
+			            </li>
+                  </ul>
+	            </li>
+            </ul>       
+      </div>     
+      
+<div class="mainmenu-etc">
+<div id="allmenu-bt" class="allmenubt"><i class="fa fa-list"></i></div>
+<div id="search-bt" class="searchbt"><i class="fa fa-search"></i></div>
+<div id="search-box" class="searchbox">
+    <form action="{getUrl()}" method="post" class="s4search">
+      <input type="hidden" name="vid" value="{$vid}" cond="$vid" />
+      <input type="hidden" name="mid" value="{$mid}" />
+      <input type="hidden" name="act" value="IS" />
+      <input type="hidden" name="search_target" value="title_content" />
+	  <input name="is_keyword" type="text" class="iText" title="keyword" value="Search..." onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}"/>
+      <input type="hidden" src="./img/btn_search.png" alt="{$lang->cmd_search}" class="submit" />
+          </form>
+      </div>      
+</div>
+
+</div>
+
+</div>
+<!--전체메뉴보기 -->
+<div class="allmenu">
+<div class="allmenu-cont">
+
+<ul>
+							<li loop="$main_menu->list=>$key1,$val1">
+							<a href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'" class="strong <!--@if($val1['selected'])-->selected1<!--@end-->" >{$val1['link']}</a>
+								<ul cond="$val1['list']">
+									<li loop="$val1['list']=>$key2,$val2">
+									<a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'" class="selected2"|cond="$val2['selected']">{$val2['link']}</a>
+										<ul cond="$val2['list']">
+											<li loop="$val2['list']=>$key3,$val3">
+											<a href="{$val3['href']}" target="_blank"|cond="$val3['open_window']=='Y'" class="selected3"|cond="$val3['selected']">{$val3['link']}</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+</div>
+</div>
+
+<!--슬라이드 -->
+<!--@if($layout_info->LAYOUT_TYPE==1)-->
+<div id="slide" class="slide-h">
+
+		        <div id="iview">
+			<div cond="$layout_info->slider_image1" data-iview:image="{$layout_info->slider_image1}">
+				<a href="{$layout_info->slider_url1}"><div class="iview-caption caption1" data-x="80" data-y="240" data-transition="expandDown">{$layout_info->slider_alt1}</div></a>
+			</div>
+
+			<div cond="$layout_info->slider_image2" data-iview:image="{$layout_info->slider_image2}">
+				<a href="{$layout_info->slider_url2}"><div class="iview-caption caption2" data-x="150" data-y="270" data-transition="expandRight">{$layout_info->slider_alt2}</div></a>
+			</div>
+
+			<div cond="$layout_info->slider_image3" data-iview:image="{$layout_info->slider_image3}">
+				<a href="{$layout_info->slider_url3}"><div class="iview-caption caption3" data-x="90" data-y="220" data-transition="expandLeft">{$layout_info->slider_alt3}</div></a>
+			</div>
+            <div cond="$layout_info->slider_image4" data-iview:image="{$layout_info->slider_image4}">
+				<a href="{$layout_info->slider_url4}"><div class="iview-caption caption4" data-x="80" data-y="240" data-transition="expandDown">{$layout_info->slider_alt4}</div></a>
+			</div>
+            <div cond="$layout_info->slider_image5" data-iview:image="{$layout_info->slider_image5}">
+				<a href="{$layout_info->slider_url5}"><div class="iview-caption caption5" data-x="150" data-y="270" data-transition="expandRight">{$layout_info->slider_alt5}</div></a>
+			</div>
+            
+            <div cond="!$layout_info->slider_image1 && !$layout_info->slider_image2 && !$layout_info->slider_image3 && !$layout_info->slider_image4 && !$layout_info->slider_image5" data-iview:image="layouts/nextep/img/photo11.jpg">
+				<a href="http://site4u.co.kr" target="_blank"><div class="iview-caption caption1" data-x="80" data-y="240" data-transition="expandDown">사이트포유 반응형 웹디자인 레이아웃 Nexstep </div></a>
+			</div>
+
+			<div cond="!$layout_info->slider_image1 && !$layout_info->slider_image2 && !$layout_info->slider_image3 && !$layout_info->slider_image4 && !$layout_info->slider_image5" data-iview:image="layouts/nextep/img/photo12.jpg">
+				<a href="http://site4u.co.kr" target="_blank"><div class="iview-caption caption2" data-x="150" data-y="270" data-transition="expandRight">Site4u for your Website </div></a>
+			</div>
+
+		</div>
+        
+</div>
+<load target="css/iview.css" />
+<load target="css/skin 4/style.css" />
+<load target="js/raphael-min.js" />
+<load target="js/iview.min.js" />
+		<script>
+		// <![CDATA[
+jQuery(function(){
+  var $ = jQuery;
+			$(document).ready(function(){
+				$('#iview').iView({
+					pauseTime: 3000,
+					pauseOnHover: true,
+					directionNavHoverOpacity: 0,
+					timer: "Bar",
+					timerDiameter: "50%",
+					timerPadding: 4,
+					timerStroke: 4,
+					timerBarStroke: 0,
+					timerColor: "#FFF",
+					timerPosition: "bottom-right"
+					
+				});
+			}); 
+			})(jQuery);
+		// ]]
+    </script>
+
+<!-- 메인용 화면  -->
+<div id="maincontainer" class="maincontainer">
+<div class="maincenter2">
+<div class="maincenter-cont">
+{$content}
+</div>
+
+<div class="mainside2">
+<!-- 이곳에 메인 사이드 위젯을 설치 -->
+<img class="zbxe_widget_output" widget="phizRanking" skin="phizdefault" colorset="layout" module_srls="2918212,2917949,2917887,2917893" period="this_week" list_count="5" without_admin="true" with_group="3,1672,884232,2884563" />
+
+
+</div>
+<!-- 메인 사이드 -->
+</div>
+</div>
+
+
+
+<!--@else-->
+
+<div id="maincontainer" class="maincontainer">
+<div class="maincenter2">
+<div class="maincenter-cont">
+<div class="title_set">
+            <!--↓↓ 현재위치출력 -->
+            <block loop="$top_menu->list=>$key, $val" cond="$val['selected']">{@$menu_depth1 = $val}</block>
+            <block loop="$main_menu->list=>$key, $val" cond="$val['selected']">{@$menu_depth1 = $val}</block>
+            <block loop="$footer_menu->list=>$key, $val" cond="$val['selected']">{@$menu_depth1 = $val}</block>
+            <block loop="$menu_depth1['list']=>$key, $val" cond="$val['selected'] && $menu_depth1">{@$menu_depth2 = $val}</block>
+            <block loop="$menu_depth2['list']=>$key, $val" cond="$val['selected'] && $menu_depth2">{@$menu_depth3 = $val}</block>
+            <h2>
+            <!--@if(!$menu_depth2)-->
+             {$menu_depth1['text']} 
+            <!--@else-->
+            {$menu_depth2['text']}
+            <!--@end--> 
+            </h2>
+            <!--↓↓ 현재위치출력 -->
+            <ul>
+                <li cond="$menu_depth1">home</li>
+                <li cond="$menu_depth1">{$menu_depth1['text']}</li>
+                <li cond="$menu_depth2">{$menu_depth2['text']}</li>
+                <li cond="$menu_depth3">{$menu_depth3['text']}</li>
+            </ul>
+        </div>
+{$content}
+</div>
+
+<!-- 사이드 메뉴 -->
+<div class="mainside">
+<div class="lnb" >
+<block loop="$main_menu->list=>$key, $val" cond="$val['selected']">{@$menu_depth1 = $val}</block>
+        <div class="sidemenu-title" align="center">{$menu_depth1['text']}</div>
+        <ul loop="$main_menu->list=>$key1,$val1" cond="$val1['selected'] && $val1['list']">
+            <li loop="$val1['list']=>$key2,$val2" class="active"|cond="$val2['selected']"><a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}</a>
+                <ul cond="$val2['list']">
+                    <li loop="$val2['list']=>$key3,$val3" class="active"|cond="$val3['selected']"><a href="{$val3['href']}" target="_blank"|cond="$val3['open_window']=='Y'">{$val3['link']}</a></li>
+                </ul>
+            </li>
+        </ul>
+</div>
+
+
+<p> 서브페이지 사이드 위젯 영역입니다 </p>
+</div>
+</div>
+</div>
+
+<!--@end-->
+
+<!-- footer contents -->
+<script  type="text/javascript">
+// <![CDATA[
+jQuery.noConflict();
+jQuery(function(){
+  var $ = jQuery;
+  
+$(document).ready(function () {
+
+    // number or default: Update every 500ms
+  $('#footer-w div>div').newHeights(500);
+  // resize: Update 100ms after browser resize is complete
+  $('#footer-w div>div').newHeights('resize');
+    // number or default: Update every 500ms
+//  $('.maincenter2>div:lt(2)').newHeights(500);
+  // resize: Update 100ms after browser resize is complete
+//  $('.maincenter2>divlt(2)').newHeights('resize');
+  
+});
+})(jQuery);
+</script>
+<div id="footer" class="footer-h">
+
+<!-- 하단 3개의 위젯을 설정할때 여기 막은걸 풀어서 사용
+<div id="footer-w" class="footer-wrap">
+<div class="fblock"><div class="fblock-cont-l"><i class="fa fa-facebook-square"></i>하단 푸터 위젯 영역입니다. 다양한 위젯과 기능을 이용하여 알찬 정보제공 공간으로 꾸며보세요. <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">http://fortawesome.github.io 폰트</a>를 레이아웃에 포함했습니다. 다양한 아이콘을 본문에도 간편하게 이용해 보세요. 자세한 사용방법과 간단 코드는 해당 링크를 통해서 알 수 있으며 본 레이아웃의 소스 코드에도 쓰였습니다. </div></div>
+<div class="fblock"><div class="fblock-cont"><i class="fa fa-comments"></i>하단 푸터 위젯 영역입니다. 다양한 위젯과 기능을 이용하여 알찬 정보제공 공간으로 꾸며보세요. <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">http://fortawesome.github.io 폰트</a>를 레이아웃에 포함했습니다. 다양한 아이콘을 본문에도 간편하게 이용해 보세요. 자세한 사용방법과 간단 코드는 해당 링크를 통해서 알 수 있으며 본 레이아웃의 소스 코드에도 쓰였습니다. 특히 하단 영역에는 자동으로 단의 높이를 맞추어 주는 제이쿼리가 포함 되었습니다. 반응형 웹으로 이용해보세요.</div></div>
+<div class="fblock"><div class="fblock-cont-r"><i class="fa fa-building-o"></i>하단 푸터 위젯 영역입니다. 다양한 위젯과 기능을 이용하여 알찬 정보제공 공간으로 꾸며보세요. <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">http://fortawesome.github.io 폰트</a>를 레이아웃에 포함했습니다. 다양한 아이콘을 본문에도 간편하게 이용해 보세요. 자세한 사용방법과 간단 코드는 해당 링크를 통해서 알 수 있으며 본 레이아웃의 소스 코드에도 쓰였습니다. </div></div>
+</div>
+
+</div>
+여기까지 막은거임 -->
+
+<!-- footer copyright -->
+<div class="bottom-ha" align="center" >
+<div class="bottom-menu" > 
+				<ul>
+                  <li loop="$footer_menu->list=>$key1,$val1" class="active"|cond="$val1['selected']"><a href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']}</a></li>
+               </ul></div>
+</div>
+
+<div class="bottom-h" >
+<div class="bottom-cont" align="center">
+<span class="contact" cond="!$layout_info->footer_info_image">{$layout_info->footer_info}</span>
+<span class="contact" cond="$layout_info->footer_info_image"><img src="{$layout_info->footer_info_image}" alt="{$layout_info->footer_info_image_alt}" /></span>
+<span class="copyright" cond="!$layout_info->footer_copy_image">COPYRIGHT ⓒ {$layout_info->footer_copy} ALL RIGHT RESERVED.</span>
+ <span class="copyright" cond="$layout_info->footer_copy_image"><img src="{$layout_info->footer_copy_image}" alt="{$layout_info->footer_copy_image_alt}" /></span>
+</div>
+</div>
+
+
+
+
+<!--@if(!$is_logged)-->
+	{@ $member_config = MemberModel::getMemberConfig(); }
+ 	<!--%import("./filter/login.xml")-->
+ 	<!--@if($member_config->enable_openid=='Y')--><!--%import("./filter/openid_login.xml")--><!--@end-->
+ 	<!-- Modal login window -->
+	<div id="im_modal_login">
+      <p class="loginWindow_header"><img src="img/login_white.png" alt="{$lang->cmd_login}"/></p>
+		<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+			<p>{$XE_VALIDATOR_MESSAGE}</p>
+		</div>
+      <div class="loginWindow">
+      	<form action="" method="post" id="im_Login_form" ruleset="@login" >
+				<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+				<input type="hidden" name="act" value="procMemberLogin" />
+            <fieldset>
+	            <legend class="im_hidden">로그인폼</legend>
+                 <dl>
+                     <dt><label for="uid" cond="$member_config->identifier != 'email_address'">{$lang->user_id}</label><label for="uid" cond="$member_config->identifier = 'email_address'">{$lang->email_address}</label></dt>
+                     <dd><input name="user_id" type="text" class="inputuid" id="uid" title="<!--@if($member_config->identifier != 'email_address')-->{$lang->user_id}<!--@else-->{$lang->email_address}<!--@end-->" /></dd>
+                     <dt><label for="upw">{$lang->password}</label></dt>
+                     <dd><input name="password" type="password" class="inputupw" id="upw" title="{$lang->password}" /></dd>
+                 </dl>
+               <div class="keepWrap">
+               	<div class="keep">
+                  <input name="keep_signed" type="checkbox" id="keep_login" value="Y" class="inputCheck" onclick="if(this.checked) return confirm('{$lang->about_keep_signed}');"/>
+                  <label for="keep_login" title="{$lang->keep_signed}"></label>
+                  </div>
+                  <p class="keep_text"><span>{$lang->keep_signed}</span></p>
+               </div>
+               	
+                <div class="submit_btn"><a href="#" class="login_submit" onclick="document.getElementById('im_Login_form').submit()">{$lang->cmd_login}</a></div>
+             </fieldset>
+         </form>
+			<div class="login_menu">
+				<ul>
+               <li><a href="{getUrl('act','dispMemberSignUpForm')}">{$lang->cmd_signup}</a></li>
+               <li><a href="{getUrl('act','dispMemberFindAccount')}">{$lang->cmd_find_member_account}</a></li>
+				</ul>
+			</div>
+         <p class="close_loginWindow"><a href="" class="modal_close"><i class="fa fa-times"></i></a></p>
+        </div>
+    </div>
+    <!-- /loginWindow -->
+<!--@end-->

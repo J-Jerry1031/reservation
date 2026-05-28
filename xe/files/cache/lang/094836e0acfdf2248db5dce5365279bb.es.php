@@ -1,0 +1,42 @@
+<?php
+$lang->communication='Communication';
+$lang->about_communication='회원간의 쪽지나 친구 관리 등 커뮤니케이션 기능을 수행합니다';
+$lang->allow_message='Permitir la recepción del mensaje';
+if(!is_array($lang->allow_message_type)){
+	$lang->allow_message_type = array();
+}
+$lang->allow_message_type['Y']='Recibir todo';
+$lang->allow_message_type['N']='Rechazar';
+$lang->allow_message_type['F']='Sólo amigos';
+if(!is_array($lang->message_box)){
+	$lang->message_box = array();
+}
+$lang->message_box['R']='Recibido';
+$lang->message_box['S']='Enviado';
+$lang->message_box['T']='Buzon de Email';
+$lang->readed_date='Fecha Leído';
+$lang->sender='Remitente';
+$lang->receiver='Receptor';
+$lang->friend_group='Grupo de amigos';
+$lang->default_friend_group='Grupo desasignado';
+$lang->cmd_send_message='Enviar Mensaje';
+$lang->cmd_reply_message='Responder el mensaje';
+$lang->cmd_view_friend='Amigos';
+$lang->cmd_add_friend='Registrar como Amigo';
+$lang->cmd_message_box='Buzón de mensajes';
+$lang->cmd_view_message_box='Buzón de mensajes';
+$lang->cmd_store='Guardar';
+$lang->cmd_add_friend_group='agregar grupo de amigos';
+$lang->cmd_rename_friend_group='Cambiar el nombre del grupo de amigos';
+$lang->msg_no_message='No hay mensajes';
+$lang->msg_cannot_send_to_yourself='Cannot send a message to yourself.';
+$lang->message_received='Usted ha recibido un mensaje';
+$lang->msg_title_is_null='Por favor ingresar el título de la nota';
+$lang->msg_content_is_null='Por favor ingresar el contenido';
+$lang->msg_allow_message_to_friend='Falló el envío por permitir sólo mensajes de sus amigos';
+$lang->msg_disallow_message='Falló el envío por ser usuario rechazado para recibir mensajes';
+$lang->about_allow_message='Usted puede decidir la recepción del mensaje';
+$lang->message_notice='Send a message to the author about this. If you don\'t write a message, it is not sent.';
+$lang->friends_page_does_not_support='Friends in a mobile environment is not supported. Please go to the PC page.';
+$lang->cmd_write_communication='Write Grant';
+$lang->cmd_manage_base='Basic infomation';

@@ -1,0 +1,17 @@
+<query id="comment_count" action="select">
+    <tables>
+        <table name="comments" />
+		<table name="modules" />
+    </tables>
+    <columns>
+        <column name="count(*)" alias="count" />
+    </columns>
+    <conditions>
+		<condition operation="equal" column="comments.module_srl" default="modules.module_srl" notnull="notnull" />
+		<condition operation="equal" column="modules.module" default="board" notnull="notnull" pipe="and"/>
+        <condition operation="equal" column="comments.member_srl" var="member_srl" pipe="and"/>
+		<condition operation="equal" column="comments.ipaddress" var="ipaddress" pipe="and" />
+		<condition operation="more" column="comments.regdate" var="limit_start" notnull="notnull" pipe="and" />
+        <condition operation="in" column="comments.module_srl" var="limit_module_srl" pipe="and" />
+    </conditions>
+</query>

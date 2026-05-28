@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title xml:lang="ko">추천/비추천/신고 버튼 노출 애드온</title>
+    <description xml:lang="ko">
+	게시물의 추천 비추천 신고 버튼을 노출 하는 애드온입니다.
+    </description>
+    <version>1.0</version>
+    <date>2013-03-20</date>
+    <author email_address="" link="">
+        <name xml:lang="ko">샹키</name>
+    </author>
+</addon>

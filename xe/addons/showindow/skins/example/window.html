@@ -1,0 +1,26 @@
+<block cond="Context::get('act') == 'dispBoardWrite' && !$document_srl">
+<!-- 회원 구분 -->
+<!--@if($logged_info)-->
+<include target="member.html" cond="$logged_info"/>
+<!--@else-->
+<include target="nomember.html"/>
+<!--@end-->
+
+<!-- 레벨 구분 -->
+<!--@if($userLevel == 1)-->
+<include target="level.html"/>
+<!--@else-->
+<include target="nolevel.html"/>
+<!--@end-->
+
+<!-- 그룹 구분 -->
+<!--@foreach($userGroup as $groupName)-->
+	<!--@if($groupName == '관리그룹')-->
+		{@
+			$group = true;
+		}
+	<!--@end-->
+<!--@end-->
+<include target="group.html" cond="$group" />
+<include target="nogroup.html" cond="!$group" />
+</block>

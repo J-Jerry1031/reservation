@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon version="0.2">
+	<title xml:lang="ko">삭제게시물 휴지통으로</title>
+	<version>1.1.1</version>
+    <date>2013-03-11</date>
+	<author email_address="king1214@gmail.com" link="http://playonline.kr">
+		<name xml:lang="ko">민채</name>
+	</author>
+	<author email_address="sejin7940@nate.com" link="http://sejin7940.co.kr">
+		<name xml:lang="ko">sejin7940</name>
+	</author>
+	<extra_vars>
+		<var name="trash_document" type="select">
+			<title xml:lang="ko">게시글 삭제시 휴지통 이동 여부</title>
+			<description xml:lang="ko">댓글까지 복원되려면, Core 의 comment 모듈 일부 수정 필요함 (sejin7940.txt 참고)</description>
+			<options value="Y">
+                <title xml:lang="ko">휴지통으로 이동</title>
+			</options>
+			<options value="N">
+                <title xml:lang="ko">바로 삭제</title>
+			</options>
+		</var>
+		<var name="trash_comment" type="select">
+			<title xml:lang="ko">댓글 삭제시 휴지통 이동 여부</title>
+			<options value="Y">
+                <title xml:lang="ko">휴지통으로 이동</title>
+			</options>
+			<options value="N">
+                <title xml:lang="ko">바로 삭제</title>
+			</options>
+		</var>
+		<var name="exceptAdmin" type="select">
+			<title xml:lang="ko">최고 관리자가 삭제하는 경우 예외 여부</title>
+			<description xml:lang="ko">일반 회원이 삭제시에는 무조건 휴지통으로 이동됨</description>
+			<options value="N">
+                <title xml:lang="ko">휴지통으로 이동</title>
+			</options>
+			<options value="Y">
+                <title xml:lang="ko">바로 삭제</title>
+			</options>
+		</var>
+		<var name="exceptManager" type="select">
+			<title xml:lang="ko">관리 권한 있는 사람이 삭제하는 경우 예외 여부</title>
+			<description xml:lang="ko">특정게시판에 대한 관리권한 있는 그룹이나, 특정게시판의 지정 관리자인 경우의 설정</description>
+			<options value="N">
+                <title xml:lang="ko">휴지통으로 이동</title>
+			</options>
+			<options value="Y">
+                <title xml:lang="ko">바로 삭제</title>
+			</options>
+		</var>
+		<var name="DeleteComment" type="text">
+			<title xml:lang="ko">삭제하는 게시물 설명</title>
+			<description xml:lang="ko">자동 삭제시 설명 추가 입력 할 수 있습니다.</description>
+		</var>
+	</extra_vars>
+</addon>

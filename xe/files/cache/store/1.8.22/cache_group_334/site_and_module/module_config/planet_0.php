@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'O:8:\"stdClass\":19:{s:3:\"mid\";s:6:\"planet\";s:10:\"is_default\";s:1:\"N\";s:10:\"module_srl\";s:6:\"395141\";s:13:\"browser_title\";s:9:\"플래닛\";s:10:\"layout_srl\";s:7:\"2917682\";s:19:\"planet_default_skin\";s:9:\"xe_planet\";s:10:\"use_mobile\";N;s:10:\"use_me2day\";N;s:6:\"tagtab\";a:4:{i:0;s:6:\"사랑\";i:1;s:6:\"나눔\";i:2;s:6:\"의식\";i:3;s:6:\"바람\";}s:12:\"tagtab_after\";a:1:{i:0;s:0:\"\";}s:6:\"smstag\";a:1:{i:0;s:0:\"\";}s:14:\"create_message\";s:15:\"안녕하세요\";s:10:\"use_signup\";s:1:\"Y\";s:7:\"use_rss\";N;s:8:\"colorset\";s:4:\"cyan\";s:12:\"display_menu\";s:1:\"Y\";s:14:\"display_search\";s:1:\"Y\";s:10:\"logo_title\";s:19:\"소녀시대 상식\";s:6:\"notice\";s:27:\"특별회원만접근가능\";}';

@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'O:8:\"stdClass\":3:{s:4:\"skin\";s:7:\"default\";s:10:\"target_mid\";a:21:{i:0;s:10:\"propile10s\";i:1;s:10:\"propile23s\";i:2;s:10:\"propile18s\";i:3;s:10:\"propile11s\";i:4;s:9:\"propile5s\";i:5;s:9:\"propile7s\";i:6;s:10:\"propile20s\";i:7;s:9:\"propile6s\";i:8;s:10:\"propile21s\";i:9;s:9:\"propile9s\";i:10;s:10:\"propile14s\";i:11;s:9:\"propile8s\";i:12;s:10:\"propile24s\";i:13;s:9:\"propile3s\";i:14;s:10:\"propile15s\";i:15;s:10:\"propile17s\";i:16;s:9:\"propile2s\";i:17;s:10:\"propile13s\";i:18;s:9:\"propile4s\";i:19;s:10:\"propile16s\";i:20;s:10:\"propile19s\";}s:9:\"skin_vars\";N;}';

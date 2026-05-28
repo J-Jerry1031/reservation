@@ -1,0 +1,39 @@
+/* 기본 */
+#vote_member_list_wrap .add_vote_list{text-align:center; margin:10px auto; border:1px solid #ddd; min-width:200px; border-radius:3px;}
+#vote_member_list_wrap .add_vote_list ul, 
+#vote_member_list_wrap .add_vote_list li{margin:0px; padding:0px; list-style:none;}
+
+/* 더보기 관련*/
+#vote_member_list_wrap .vote_list_more_btn{position:absolute; right:13px; cursor:pointer;}
+#vote_member_list_wrap .vete_member_list_wrap{height:75px; overflow:auto;}
+#vote_member_list_wrap .vete_member_list_wrap li{margin-bottom:12px!important;}
+#plus_vote_member_list{display:none;}
+
+/* 목록수에 따라 사이즈 변환 */
+#vote_member_list_wrap .ss_1{max-width:200px;}
+#vote_member_list_wrap .ss_2{max-width:250px;}
+#vote_member_list_wrap .ss_3{max-width:320px;}
+#vote_member_list_wrap .ss_4{max-width:400px;}
+#vote_member_list_wrap .ss_5{max-width:500px;}
+#vote_member_list_wrap .ss_6{max-width:600px;}
+#vote_member_list_wrap .ss_7{max-width:700px;}
+#vote_member_list_wrap .ss_8{max-width:100%;}
+
+/* 사용자 문구 */
+#vote_member_list_wrap .add_vote_list .subject_wrap{position:relative; background:#f2f2f2; height:30px; line-height:30px; border-bottom:1px solid #dfdfdf;}
+#vote_member_list_wrap .add_vote_list .subject_wrap a{font-size:13px; font-weight:bold; text-decoration:none;}
+#vote_member_list_wrap .add_vote_list .subject_wrap .total_count{font-size:16px; color:orangered;}
+
+/* 닉네임 */
+#vote_member_list_wrap .add_vote_list .list_wrap{padding:7px;}
+#vote_member_list_wrap .add_vote_list .list_wrap li{display:inline-block; margin:3px 7px;}
+#vote_member_list_wrap .add_vote_list .list_wrap li a{display:block; text-decoration:none;}
+#vote_member_list_wrap .add_vote_list .list_wrap .profile_img_copy{width:40px; border-radius:5px; background:#dfdfdf; border:1px solid #e1e1e1;}
+#vote_member_list_wrap .add_vote_list .list_wrap .profile_img_user{width:40px; border-radius:5px; border:1px solid #e1e1e1;}
+
+
+/******** 모바일 대응 ***********/
+@media all and (max-width:450px){
+#vote_member_list_wrap .add_vote_list .list_wrap .profile_img_copy{display:none;}
+#vote_member_list_wrap .add_vote_list .list_wrap .profile_img_user{display:none;}
+}

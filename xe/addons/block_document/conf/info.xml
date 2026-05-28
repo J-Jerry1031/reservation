@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon version="0.2">
+    <title xml:lang="ko">문서 블럭(신고/비추천)</title>
+    <version>0.2</version>
+    <date>2015-08-16</date>
+    <author email_address="showjean@naver.com" link="http://showjean.com">
+		<name xml:lang="ko">showjean</name>	
+	</author>
+	<author>
+		<name xml:lang="ko">explode</name>				
+	</author>
+	<description xml:lang="ko">
+	   문서의 신고/비추천 수를 비교하여 조건 이상이면 내용을 보여주지 않습니다. 모듈별 사용 설정을 지정하여 특정 게시판에서의 동작을 비활성화할 수 있습니다.
+	</description>
+    <extra_vars>
+        <var name="declared_max" type="text"  default="0">
+            <title>신고 수</title>
+            <description>이 신고 수 이상이면 게시물을 블럭처리합니다. 0이면 처리하지 않습니다.
+            </description>
+        </var>
+        <var name="blamed_max" type="text"  default="0">
+            <title>비추천 수</title>
+            <description>이 비추천 수 이상이면 게시물을 블럭처리합니다. 0이면 처리하지 않습니다.
+            </description>
+        </var>
+        <var name="blocked_title" type="text"  default="blocked">
+            <title>블럭 제목</title>
+            <description>블럭된 게시물의 제목 대신 리스트에서 보여질 문장을 입력하세요.
+            </description>
+        </var>
+        <var name="blocked_message" type="text"  default="blocked">
+            <title>블럭 메시지</title>
+            <description>블럭된 게시물을 클릭했을 때 나올 메시지를 입력하세요.
+            </description>
+        </var>
+    </extra_vars>
+</addon>

@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'a:4:{i:0;a:3:{s:8:\"filepath\";s:78:\"./files/attach/images/2917969/370/966/002/dd9c5bb0cd5e2632a1da256786a1e7ea.jpg\";s:5:\"width\";i:369;s:6:\"height\";i:608;}i:1;a:3:{s:8:\"filepath\";s:78:\"./files/attach/images/2917969/370/966/002/6f7a64335e63eb68ecac4b74cbc5c42a.jpg\";s:5:\"width\";i:399;s:6:\"height\";i:608;}i:2;a:3:{s:8:\"filepath\";s:78:\"./files/attach/images/2917969/370/966/002/d09c02d8a0931ebb9b7d10ce0a18addb.jpg\";s:5:\"width\";i:399;s:6:\"height\";i:540;}i:3;a:3:{s:8:\"filepath\";s:78:\"./files/attach/images/2917969/370/966/002/3b17443ae5c591bbe7e11dfe9236c4a5.jpg\";s:5:\"width\";i:665;s:6:\"height\";i:416;}}';

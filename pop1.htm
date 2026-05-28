@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+<head>
+<title>공지사항</title>
+<SCRIPT language="JavaScript"> 
+<!-- 
+function setCookie( name, value, expiredays ) 
+{ 
+        var todayDate = new Date(); 
+        todayDate.setDate( todayDate.getDate() + expiredays ); 
+        document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" 
+        } 
+function closeWin() 
+{ 
+        if ( document.pop.Notice.checked ) 
+        setCookie( "Notice1", "done" , 1);  //날짜지정
+        self.close(); 
+} 
+function go_start()
+{
+ opener.document.location.href="";
+ self.close();
+ }
+// --> 
+</SCRIPT> 
+<style type="text/css">
+<!--
+.style2 {font-size: 12px}
+-->
+</style>
+</head> 
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0">
+<!--팝업내용--><table cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td><img src="http://www.goggg.co.kr/pop/pop1.jpg" width="580" height="650" border="0"></td>
+</tr>
+</table>
+<!--쿠키--><table cellpadding="0" cellspacing="0" width="580"><tr><td>
+<form name=pop><p align="center"><input type=checkbox name="Notice" value="" onClick="closeWin();">
+    <span class="style2">하루동안 안보기</span><a href="javascript:history.onclick=closeWin()" class="style2">[닫기]</a></td>
+</tr></form></table>
+</body>
+</html>

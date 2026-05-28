@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'O:8:\"stdClass\":10:{s:12:\"consultation\";s:1:\"N\";s:13:\"display_bonus\";s:1:\"Y\";s:13:\"except_notice\";s:1:\"N\";s:10:\"list_count\";s:2:\"20\";s:12:\"order_target\";s:10:\"list_order\";s:10:\"order_type\";s:4:\"desc\";s:10:\"page_count\";s:2:\"10\";s:13:\"use_anonymous\";s:1:\"N\";s:12:\"use_category\";s:1:\"N\";s:7:\"_filter\";s:21:\"insert_greetingsboard\";}';

@@ -1,0 +1,11 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'O:8:\"stdClass\":22:{s:10:\"module_srl\";s:7:\"2917567\";s:6:\"module\";s:6:\"beluxe\";s:19:\"module_category_srl\";s:4:\"8715\";s:10:\"layout_srl\";s:5:\"27828\";s:8:\"menu_srl\";s:7:\"2896223\";s:8:\"site_srl\";s:1:\"0\";s:3:\"mid\";s:9:\"blueboard\";s:4:\"skin\";s:7:\"default\";s:13:\"browser_title\";s:9:\"게시판\";s:11:\"description\";s:0:\"\";s:10:\"is_default\";s:1:\"N\";s:7:\"content\";N;s:8:\"open_rss\";s:1:\"Y\";s:11:\"header_text\";s:1309:\"<table id=\"__01\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"770\" height=\"90\">
+<tbody>
+<tr>
+<td><a href=\"http://www.goggg.co.kr/xe/notice\"><img border=\"0\" alt=\"\" src=\"http://www.goggg.co.kr/xe/modules/editor/styles/xeStyle/images/notice.jpg\" width=\"128\" height=\"90\" /></a></td>
+<td><a href=\"http://www.goggg.co.kr/xe/attendance\"><img border=\"0\" alt=\"\" src=\"http://www.goggg.co.kr/xe/modules/editor/styles/xeStyle/images/attendance.jpg\" width=\"129\" height=\"90\" /></a></td>
+<td><a href=\"http://www.goggg.co.kr/xe/schedule1s\"><img border=\"0\" alt=\"\" src=\"http://www.goggg.co.kr/xe/modules/editor/styles/xeStyle/images/schedule.jpg\" width=\"128\" height=\"90\" /></a></td>
+<td><a href=\"http://www.goggg.co.kr/xe/profile1ss\"><img border=\"0\" alt=\"\" src=\"http://www.goggg.co.kr/xe/modules/editor/styles/xeStyle/images/profile.jpg\" width=\"128\" height=\"90\" /></a></td>
+<td><a href=\"http://www.goggg.co.kr/xe/epilogue\"><img border=\"0\" alt=\"\" src=\"http://www.goggg.co.kr/xe/modules/editor/styles/xeStyle/images/epilogue.jpg\" width=\"129\" height=\"90\" /></a></td>
+<td><a href=\"http://www.goggg.co.kr/xe/specialboard\"><img border=\"0\" alt=\"\" src=\"http://www.goggg.co.kr/xe/modules/editor/styles/xeStyle/images/specialboard.jpg\" width=\"128\" height=\"90\" /></a></td></tr></tbody></table><!-- End Save for Web Slices -->\";s:11:\"footer_text\";s:0:\"\";s:7:\"regdate\";s:14:\"20151002184413\";s:10:\"use_mobile\";s:1:\"N\";s:11:\"mlayout_srl\";s:1:\"0\";s:8:\"mcontent\";N;s:5:\"mskin\";s:14:\"default/mobile\";s:11:\"is_skin_fix\";s:1:\"Y\";s:12:\"is_mskin_fix\";s:1:\"Y\";}';

@@ -1,0 +1,9 @@
+.exTab li a,.exTab li.active a{padding:1px 13px 0 10px;}
+.todoManager span.btns{margin-left:5px;float:right;}
+.todoManager span.btns img.icon{margin-right:5px}
+.todoManager ul{padding:10px;margin:0}
+.todoManager .time{right:0;color:#999;float:right;position:static}
+.todoManager li{list-style:none;margin:2px 0;border-bottom:1px solid #eee}
+
+.commentList .commentHeader h3.exTitle{margin-bottom:10px}
+.exTab li.active{top:2px}

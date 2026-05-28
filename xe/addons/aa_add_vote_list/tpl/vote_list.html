@@ -1,0 +1,48 @@
+<load target="default.css" />
+<load target="default.js" />
+
+{@ if($response_size > 7) $response_size = 7;}
+<div id="vote_member_list_wrap">
+	<div id="vote_member_list" class="add_vote_list ss_{$response_size}" cond="$member_info">
+		<div class="subject_wrap">
+			<a>{$user_text1}</a>
+			<a class="total_count">{$total_count->count}</a>
+			<a>{$user_text2}</a>
+			<span class="vote_list_more_btn">더보기</span>
+		</div>
+		<div class="list_wrap">
+			<ul id="normal_vote_member_list">
+				{@ $idx = 0;}
+				<li loop="$member_info => $key, $info">
+					<!--@if($idx < $list_limit)-->
+						<block cond="$profile_img_use == 'yes'">
+							{@	$oMemberModel = getModel('member'); $profile_info = $oMemberModel->getProfileImage($info->member_srl); }
+							<!--@if($profile_info->src)-->
+							<img src="{$profile_info->src}" alt="profile_img" class="profile_img_user" />
+							<!--@else-->
+							<img src="user.png" alt="profile_img" class="profile_img_copy" />
+							<!--@end-->
+						</block>
+						{@ $user_vote_time = date("Y년 m월 d일에 추천", strtotime($info->regdate)); }
+						<a href="#popup_menu_area" class="member_{$info->member_srl}" onclick="return false" title="{$user_vote_time}">{$info->nick_name;}</a>
+					{@ $idx++}
+					<!--@end-->
+				</li>
+			</ul>
+			<ul id="plus_vote_member_list">
+				<li loop="$member_info => $key, $info">
+					<block cond="$profile_img_use == 'yes'">
+						{@	$oMemberModel = getModel('member'); $profile_info = $oMemberModel->getProfileImage($info->member_srl); }
+						<!--@if($profile_info->src)-->
+						<img src="{$profile_info->src}" alt="profile_img" class="profile_img_user" />
+						<!--@else-->
+						<img src="user.png" alt="profile_img" class="profile_img_copy" />
+						<!--@end-->
+					</block>
+					{@ $user_vote_time = date("Y년 m월 d일에 추천", strtotime($info->regdate)); }
+					<a href="#popup_menu_area" class="member_{$info->member_srl}" onclick="return false" title="{$user_vote_time}">{$info->nick_name;}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

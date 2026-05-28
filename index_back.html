@@ -1,0 +1,295 @@
+<html>
+<head>
+<title>키스방 대표브랜드&lt;&lt;구로소녀시대&gt;&gt;에 오신걸 환영합니다*^^*</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link href="include/style.css" rel="stylesheet" type="text/css">
+<SCRIPT language=JavaScript> 
+<!-- 
+function jumin_QC() 
+{ 
+var chk =0; 
+
+var yy = document.jumin_form.jumin1.value.substring(0,2); 
+
+var mm = document.jumin_form.jumin1.value.substring(2,4); 
+
+var dd = document.jumin_form.jumin1.value.substring(4,6); 
+
+var sex = document.jumin_form.jumin2.value.substring(0,1); 
+
+
+
+var gijun_date = 910101;// 옆의 숫자는 1989년 1월 1일 이후 출생자는 성인이 아닌것으로 판단 
+
+
+if (document.jumin_form.jumin2.value.split(" ").join("") == "") { 
+
+alert ('주민등록번호를 입력하여 주세요.'); 
+
+document.jumin_form.jumin1.focus(); 
+
+return false; 
+
+} 
+
+
+
+
+
+if (document.jumin_form.jumin1.value.length!=6) 
+
+{ 
+
+alert ('올바른 주민등록번호가 아닙니다.'); 
+
+document.jumin_form.jumin1.focus(); 
+
+return false; 
+
+} 
+
+
+
+if (document.jumin_form.jumin2.value.length != 7 ) 
+
+{ 
+
+alert ('올바른 주민등록번호가 아닙니다.'); 
+
+document.jumin_form.jumin2.focus(); 
+
+return false; 
+
+} 
+
+
+
+
+
+if (isNaN(document.jumin_form.jumin1.value) || isNaN(document.jumin_form.jumin2.value)) 
+
+{ 
+
+document.jumin_form.jumin1.value = "" 
+
+document.jumin_form.jumin2.value = "" 
+
+alert('주민등록번호는 숫자만 가능합니다.'); 
+
+return false; 
+
+} 
+
+if ((document.jumin_form.jumin1.value.length!=6)||(mm <1||mm>12||dd<1)){ 
+
+document.jumin_form.jumin1.value = "" 
+
+alert ('올바른 주민등록번호가 아닙니다.'); 
+
+document.jumin_form.jumin1.focus(); 
+
+return false; 
+
+} 
+
+
+
+
+
+
+
+if ((sex != 1 && sex !=2 )||(document.jumin_form.jumin2.value.length != 7 )){ 
+
+document.jumin_form.jumin2.value = "" 
+
+alert ('올바른 주민등록번호가 아닙니다.'); 
+
+document.jumin_form.jumin2.focus(); 
+
+return false; 
+
+} 
+
+
+for (var i = 0; i <=5 ; i++){ 
+
+chk = chk + ((i%8+2) * parseInt(document.jumin_form.jumin1.value.substring(i,i+1))) 
+
+} 
+
+for (var i = 6; i <=11 ; i++){ 
+
+chk = chk + ((i%8+2) * parseInt(document.jumin_form.jumin2.value.substring(i-6,i-5))) 
+
+} 
+
+chk = 11 - (chk %11) 
+
+chk = chk % 10 
+
+
+
+if (chk != document.jumin_form.jumin2.value.substring(6,7)) 
+
+{ 
+
+document.jumin_form.jumin1.value = "" 
+
+document.jumin_form.jumin2.value = "" 
+
+alert ('올바른 주민등록번호가 아닙니다.'); 
+
+document.jumin_form.jumin1.focus(); 
+
+return false; 
+
+} 
+if (document.jumin_form.jumin1.value < gijun_date) 
+
+{ 
+
+document.jumin_form.jumin1.focus(); 
+
+document.location="http://goggg.co.kr/xe/index.php";//이곳에 성인인증후 이동할 문서의 경로 설정. 바꿔주세요 -_-; 
+
+return false; 
+
+
+
+} 
+
+else 
+
+{ 
+
+alert ('성인이 아니므로 들어오실 수 없습니다.'); 
+
+document.jumin_form.jumin1.focus(); 
+
+return false; 
+
+} 
+
+return true; 
+
+} 
+
+//입력필드 자동 이동 
+
+function auto_Move(obj) 
+
+{ 
+
+if (obj.value.length > 5) 
+
+{ 
+
+jumin_form.jumin2.focus(); 
+
+} 
+
+} 
+
+
+
+function prev_move(obj) 
+
+{ 
+
+if (obj.value.length == 0) 
+
+{ 
+
+jumin_form.jumin1.focus(); 
+
+} 
+
+} 
+
+
+
+function right(e) 
+
+{ 
+
+if ((navigator.appName == "Netscape") && (e.which == 3 || e.which == 2)) 
+
+{ 
+
+return false; 
+
+} 
+
+else if ((navigator.appName == "Microsoft Internet Explorer") && (event.button == 2 || event.button == 3)) 
+
+{ 
+
+alert("미성년자는 접속할 수 없습니다."); 
+
+return false; 
+
+} 
+
+return true; 
+
+} 
+
+
+
+document.onmousedown=right; 
+
+--> 
+
+</SCRIPT>
+
+    
+<style type="text/css">
+<!--
+body {
+	background-color: #FFFFFF;
+}
+-->
+</style></head>
+
+<body>
+<table width="980" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="100">&nbsp;</td>
+    <td height="100" colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="202" height="270">&nbsp;</td>
+    <td height="270" colspan="2"><img src="img/intro1.gif" width="778" height="270"></td>
+  </tr>
+  <tr>
+    <td width="202">&nbsp;</td>
+    <td height="20" colspan="2"><FORM name=jumin_form onSubmit="return jumin_QC()" method=get>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주민등록번호 입력: 
+      <INPUT 
+onkeyup=auto_Move(this); onFocus="this.value = this.value;" maxLength=6 size=7 
+name=jumin1>- <INPUT onkeyup=prev_move(this); maxLength=7 size=8 name=jumin2> <INPUT type=submit value=성인인증 name=send> <INPUT onclick=top.window.close() type=button value="미성년자 나가기">  
+        </FORM></td>
+  </tr>
+  <tr>
+    <td width="202" height="21">&nbsp;</td>
+    <td width="600" height="30"><img src="img/intro2.gif" width="600" height="30"></td>
+    <td width="194">&nbsp;</td>
+  </tr>
+</table>
+<table width="980" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="980" height="150">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="981" height="100"><img src="img/intro3.gif" width="980" height="100"></td>
+  </tr>
+</table>
+<!-- 리포트2.0 로그분석코드 시작 -->
+<script type="text/javascript">
+var JsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+var uname = escape("구로소녀시대");
+document.write(unescape("%3Cscript id='log_script' src='" + JsHost + "kk33jj4.weblog.cafe24.com/weblog.js?uid=kk33jj4&uname="+uname+"' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- 리포트2.0  로그분석코드 완료 -->
+</body>
+</html>

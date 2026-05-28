@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title xml:lang="ko">알림창</title>
+    <description xml:lang="ko">
+	    알림창을 띄울 수 있는 애드온입니다.
+		사용자가 사용하기에 따라서 알림창 뿐만 아니라 다양한 용도로 사용 가능합니다.
+    </description>
+    <version>0.4</version>
+    <date>2015-04-06</date>
+    <author email_address="" link="http://ani.works">
+        <name xml:lang="ko">AniWorks</name>
+    </author>
+    <extra_vars>
+		<var name="skin" type="select">
+			<title xml:lang="ko">skin</title>
+			<description xml:lang="ko">스킨을 선택합니다.</description>
+			<options value="default">
+				<title xml:lang="ko">default</title>
+			</options>
+		</var>
+		<var name="title" type="text">
+			<title xml:lang="ko">제목</title>
+			<description xml:lang="ko">알림창 제목을 입력합니다.</description>
+		</var>
+		<var name="content" type="textarea">
+			<title xml:lang="ko">내용</title>
+			<description xml:lang="ko">알림창 내용을 입력합니다.</description>
+		</var>
+		<var name="button" type="text">
+			<title xml:lang="ko">버튼</title>
+			<description xml:lang="ko">동의 버튼에 표시할 텍스트를 입력합니다.</description>
+		</var>
+	</extra_vars>
+</addon>

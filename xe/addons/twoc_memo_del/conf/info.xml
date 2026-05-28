@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+	<title xml:lang="ko">설정 기간 이전 쪽지 삭제 애드온(투씨)</title>
+	<description xml:lang="ko">설정된 기간보다 오래된 쪽지를 자동 삭제해 주는 애드온입니다.(관리자 로그인시와 기간 설정시에만 애드온이 적용됩니다.)</description>
+    <version>1.1</version>
+    <date>2014-03-01</date>
+    <author email_address="twocad@nate.com" link="http://twocad.com">
+        <name xml:lang="ko">TC</name>
+    </author>
+	<extra_vars>
+		<var name="memo_date" type="text">
+			<title xml:lang="ko">보관 기간 설정</title>
+			<description xml:lang="ko">쪽지 보관 기간을 설정하세요.(1일 단위. 1년의 경우 365 입력 / 입력하지 않은 경우 애드온 적용되지 않음)</description>
+		</var>
+		<var name="memo_del_RS" type="select">
+			<title xml:lang="ko">쪽지 삭제 기준 선택</title>
+			<options value="T">
+				<title xml:lang="ko">양쪽 모두 삭제</title>
+			</options>
+			<options value="R">
+				<title xml:lang="ko">받은 쪽지 기준으로 삭제</title>
+			</options>
+			<options value="S">
+				<title xml:lang="ko">보낸 쪽지 기준으로 삭제</title>
+			</options>
+			<description xml:lang="ko">보낸 쪽지, 받은 쪽지, 혹은 양쪽 모두 삭제 중 기준을 선택하세요.(단, 보관함에 저장된 쪽지는 제외 / 기본 : 양쪽 모두)</description>
+		</var>
+		<var name="memo_del_admin" type="select">
+			<title xml:lang="ko">관리자 쪽지 적용 여부</title>
+			<options value="N">
+				<title xml:lang="ko">관리자 쪽지는 적용하지 않음</title>
+			</options>
+			<options value="Y">
+				<title xml:lang="ko">관리자 쪽지도 적용</title>
+			</options>
+			<description xml:lang="ko">관리자의 쪽지도 같이 적용할 지의 여부(기본 : 관리자 쪽지 적용하지 않음)</description>
+		</var>
+	</extra_vars>
+</addon>

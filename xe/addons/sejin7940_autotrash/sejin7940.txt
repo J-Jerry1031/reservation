@@ -1,0 +1,19 @@
+1. 휴지통 글 복원시, 댓글이 복원되지 않는 현상을 막으려면
+   (procBoardDeleteDocument   실행시 trigger 때문에 triggerDeleteDocumentComments  가 같이 실행이 되기 때문에 발생하는 현상이다)
+   이 현상을 막으려면....
+
+   
+modules/comment/comment.controller.php 에서
+
+function triggerDeleteDocumentComments(&$obj) 
+
+함수 전체를 아래걸로 교체
+
+function triggerDeleteDocumentComments(&$obj) {
+		if(Context::get('trash_delete')!='Y') {
+			$document_srl = $obj->document_srl;
+			if(!$document_srl) return new Object();
+
+			return $this->deleteComments($document_srl, $obj);
+		}
+}

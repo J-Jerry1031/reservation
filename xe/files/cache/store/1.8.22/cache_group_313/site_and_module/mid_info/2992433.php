@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'O:8:\"stdClass\":22:{s:10:\"module_srl\";s:7:\"2992433\";s:6:\"module\";s:5:\"board\";s:19:\"module_category_srl\";s:7:\"2883985\";s:10:\"layout_srl\";s:7:\"2948575\";s:8:\"menu_srl\";s:7:\"2896223\";s:8:\"site_srl\";s:1:\"0\";s:3:\"mid\";s:9:\"openevent\";s:4:\"skin\";s:11:\"sketchbook5\";s:13:\"browser_title\";s:21:\"11월 오픈이벤트\";s:11:\"description\";s:0:\"\";s:10:\"is_default\";s:1:\"N\";s:7:\"content\";N;s:8:\"open_rss\";s:1:\"Y\";s:11:\"header_text\";s:0:\"\";s:11:\"footer_text\";s:0:\"\";s:7:\"regdate\";s:14:\"20181030220034\";s:10:\"use_mobile\";s:1:\"N\";s:11:\"mlayout_srl\";s:1:\"0\";s:8:\"mcontent\";N;s:5:\"mskin\";s:11:\"sketchbook5\";s:11:\"is_skin_fix\";s:1:\"Y\";s:12:\"is_mskin_fix\";s:1:\"Y\";}';

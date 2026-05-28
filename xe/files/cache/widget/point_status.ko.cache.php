@@ -1,0 +1,4 @@
+<?php if(!defined("__XE__")) exit(); $widget_info = new stdClass;$widget_info->widget = "point_status";$widget_info->path = "./widgets/point_status/";$widget_info->title = "포인트 현황 출력 위젯";$widget_info->description = "
+        로그인한 회원의 포인트 현황을 출력하는 위젯입니다.
+        캐시는 0으로 해주셔야 합니다.
+    ";$widget_info->version = "0.1";$widget_info->date = "20080423";$widget_info->homepage = "";$widget_info->license = "";$widget_info->license_link = "";$widget_info->widget_srl = $widget_srl;$widget_info->widget_title = $widget_title;$widget_info->author[0] = new stdClass;$widget_info->author[0]->name = "제로";$widget_info->author[0]->email_address = "zero@zeroboard.com";$widget_info->author[0]->homepage = "http://www.zeroboard.com"; ?>

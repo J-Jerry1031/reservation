@@ -1,0 +1,1 @@
+<?PHP return array('board..controller' => 'boardauction'); ?>

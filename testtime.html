@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+<body>
+
+
+<?php
+
+$year = date("Y"); 
+$month = date("m"); 
+$day = date("d"); 
+$now_date = date("YmdHis"); 
+
+$imsi ="20151213";
+
+$ty=substr($imsi,0,4);
+$tm=substr($imsi,4,2);
+$td=substr($imsi,6,2);
+$edate = date("Ymd", mktime(0,0,0, $tm, $td+1, $ty));
+
+echo " now _date  $now_date <br>";
+echo " end_date  $imsi<br><br><br>";
+
+$result=strtotime($edate)-strtotime($now_date);
+$rday=intval((int)$result/86400);
+$ttime=($result%86400);
+$rtime=intval((int)$ttime/3600);
+$tmin=($ttime%3600);
+$rmin=intval((int)$tmin/60);
+
+
+echo "$result 'val'<br>";
+echo "$ttime 'ttime'<br>";
+echo "$tmin 'tmin'<br><br><br>";
+
+echo " final_day : $rday D   $rtime H   $rmin M ";
+?>
+
+</body>
+</html>

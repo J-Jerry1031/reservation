@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="1.0">
+	<title>쪽지전송 포인트차감 애드온</title>
+	<description>
+		쪽지를 보낼시 일정 포인트가 차감되게하는 애드온입니다.
+	</description>
+	<version>1.0</version>
+	<date>2012-11-23</date>
+
+	<author email_address="jongmin0328@gmail.com" link="http://mapleclub.kr/">
+		<name>미남본능</name>
+	</author>
+	<license>GPL</license>
+	<link>http://mapleclub.kr/</link>
+	
+    <extra_vars>
+        <var name="point">
+            <title>쪽지 한통당 차감할 포인트량</title>
+			<description>빈칸으로 놔둘경우 기본값 50포인트로 적용됩니다.</description>
+		</var>
+    </extra_vars>
+</addon>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title xml:lang="ko">설문조사 포인트 지급 애드온</title>
+    <description xml:lang="ko">
+        설문조사 포인트 지급 애드온
+    </description>
+    <version>0.2</version>
+    <date></date>
+    <author email_address="" link="">
+        <name xml:lang="ko">KDP</name>
+    </author>
+	<extra_vars>
+		<var name="point_add" type="text" default="0">
+		<title xml:lang="ko">포인트 지급량</title>
+		</var>
+	</extra_vars>
+</addon>

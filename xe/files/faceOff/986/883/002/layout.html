@@ -1,0 +1,116 @@
+<!--// js 파일 import -->
+<!--%import("js/xe_official.js")-->
+
+<!--// 레이아웃과 연동될 css 파일 import -->
+<!--@if($layout_info->colorset == "white")-->
+    <!--%import("css/white.css")-->
+<!--@elseif($layout_info->colorset == "black")-->
+    <!--%import("css/black.css")-->
+<!--@else-->
+    <!--%import("css/default.css")-->
+<!--@end-->
+
+<!--@if($layout_info->background_image)-->
+<style type="text/css">
+    body {  background:#FFFFFF url({getUrl()}{$layout_info->background_image}) repeat-x left top; }
+</style>
+<!--@end-->
+
+<!--@if(!$layout_info->colorset)-->
+    {@$layout_info->colorset = "default"}
+<!--@end-->
+<div id="bodyWrap">
+    <div id="header">
+        <div style="position: absolute; top:0px; left:0px; z-index:99;">
+           <a href="http://www.goggg.co.kr/xe/main"><img src="./files/faceOff/037/178/images/logo1.gif" width="980" height="70" border=0></a>
+        </div>
+        <div style="position: absolute; top:70px; left:110px; z-index:98;">
+           <?include"./files/faceOff/037/178/images/main.html";?>
+        </div>
+        <div style="position: absolute; top:120px; left:0px; z-index:97;">
+            <img src="./files/faceOff/037/178/images/img0.jpg" width="980" height="200" border=0>
+        </div>
+        <h1><!--@if($layout_info->logo_image)--><a href="{$layout_info->index_url}"><img src="{$layout_info->logo_image}" alt="logo" border="0" class="iePngFix" /></a><!--@else--> <!--@end--></h1>
+        
+
+        <!-- GNB -->
+        <ul id="gnb">
+            <!-- main_menu 1차 시작 -->
+            <!--@foreach($main_menu->list as $key => $val)--><!--@if($val['link'])-->
+                <!--@if($val['selected'])-->
+                    {@ $menu_1st = $val }
+                <!--@end-->
+
+                <li <!--@if($val['selected'])-->class="on"<!--@end-->><a href="{$val['href']}" <!--@if($val['open_window']=='Y')-->onclick="window.open(this.href);return false;"<!--@end-->>{$val['link']}</a></li>
+
+            <!--@endif--><!--@endforeach-->
+        </ul>
+
+
+
+    </div>
+         
+    <div id="contentBody">
+        <div id="columnLeft">
+
+            <!-- 로그인 위젯 -->
+            <img class="zbxe_widget_output" widget="login_info" skin="xdom_login_v2" colorset="default_xd_2" />
+        <form action="{getUrl()}" method="post" id="isSearch">
+            <input type="hidden" name="vid" value="{$vid}" />
+            <input type="hidden" name="mid" value="{$mid}" />
+            <input type="hidden" name="act" value="IS" />
+            <input type="hidden" name="search_target" value="title_content" />
+            <input name="is_keyword" type="text" class="inputText" title="keyword" />
+
+            <input type="image" src="./images/{$layout_info->colorset}/buttonSearch.gif" alt="{$lang->cmd_search}" class="submit" />
+        </form>
+            <div style="position: absolute; top:120px; left:1px; z-index:900;"><?include"./files/faceOff/037/178/images/left.html";?>
+            </div>
+
+            <!-- 왼쪽 2차 메뉴 -->
+            <img src="./images/blank.gif" alt="" class="mask" />
+			
+            <!--@if($menu_1st)-->
+            <ol id="lnb">
+                {@ $idx = 1 }
+                <!--@foreach($menu_1st['list'] as $key => $val)--><!--@if($val['link'])-->
+                <li <!--@if($val['selected'])-->class="on"<!--@end-->><a href="{$val['href']}" <!--@if($val['open_window']=='Y')-->onclick="window.open(this.href);return false;"<!--@end-->>{$val['link']}</a>
+
+                    <!-- main_menu 3차 시작 -->
+                    <!--@if($val['list'] && ($val['expand']=='Y'||$val['selected']) )-->
+                    <ul>
+                    <!--@foreach($val['list'] as $k => $v)--><!--@if($v['link'])-->
+                        <li <!--@if($v['selected'])-->class="on"<!--@end-->><a href="{$v['href']}" <!--@if($v['open_window']=='Y')-->onclick="window.open(this.href);return false;"<!--@end-->>{$v['link']}</a></li>
+                    <!--@endif--><!--@endforeach-->
+                    </ul>
+                    <!--@endif-->
+                </li>
+                {@$idx++}
+                <!--@endif--><!--@endforeach-->
+            </ol>
+            <!--@endif-->
+
+        </div>
+        <div id="columnRight">
+            <!-- 컨텐츠 시작 -->
+            {$content}
+
+        </div>
+    </div>
+    <ul id="footer">
+
+
+        <!--@foreach($bottom_menu->list as $key => $val)-->
+        <li><a href="{$val['href']}" <!--@if($val['open_window']=='Y')-->onclick="window.open(this.href);return false;"<!--@end-->>{$val['link']}</a></li>
+        <!--@endforeach-->
+    </ul>
+</div>
+<!-- 리포트2.0 로그분석코드 시작 -->
+<script type="text/javascript">
+var JsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+var uname = escape('구로소녀시대');
+document.write(unescape("%3Cscript id='log_script' src='" + JsHost + "kk33jj.weblog.cafe24.com/weblog.js?uid=kk33jj&uname="+uname+"' type='text/javascript'%3E%3C/script%3E"));
+
+
+</script>
+<!-- 리포트2.0  로그분석코드 완료 -->

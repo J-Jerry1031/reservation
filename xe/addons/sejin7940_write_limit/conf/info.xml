@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title xml:lang="ko">글/댓글 작성수 제한</title>
+    <description xml:lang="ko">
+        일정 기간동안 작성할 수 있는 글/댓글을 제한하는 애드온
+    </description>
+    <version>1.5.2</version>
+    <date>2014-04-15</date>
+
+    <author email_address="sejin7940@nate.com" link="http://sejin7940.co.kr">
+        <name xml:lang="ko">sejin7940</name>
+    </author>
+    <author email_address="sinsy200@gmail.com" link="http://etcutils.xpressengine.net">
+        <name xml:lang="ko">난다날아</name>
+    </author>
+    <link>http://sejin7940.co.kr</link>
+
+	<extra_vars>
+
+	<var name="term">
+		<title xml:lang="ko">작성 제한 기간</title>
+		<description xml:lang="ko">작성제한을 검토하는 기간입니다. 최근 몇일 간을 검토할지 설정 (단위:일). (예) 1 : 오늘 하루. 2 : 어제부터 오늘까지 등) (기본:1)</description>
+	</var>
+	<var name="document_limit">
+		<title xml:lang="ko">글 작성 제한 수</title>
+		<description xml:lang="ko">작성 제한 기간동안 작성할 수 있는 글의 수입니다. 이 설정값 이상 글을 작성할 수 없습니다.</description>
+	</var>
+	<var name="comment_limit">
+		<title xml:lang="ko">댓글 작성 제한 수</title>
+		<description xml:lang="ko">작성 제한 기간동안 작성할 수 있는 댓글의 수입니다. 이 설정값 이상 댓글을 작성할 수 없습니다.</description>
+	</var>
+	<var name="mid_together" type="select">
+		<title xml:lang="ko">게시판 각각 적용 여부 *</title>
+		<description xml:lang="ko">아래의 모듈을 별도 설정하지 않을 경우 모든 모듈을 상대로 적용됩니다</description>
+		<options value="N">
+			<title xml:lang="ko">선택한 게시판 별도로 각각 적용</title>
+		</options>
+		<options value="Y">
+			<title xml:lang="ko">선택한 게시판 통합하여 갯수 제한</title>
+		</options>
+	</var>
+
+	</extra_vars>
+</addon>

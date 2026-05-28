@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+	<title xml:lang="ko">추천인 표시 애드온</title>
+	<description xml:lang="ko">본문에 추천인을 표시합니다</description>
+	<version>1.0.1</version>
+	<date>2015-02-04</date>
+	<author email_address="samswnlee@naver.com" link="http://www.xecenter.com/">
+		<name xml:lang="ko">숭숭군</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">기본설정</title>
+				<var name="output_position" type="select">
+					<title xml:lang="ko">출력위치</title>
+					<description xml:lang="ko">출력위치를 선택해주세요 (기본 : 본문하단)</description>
+					<options value="AfterDocument">
+					<title xml:lang="ko">본문하단</title></options>
+					<options value="BeforeDocument">
+					<title xml:lang="ko">본문상단</title></options>
+				</var>
+				<var name="profile_img_use" type="select">
+					<title xml:lang="ko">프로필 이미지 출력설정</title>
+					<description xml:lang="ko">프로필 이미지를 사용 합니다 (기본 : 사용)</description>
+					<options value="yes">
+					<title xml:lang="ko">사용</title></options>
+					<options value="no">
+					<title xml:lang="ko">미사용</title></options>
+				</var>
+				<var name="list_count" type="text">
+					<title xml:lang="ko">표시할 추천인 수</title>
+					<description xml:lang="ko">본문에 표시할 추천인 수를 설정하세요 (기본 : 4명)</description>
+				</var>
+				<var name="user_text1" type="text">
+					<title xml:lang="ko">사용자 문구1</title>
+					<description xml:lang="ko">상단 추천인수 앞에 표시할 문구를 설정해주세요 (기본 : 이 글을 )</description>
+				</var>
+				<var name="user_text2" type="text">
+					<title xml:lang="ko">사용자 문구2</title>
+					<description xml:lang="ko">상단 추천인수 뒤에 표시할 문구를 설정해주세요 (기본 : 명이 추천합니다 )</description>
+				</var>
+		</group>		
+	</extra_vars>
+</addon>

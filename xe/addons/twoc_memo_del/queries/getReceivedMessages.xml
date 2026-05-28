@@ -1,0 +1,14 @@
+<query id="getReceivedMessages" action="select">
+    <tables>
+        <table name="member_message" />
+    </tables>
+    <columns>
+        <column name="message_srl" />
+    </columns>
+    <conditions>
+		<condition operation="notequal" column="receiver_srl" var="member_srl" filter="number" notnull="notnull" />
+		<condition operation="notequal" column="sender_srl" var="member_srl" filter="number" notnull="notnull" pipe="and" />
+		<condition operation="equal" column="message_type" var="message_type" default="R" pipe="and" />
+		<condition operation="below" column="regdate" var="regdate" pipe="and" />
+    </conditions>
+</query>

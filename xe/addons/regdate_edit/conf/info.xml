@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title>일정기간 지난 게시물 수정/댓글 제한 애드온</title>
+    <description></description>
+    <version>0.1</version>
+    <date>2015-03-03</date>
+
+    <author email_address="" link="">
+        <name>kdp</name>
+    </author>
+	
+    <extra_vars>
+		<var name="denied_delete" type="select">
+			<title xml:lang="ko">삭제제한</title>
+			<options value="Y">
+				<title xml:lang="ko">사용</title>
+			</options>
+			<options value="N">
+				<title xml:lang="ko">사용하지 않음</title>
+			</options>
+		</var>
+		<var name="denied_edit" type="select">
+			<title xml:lang="ko">수정제한</title>
+			<options value="Y">
+				<title xml:lang="ko">사용</title>
+			</options>
+			<options value="N">
+				<title xml:lang="ko">사용하지 않음</title>
+			</options>
+		</var>
+		<var name="denied_comment" type="select">
+			<title xml:lang="ko">댓글제한</title>
+			<options value="Y">
+				<title xml:lang="ko">사용</title>
+			</options>
+			<options value="N">
+				<title xml:lang="ko">사용하지 않음</title>
+			</options>
+		</var>
+        <var name="permission_hours" type="text">
+            <title>제한 기간[시간기준]</title>
+            <description>
+               열람제한기간
+            </description>
+        </var>
+    </extra_vars>
+</addon>

@@ -1,0 +1,74 @@
+<!--// js 파일 import -->
+<!--%import("js/xe_official.js")-->
+
+<!--// 레이아웃과 연동될 css 파일 import -->
+<!--@if($layout_info->colorset == "white")-->
+    <!--%import("css/white.css")-->
+<!--@elseif($layout_info->colorset == "black")-->
+    <!--%import("css/black.css")-->
+<!--@else-->
+    <!--%import("css/default.css")-->
+<!--@end-->
+ 
+<!--팝업창-->
+
+<!--@if($layout_info->background_image)-->
+<style type="text/css">
+    body {  background:#FFFFFF url({getUrl()}{$layout_info->background_image}) repeat-x left top; }
+</style>
+<!--@end-->
+
+<!--@if(!$layout_info->colorset)-->
+    {@$layout_info->colorset = "default"}
+<!--@end-->
+<div id="bodyWrap">
+    <div id="header">
+        <div style="position: absolute; top:0px; left:8px; z-index:99;">
+           <a href="http://www.goggg.co.kr/xe/main"><img src="./files/faceOff/037/178/images/logo1.gif" width="980" height="70" border=0></a>
+        </div>
+        <!--20151009 position absolute 에서 relative로 변경했음-->
+        <div style="position: relative; top:50px; left:756px; z-index:98;">
+           <?include"./files/faceOff/037/178/images/main.html";?>
+        </div>
+        <div style="position: absolute; top:96px; left:8px; z-index:97;">
+            <img src="./files/faceOff/037/178/images/img0.jpg" width="980" height="200" border=0>
+        </div>
+        <h1><!--@if($layout_info->logo_image)--><a href="{$layout_info->index_url}"><img src="{$layout_info->logo_image}" alt="logo" border="0" class="iePngFix" /></a><!--@else--> <!--@end--></h1>
+        
+
+        <!-- GNB -->
+        <ul id="gnb">
+            <!-- main_menu 1차 시작 -->
+            <!--@foreach($main_menu->list as $key => $val)--><!--@if($val['link'])-->
+                <!--@if($val['selected'])-->
+                    {@ $menu_1st = $val }
+                <!--@end-->
+
+
+
+            <!--@endif--><!--@endforeach-->
+        </ul>
+
+
+
+    </div>
+
+    <div id="contentBody">
+            <!-- 컨텐츠 시작 -->
+            {$content}
+
+       <div id="footer">
+          <!--@foreach($bottom_menu->list as $key => $val)-->
+          <li><a href="{$val['href']}" <!--@if($val['open_window']=='Y')-->onclick="window.open(this.href);return false;"<!--@end-->>{$val['link']}</a></li>
+          <!--@endforeach-->
+       </div>
+    </div>
+</div>
+
+<!-- 리포트2.0 로그분석코드 시작 -->
+<script type="text/javascript">
+var JsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+var uname = escape('구로소녀시대');
+document.write(unescape("%3Cscript id='log_script' src='" + JsHost + "kk33jj.weblog.cafe24.com/weblog.js?uid=kk33jj&uname="+uname+"' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- 리포트2.0  로그분석코드 완료 -->

@@ -1,0 +1,9 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'O:8:\"stdClass\":22:{s:10:\"module_srl\";s:7:\"2917881\";s:6:\"module\";s:5:\"board\";s:19:\"module_category_srl\";s:6:\"179338\";s:10:\"layout_srl\";s:7:\"2948575\";s:8:\"menu_srl\";s:2:\"95\";s:8:\"site_srl\";s:1:\"0\";s:3:\"mid\";s:6:\"notice\";s:4:\"skin\";s:11:\"sketchbook5\";s:13:\"browser_title\";s:6:\"공지\";s:11:\"description\";s:0:\"\";s:10:\"is_default\";s:1:\"N\";s:7:\"content\";N;s:8:\"open_rss\";s:1:\"Y\";s:11:\"header_text\";s:505:\"<img class=\"zbxe_widget_output\" widget=\"content\" skin=\"updatenews\" colorset=\"default\" content_type=\"document\" module_srls=\"2917881,2917952,2917949,2917887,2917893,2917885,2918074,2917959,2917966\" list_type=\"normal\" tab_type=\"none\" markup_type=\"table\" list_count=\"15\" page_count=\"1\" option_view=\"title,regdate,nickname\" show_browser_title=\"Y\" show_comment_count=\"Y\" show_trackback_count=\"N\" show_category=\"Y\" show_icon=\"Y\" duration_new=\"24\" order_target=\"regdate\" order_type=\"desc\" thumbnail_type=\"crop\" />\";s:11:\"footer_text\";s:435:\"<!-- 리포트2.0 로그분석코드 시작 -->
+<script type=\"text/javascript\">
+var JsHost = ((\"https:\" == document.location.protocol) ? \"https://\" : \"http://\");
+var uname = escape(\'키스미\');
+document.write(unescape(\"%3Cscript id=\'log_script\' src=\'\" + JsHost + \"kk33jj.weblog.cafe24.com/weblog.js?uid=kk33jj&uname=\"+uname+\"\' type=\'text/javascript\'%3E%3C/script%3E\"));
+</script>
+<!-- 리포트2.0  로그분석코드 완료 -->\";s:7:\"regdate\";s:14:\"20151008161809\";s:10:\"use_mobile\";s:1:\"N\";s:11:\"mlayout_srl\";s:1:\"0\";s:8:\"mcontent\";N;s:5:\"mskin\";s:11:\"sketchbook5\";s:11:\"is_skin_fix\";s:1:\"Y\";s:12:\"is_mskin_fix\";s:1:\"Y\";}';

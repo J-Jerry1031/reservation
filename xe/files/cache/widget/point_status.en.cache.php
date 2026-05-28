@@ -1,0 +1,4 @@
+<?php if(!defined("__XE__")) exit(); $widget_info = new stdClass;$widget_info->widget = "point_status";$widget_info->path = "./widgets/point_status/";$widget_info->title = "Point Status";$widget_info->description = "
+        This widget displays online members' points status.
+        Cache must be 0.
+    ";$widget_info->version = "0.1";$widget_info->date = "20080423";$widget_info->homepage = "";$widget_info->license = "";$widget_info->license_link = "";$widget_info->widget_srl = $widget_srl;$widget_info->widget_title = $widget_title;$widget_info->author[0] = new stdClass;$widget_info->author[0]->name = "Zero";$widget_info->author[0]->email_address = "zero@zeroboard.com";$widget_info->author[0]->homepage = "http://www.zeroboard.com"; ?>

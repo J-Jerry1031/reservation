@@ -1,0 +1,571 @@
+<?php if(!defined("__XE__"))exit;?>
+<?php if($__Context->colorset=="default_xd_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xd_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xd_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xd_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xd_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xd_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xd_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_da_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_220.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_220.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_da_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_220.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_220.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_da_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_220.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_220.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_da_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_220.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_220.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_da_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_220.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_220.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_da_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_220.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_220.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_da_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_220.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_220.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_na_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_na_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_na_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_na_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_na_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_na_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_na_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_280.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_280.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_co_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_co_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_co_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_co_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_co_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_co_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_co_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xe_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xe_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xe_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xe_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xe_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xe_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xe_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_bg_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_bg_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_bg_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_bg_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_bg_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_bg_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_bg_main"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xd_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xd_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xd_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xd_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xd_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xd_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xd_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_da_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_da_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_da_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_da_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_da_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_da_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_da_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_na_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_na_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_na_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_na_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_na_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_na_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_na_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_co_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_co_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_co_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_co_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_co_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_co_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_co_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xe_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xe_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xe_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xe_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xe_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xe_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xe_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_bg_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_bg_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_bg_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_bg_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_bg_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_bg_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_bg_2"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xd_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xd_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xd_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xd_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xd_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xd_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xd_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_da_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_da_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_da_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_da_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_da_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_da_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_da_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_na_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_na_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_na_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_na_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_na_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_na_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_na_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_co_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_co_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_co_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_co_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_co_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_co_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_co_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xe_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xe_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xe_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xe_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xe_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xe_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xe_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_bg_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_bg_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_bg_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_bg_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_bg_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_bg_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_bg_2d"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xd_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xd_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xd_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xd_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xd_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xd_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xd_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_da_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_da_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_da_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_da_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_da_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_da_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_da_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_na_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_na_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_na_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_na_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_na_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_na_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_na_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_co_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_co_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_co_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_co_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_co_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_co_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_co_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xe_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xe_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xe_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xe_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xe_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xe_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xe_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_bg_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_bg_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_bg_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_bg_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_bg_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_bg_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_bg_2a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_250.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_250.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xd_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xd_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xd_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xd_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xd_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xd_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xd_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_da_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_da_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_da_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_da_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_da_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_da_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_da_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_na_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_na_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_na_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_na_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_na_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_na_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_na_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_co_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_co_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_co_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_co_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_co_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_co_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_co_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xe_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xe_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xe_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xe_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xe_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xe_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xe_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_bg_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_bg_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_bg_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_bg_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_bg_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_bg_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_bg_3a"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_150.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_150.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xd_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xd_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xd_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xd_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xd_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xd_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xd_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_da_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_da_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_da_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_da_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_da_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_da_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_da_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_na_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_na_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_na_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_na_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_na_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_na_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_na_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_co_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_co_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_co_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_co_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_co_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_co_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_co_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_xe_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_xe_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_xe_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_xe_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_xe_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_xe_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_xe_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="default_bg_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="green_bg_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/green_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/green_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="orange_bg_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/orange_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/orange_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="cyan_bg_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/cyan_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/cyan_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="red_bg_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/red_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/red_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="black_bg_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/black_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/black_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }elseif($__Context->colorset=="free_bg_search"){ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default_175.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default_175.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php }else{ ?>
+    <!--#Meta:widgets/login_info/skins/xdom_login_v2/css/default.css--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/css/default.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php } ?>
+<?php require_once('./classes/xml/XmlJsFilter.class.php');$__xmlFilter=new XmlJsFilter('widgets/login_info/skins/xdom_login_v2/filter','login.xml');$__xmlFilter->compile(); ?>
+<?php require_once('./classes/xml/XmlJsFilter.class.php');$__xmlFilter=new XmlJsFilter('widgets/login_info/skins/xdom_login_v2/filter','openid_login.xml');$__xmlFilter->compile(); ?>
+<!--#Meta:widgets/login_info/skins/xdom_login_v2/js/login.js--><?php $__tmp=array('widgets/login_info/skins/xdom_login_v2/js/login.js','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<?php if($__Context->_COOKIE["ssSLJumin_chk"]==""){ ?>
+<script>
+location.href='http://www.goggg.co.kr/_SuperLog/super_log.php';
+</script>
+<?php } ?> 
+<script type="text/javascript">
+    var keep_signed_msg = "<?php echo $__Context->lang->about_keep_signed ?>";
+    xAddEventListener(window, "load", function(){ doFocusUserId("fo_login_widget"); });
+</script>
+<fieldset id="login" class="login">
+<legend><?php echo $__Context->lang->cmd_login ?></legend>
+<form action="./" method="get" onsubmit="return procFilter(this, widget_login)" id="fo_login_widget"><input type="hidden" name="error_return_url" value="<?php echo htmlspecialchars(getRequestUriByServerEnviroment(), ENT_COMPAT | ENT_HTML401, 'UTF-8', false) ?>" /><input type="hidden" name="act" value="<?php echo $__Context->act ?>" /><input type="hidden" name="mid" value="<?php echo $__Context->mid ?>" /><input type="hidden" name="vid" value="<?php echo $__Context->vid ?>" />
+    <div class="idpwWrap">
+        <div class="idpw">
+            <input name="user_id" type="text" title="user id" onfocus="this.className='idOn';" onblur="if (!this.value) this.className='idOff'" class="idOff" />
+            <input name="password" type="password" title="password" onfocus="this.className='passOn';" onblur="if (!this.value) this.className='passOff'" class="passOff" />
+        </div>
+        <input type="image" src="/xe/widgets/login_info/skins/xdom_login_v2/images/buttonLogin.gif" alt="login" title="login" class="login" />
+    </div>
+    <!--<p class="save">
+        <input type="checkbox" name="keep_signed" id="keepid" value="Y" onclick="return confirm(keep_signed_msg);" />
+        <label for="keepid" title="<?php echo $__Context->lang->keep_signed ?>" ><?php echo $__Context->lang->keep_signed ?></label>-->
+        <?php if($__Context->member_config->enable_openid=='Y'){ ?>
+        <!--<input name="use_open_id" id="use_open_id" type="checkbox" value="Y" onclick="toggleLoginForm(this); return false;"  />
+        <label for="use_open_id" title="Open ID">Open ID</label>-->
+        <?php } ?>
+    <!--</p>-->
+    <ul class="help">
+        <li class="first-child"><a href="<?php echo getUrl('act','dispMemberSignUpForm') ?>" title="<?php echo $__Context->lang->cmd_signup ?>"><?php echo $__Context->lang->cmd_signup ?></a></li>
+        <li><a href="<?php echo getUrl('act','dispMemberFindAccount') ?>" title="<?php echo $__Context->lang->cmd_find_member_account ?>"><?php echo $__Context->lang->cmd_find_member_account ?></a></li>
+    </ul>
+</form> 
+</fieldset>
+<!-- OpenID -->
+<?php if($__Context->member_config->enable_openid=='Y'){ ?>
+<!--<fieldset id="openid_login" class="openid_login" style="display:none;">
+<legend><?php echo $__Context->lang->cmd_login ?></legend>
+  <form action="./" method="post" onsubmit="return procFilter(this, openid_login)" ><input type="hidden" name="error_return_url" value="<?php echo htmlspecialchars(getRequestUriByServerEnviroment(), ENT_COMPAT | ENT_HTML401, 'UTF-8', false) ?>" /><input type="hidden" name="act" value="<?php echo $__Context->act ?>" /><input type="hidden" name="mid" value="<?php echo $__Context->mid ?>" /><input type="hidden" name="vid" value="<?php echo $__Context->vid ?>" />
+      <div class="idpwWrap">
+        <div class="idpw">
+          <p><?php echo $__Context->lang->openid ?></p>
+          <input type="text" name="user_id" title="user_id" onfocus="this.className='openidOn';" onblur="if (!this.value) this.className='openidOff'" class="openidOff" />
+        </div>
+        <input type="image" src="/xe/widgets/login_info/skins/xdom_login_v2/images/buttonLogin.gif" alt="login" title="login" class="login" />
+      </div>
+      <p class="save">
+          <input name="use_open_id" id="use_open_id_2" type="checkbox" value="Y" onclick="toggleLoginForm(this); return false;" title="Open ID" />
+          <label for="use_open_id_2">Open ID</label>
+      </p>
+	  <ul class="help">
+	  <li class="first-child"><a href="http://openid.net/" onclick="window.open(this.href);return false;" title="openid">openid</a></li>
+	  <li><a href="http://www.idtail.com/" onclick="window.open(this.href);return false;" title="idtail">idtail</a></li>
+	  <li><a href="http://www.myid.net/" onclick="window.open(this.href);return false;" title="myid">myid</a></li>
+	  </ul>
+  </form>
+</fieldset>-->
+<?php } ?>
+<script type="text/javascript">
+  xAddEventListener(window, "load", function(){ doFocusUserId("fo_login_widget"); });
+</script>

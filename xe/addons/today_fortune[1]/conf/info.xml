@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="1.0.1">
+    <title xml:lang="ko">오늘의 운세</title>
+    <description xml:lang="ko">
+        오늘의 운세를 알려주는 애드온입니다.
+        ver 1.0.1 팝업창 시간을 15초에서 60초로 늘림. 
+    </description>
+    <version>1.0.1</version>
+    <date>2013-05-01</date>
+    <author email_address="webmaster@erumy.com" link="http://www.erumy.com/">
+        <name xml:lang="ko">erumy.com</name>
+    </author>
+</addon>

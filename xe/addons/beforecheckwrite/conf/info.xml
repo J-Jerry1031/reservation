@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title>연달아 글등록 방지 애드온</title>
+    <description>
+	    게시판에 한 회원이 글을 연달아 작성할 수 없도록 제한해주는 애드온입니다.
+    </description>
+    <version>1.0</version>
+    <date>2015-01-23</date>
+    <author email_address="market@anizen.kr" link="http://ani.works">
+        <name>애니즌</name>
+    </author>
+    <extra_vars>
+		<var name="write_count" type="text">
+            <title>글쓰기 제한 개 수</title>
+            <description>연달아 작성되는 글을 제한 개수를 입력합니다.<br/>예) 4 입력시 3개까지는 허용되며, 4번째 작성시 차단합니다.<br/>기본 값 : 4
+			</description>
+        </var>
+        <var name="admin" type="select">
+            <title>관리자 제한</title>
+            <description>글 제한을 관리자도 포함시킬 건지 여부.. 기본 값 : 사용안함</description>
+			<options value="N"><title>사용안함</title></options>
+			<options value="Y"><title>사용</title></options>
+        </var>
+        <var name="member" type="select">
+            <title>회원 제한</title>
+            <description>회원이 글을 연속으로 작성할 수 없도록 제한. 기본 값 : 사용</description>
+			<options value="Y"><title>사용</title></options>
+			<options value="N"><title>사용안함</title></options>
+        </var>
+        <var name="guest" type="select">
+            <title>비회원 제한</title>
+            <description>비회원이 글을 연속으로 작성할 수 없도록 제한.(ip로 판단) 기본 값 : 사용</description>
+			<options value="Y"><title>사용</title></options>
+			<options value="N"><title>사용안함</title></options>
+        </var>
+        <var name="once_guest" type="select">
+            <title>강력한 비회원 제한</title>
+            <description>
+				IP상관없이 무조건 비회원은 연달아 작성할 수 없도록 제한(사용자가 달라도 제한)<br/>
+				위의 비회원 제한 옵션이 활성화 했을 경우 작동합니다. 기본 값 : 사용</description>
+			<options value="Y"><title>사용</title></options>
+			<options value="N"><title>사용안함</title></options>
+        </var>
+        <var name="message" type="textarea">
+            <title>에러 멘트</title>
+            <description>기본값 : 글을 연달아 작성할 수 없습니다.</description>
+        </var>
+	</extra_vars>
+</addon>

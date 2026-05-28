@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'O:8:\"stdClass\":12:{s:3:\"act\";s:32:\"procSejin7940_commentAdminConfig\";s:6:\"module\";s:5:\"admin\";s:18:\"success_return_url\";s:63:\"/xe/index.php?module=admin&act=dispSejin7940_commentAdminConfig\";s:16:\"comment_cut_size\";s:2:\"50\";s:14:\"title_cut_size\";s:2:\"30\";s:20:\"display_voted_member\";s:1:\"Y\";s:21:\"display_blamed_member\";s:1:\"Y\";s:10:\"layout_srl\";s:7:\"2948575\";s:4:\"skin\";s:7:\"default\";s:11:\"mlayout_srl\";s:7:\"2919625\";s:5:\"mskin\";s:7:\"default\";s:13:\"annoymous_use\";N;}';

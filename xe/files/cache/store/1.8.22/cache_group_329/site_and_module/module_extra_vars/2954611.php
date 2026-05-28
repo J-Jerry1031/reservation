@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'O:8:\"stdClass\":13:{s:12:\"duration_new\";s:2:\"24\";s:15:\"editor_colorset\";s:5:\"moono\";s:11:\"editor_skin\";s:8:\"ckeditor\";s:19:\"exam_pass_point_max\";s:4:\"2000\";s:19:\"exam_pass_point_min\";s:3:\"500\";s:21:\"exam_pass_point_minus\";s:1:\"N\";s:22:\"exam_pass_point_option\";s:1:\"2\";s:13:\"hide_category\";s:1:\"N\";s:4:\"list\";s:65:\"exam_srl,exam_title,exam_date,exam_question_count,exam_join_count\";s:10:\"list_count\";s:2:\"20\";s:12:\"order_target\";s:12:\"document_srl\";s:10:\"order_type\";s:3:\"asc\";s:10:\"page_count\";s:2:\"10\";}';

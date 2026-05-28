@@ -1,0 +1,3 @@
+<?php if(!defined("__XE__"))exit;?><!--#Meta:modules/pointsend/skins/default/css/popup.css--><?php $__tmp=array('modules/pointsend/skins/default/css/popup.css','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<!--#Meta:modules/pointsend/skins/default/js/pointsend.js--><?php $__tmp=array('modules/pointsend/skins/default/js/pointsend.js','','','');Context::loadFile($__tmp);unset($__tmp); ?>
+<div id="PointSendModule">

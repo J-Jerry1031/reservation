@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">default</title>
+	<description xml:lang="ko">기본 알림창 스킨</description>
+	<version>0.1</version>
+	<date>2015-04-01</date>
+	<author email_address="" link="http://ani.works/">
+		<name xml:lang="ko">Aniworks</name>
+	</author>
+</skin>

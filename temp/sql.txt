@@ -1,0 +1,5 @@
+SELECT count( member_srl ) , member_srl
+FROM `xe_member_group_member` 
+GROUP BY member_srl
+
+SELECT * FROM `xe_member` WHERE member_srl='4163'

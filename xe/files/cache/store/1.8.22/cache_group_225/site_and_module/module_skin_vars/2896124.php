@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'a:5:{s:10:\"board_type\";O:8:\"stdClass\":3:{s:10:\"module_srl\";s:7:\"2896124\";s:4:\"name\";s:10:\"board_type\";s:5:\"value\";s:7:\"twitter\";}s:18:\"display_ip_address\";O:8:\"stdClass\":3:{s:10:\"module_srl\";s:7:\"2896124\";s:4:\"name\";s:18:\"display_ip_address\";s:5:\"value\";s:1:\"N\";}s:20:\"display_setup_button\";O:8:\"stdClass\":3:{s:10:\"module_srl\";s:7:\"2896124\";s:4:\"name\";s:20:\"display_setup_button\";s:5:\"value\";s:1:\"Y\";}s:7:\"timeend\";O:8:\"stdClass\":3:{s:10:\"module_srl\";s:7:\"2896124\";s:4:\"name\";s:7:\"timeend\";s:5:\"value\";s:8:\"23:59:00\";}s:9:\"timestart\";O:8:\"stdClass\":3:{s:10:\"module_srl\";s:7:\"2896124\";s:4:\"name\";s:9:\"timestart\";s:5:\"value\";s:8:\"23:59:00\";}}';

@@ -1,0 +1,3 @@
+<?php
+if(!defined('__XE__')) { exit(); }
+return 'O:8:\"stdClass\":8:{s:16:\"error_return_url\";s:59:\"/xe/index.php?module=admin&act=dispPointhistoryAdminSetting\";s:6:\"module\";s:12:\"pointhistory\";s:3:\"act\";s:28:\"procPointhistoryAdminSetting\";s:15:\"xe_validator_id\";s:34:\"modules/pointhistory/tpl/setting/1\";s:4:\"skin\";s:7:\"default\";s:5:\"mskin\";s:7:\"default\";s:16:\"point_record_way\";s:7:\"trigger\";s:15:\"point_unit_char\";s:1:\"P\";}';

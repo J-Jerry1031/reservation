@@ -1,0 +1,12 @@
+#showindow { background: rgba(0,0,0,0.8); position: fixed; z-index: 999; width: 100%; height: 100%; left:0; top:0; bottom: 0; right: 0; }
+#showindow .show-group { display: table; margin: auto; height: 100%; }
+#showindow .show-middle { display: table-cell; vertical-align: middle; }
+#showindow .show-content { font-size: 12px; background: #505a69; width: 550px; margin:auto; box-sizing: border-box; padding: 8px; }
+#showindow .show-main { background: #fff; padding: 50px;}
+#showindow .show-title { font-size: 24px; font-weight: bold; }
+#showindow .show-line { height: 3px; background: #505a69; width: 46px; font-size: 0; margin: 23px 0 27px; }
+#showindow .show-desc { color: #505a69; line-height: 24px; }
+
+#showindow .show-footer { color: #c0c3c7; margin: 0; padding: 5px 0; text-align: right;}
+#showindow .kyouwa-mou { display: inline; margin-right: 21px; cursor: pointer; }
+#showindow .show-close { display: inline; margin-right: 14px; cursor: pointer; }
