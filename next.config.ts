@@ -25,14 +25,6 @@ const nextConfig: NextConfig = {
       }
     ];
   },
-  async rewrites() {
-    return [
-      {
-        source: "/xe/:slug/:rest*",
-        destination: "/xe/:slug"
-      }
-    ];
-  }
 };
 
 export default nextConfig;

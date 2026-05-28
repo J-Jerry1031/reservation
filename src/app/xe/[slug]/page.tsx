@@ -14,7 +14,7 @@ import {
 
 type PageProps = {
   params: Promise<{
-    slug?: string[];
+    slug: string;
   }>;
   searchParams: Promise<{
     q?: string;
@@ -26,13 +26,13 @@ export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return sectionSlugs.map((slug) => ({
-    slug: [slug]
+    slug
   }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const activeSlug = resolveSlug(slug);
+  const activeSlug = slug as SectionSlug;
   const section = getSection(activeSlug);
 
   if (!section) {
@@ -49,7 +49,7 @@ export default async function LegacySectionPage({ params, searchParams }: PagePr
   const user = await requireVerifiedUser();
   const { slug } = await params;
   const query = await searchParams;
-  const activeSlug = resolveSlug(slug);
+  const activeSlug = slug as SectionSlug;
   const section = getSection(activeSlug);
 
   if (!section) {
@@ -221,9 +221,4 @@ async function ScheduleContent() {
       </div>
     </section>
   );
-}
-
-function resolveSlug(slug?: string[]): SectionSlug {
-  const firstSlug = slug?.[0] ?? "main";
-  return firstSlug as SectionSlug;
 }
