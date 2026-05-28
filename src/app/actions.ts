@@ -89,8 +89,12 @@ export async function loginAction(_state: ActionState, formData: FormData): Prom
     .eq("login_id", loginId)
     .maybeSingle();
 
-  if (!user || user.is_blacklisted) {
-    return { error: "로그인할 수 없는 계정입니다." };
+  if (!user) {
+    return { error: "해당 아이디의 계정이 없습니다. Supabase에 admin seed SQL이 실행됐는지 확인해주세요." };
+  }
+
+  if (user.is_blacklisted) {
+    return { error: "블랙리스트 처리된 계정입니다." };
   }
 
   const { data: blocked } = await supabase
