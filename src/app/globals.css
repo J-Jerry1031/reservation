@@ -68,8 +68,24 @@ a {
   text-decoration: none;
 }
 
+.main-nav form {
+  display: flex;
+}
+
+.nav-button {
+  height: 36px;
+  padding: 0 12px;
+  color: #363840;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+}
+
 .main-nav a:hover,
-.main-nav a[aria-current="page"] {
+.main-nav a[aria-current="page"],
+.nav-button:hover {
   background: var(--accent-soft);
   color: var(--accent);
 }

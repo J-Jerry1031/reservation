@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createPostAction } from "@/app/actions";
+import { createPostAction, logoutAction } from "@/app/actions";
 import { ActionForm } from "@/components/action-form";
 import { requireVerifiedUser } from "@/lib/auth";
 import { getPosts, getSeoulTodayLabel, getTodayAttendance, type Board, type SortKey } from "@/lib/data";
@@ -73,6 +73,9 @@ export default async function LegacySectionPage({ params, searchParams }: PagePr
             </Link>
           ))}
           {user.role === "admin" ? <Link href="/admin">관리자</Link> : null}
+          <form action={logoutAction}>
+            <button className="nav-button" type="submit">로그아웃</button>
+          </form>
         </nav>
       </header>
 
