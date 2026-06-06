@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xn--she-vg3mw53b.com/sitemap.xml

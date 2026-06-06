@@ -1,18 +1,24 @@
 {
-  "framework": "nextjs",
-  "headers": [
+  "rewrites": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        }
-      ]
+      "source": "/adm",
+      "destination": "/"
+    },
+    {
+      "source": "/adm/",
+      "destination": "/"
+    },
+    {
+      "source": "/bbs/:path*",
+      "destination": "/"
+    },
+    {
+      "source": "/theme/:path*",
+      "destination": "/"
+    },
+    {
+      "source": "/adm/:path*",
+      "destination": "/"
     }
   ]
 }
