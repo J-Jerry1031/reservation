@@ -1,5 +1,14 @@
 import { getSupabase, json, stateId } from "./_shared.js";
 
+function koreaDate(value = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(value);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return json(res, 405, { error: "Method not allowed" });
@@ -40,7 +49,7 @@ export default async function handler(req, res) {
     role: "member",
     point: 1000,
     status: "정상",
-    joined: new Date().toISOString().slice(0, 10),
+    joined: koreaDate(),
   };
   const points = Array.isArray(state.points) ? state.points : [];
   const nextState = {

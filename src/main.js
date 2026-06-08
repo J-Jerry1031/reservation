@@ -534,9 +534,6 @@ function storeMemberSession(member, remember = false) {
 async function recordVisit() {
   if (path.includes("/adm")) return;
   const user = memberSession() || (isAdminLoggedIn() ? { id: "admin" } : null);
-  const key = `visitTracked-${today()}-${user?.id || "guest"}`;
-  if (sessionStorage.getItem(key) === "1") return;
-  sessionStorage.setItem(key, "1");
   try {
     await fetch("/api/visit", {
       method: "POST",
@@ -572,6 +569,12 @@ function renderHome() {
   const config = adminState.config;
   const mainImage = adminState.themeSettings.mainImage || "/assets/main-slide.png";
   const aboutImages = managerThumbs(8);
+  const homeBoards = [
+    ["공지사항", boards.notice],
+    ["출근부", boards.day],
+    ["매니저 프로필", boards.gallery],
+    ["이용후기", boards.review],
+  ];
   layout(`
     ${renderActivePopups()}
     <section class="visual-banner" style="--main-visual-image: url('${escapeHtml(cssImageUrl(mainImage))}')">
@@ -590,10 +593,8 @@ function renderHome() {
 
     <section class="main-section main-latest-list">
       <div class="inner latest-wrap">
-        ${latestBox("출근부", boards.day)}
-        ${latestBox("공지사항", boards.notice)}
+        ${homeBoards.map(([label, board]) => latestBox(label, board)).join("")}
       </div>
-      ${renderHomeWidgets()}
     </section>
 
     <section class="main-section about">
@@ -606,24 +607,6 @@ function renderHome() {
       <div class="inner about-content">
         <h2>About ${escapeHtml(config.siteName)}</h2>
         <p>안녕하세요. ${escapeHtml(config.siteName)}입니다.<br>${escapeHtml(config.description)}</p>
-        <div class="about-actions">
-          <a href="${navHref("day")}" class="view-more">출근부</a>
-          <a href="${navHref("gallery")}" class="view-more">매니저 프로필</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="main-section contact">
-      <div class="inner contact-grid">
-        <div class="customer-box">
-          <p class="tit">Customer Center</p>
-          <p class="txt"><span>친절히 상담해 드리겠습니다.</span><br><strong>영업시간 : ${escapeHtml(config.hours)}</strong><br>${escapeHtml(config.address)}</p>
-          <a href="/theme/home/sub/map.php">오시는길 →</a>
-        </div>
-        <div class="quick-boxes">
-          <a href="${navHref("gallery")}"><span>매니저 프로필</span><em>매니저 사진과 프로필</em><b>more →</b></a>
-          <a href="/bbs/board.php?bo_table=review"><span>이용후기</span><em>${escapeHtml(config.siteName)} 이용후기</em><b>more →</b></a>
-        </div>
       </div>
     </section>
   `);
@@ -719,12 +702,12 @@ function bindPollForm() {
 function latestBox(label, board) {
   const table = boardKeyByTitle(board.title);
   const items = board.posts.length
-    ? board.posts.slice(0, 2).map((post, index) => `
+    ? board.posts.slice(0, 5).map((post, index) => `
       <li>
         <a class="list-link" href="${navHref(table)}&wr_id=${post.id || index}">
           <div class="list-tit-box">
-            <div class="list-tit">${post.title}<span class="hot-icon">H</span></div>
-            <span class="lt-date">${post.date}</span>
+            <div class="list-tit">${escapeHtml(post.title || "제목 없음")}<span class="hot-icon">H</span></div>
+            <span class="lt-date">${escapeHtml(post.date || "")}</span>
           </div>
         </a>
       </li>`).join("")
@@ -1993,10 +1976,18 @@ function pointsPanel() {
 function visitsPanel() {
   const selectedDate = new URLSearchParams(location.search).get("date") || "";
   const logs = (adminState.visitLogs || []).filter((log) => !selectedDate || log.date === selectedDate);
+  const visitRows = (adminState.visits || []).map((visit) => {
+    const dateLogs = (adminState.visitLogs || []).filter((log) => log.date === visit.date);
+    const uniqueIps = new Set(dateLogs.map((log) => String(log.ip || "")).filter(Boolean));
+    return {
+      ...visit,
+      count: uniqueIps.size || Number(visit.count || 0),
+    };
+  });
   return `
     <section class="admin-card">
       <h2>접속자집계</h2>
-      ${adminTable(["일자", "방문수", "상세"], adminState.visits.map((visit) => [
+      ${adminTable(["일자", "방문수", "상세"], visitRows.map((visit) => [
         visit.date,
         visit.count,
         `<a class="admin-mini-link" href="/adm/?section=visits&date=${encodeURIComponent(visit.date)}" data-visit-date="${escapeHtml(visit.date)}">방문자 보기</a>`,
@@ -2004,7 +1995,7 @@ function visitsPanel() {
     </section>
     <section class="admin-card">
       <h2>${selectedDate ? `${escapeHtml(selectedDate)} 방문자 상세` : "전체 방문자 상세"}</h2>
-      ${adminTable(["시간", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "IP"], logs.map((log) => [
+      ${adminTable(["시간", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "IP", "방문 횟수"], logs.map((log) => [
         escapeHtml(log.time || ""),
         escapeHtml(log.memberId || "비회원"),
         escapeHtml(log.name || "-"),
@@ -2013,9 +2004,17 @@ function visitsPanel() {
         escapeHtml(log.browser || "-"),
         escapeHtml(log.os || "-"),
         escapeHtml(log.ip || "-"),
+        visitCountForIp(log, adminState.visitLogs || []),
       ]))}
     </section>
   `;
+}
+
+function visitCountForIp(log, logs) {
+  if (Number(log.visitCountByIp || 0) > 0) return Number(log.visitCountByIp);
+  const ip = String(log.ip || "");
+  if (!ip) return 0;
+  return logs.filter((item) => item.date === log.date && String(item.ip || "") === ip).length || 1;
 }
 
 function writeCountPanel() {
@@ -2521,11 +2520,24 @@ function bindAdminSection(section) {
 }
 
 function today() {
-  return new Date().toISOString().slice(0, 10);
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
 }
 
 function nowText() {
-  return new Date().toLocaleString("ko-KR");
+  return new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+  }).format(new Date());
 }
 
 function escapeHtml(value) {

@@ -23,6 +23,27 @@ function clientIp(req) {
   return String(req.headers["x-real-ip"] || req.socket?.remoteAddress || "");
 }
 
+function koreaDate(value = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(value);
+}
+
+function koreaTime(value = new Date()) {
+  return new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+  }).format(value);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return json(res, 405, { error: "Method not allowed" });
@@ -38,7 +59,7 @@ export default async function handler(req, res) {
   const { browser, os } = parseUserAgent(userAgent);
   const ip = clientIp(req);
   const now = new Date();
-  const date = now.toISOString().slice(0, 10);
+  const date = koreaDate(now);
 
   const { data, error: readError } = await supabase
     .from("site_state")
@@ -55,19 +76,24 @@ export default async function handler(req, res) {
   const member = members.find((item) => String(item.id) === String(memberId));
   const visits = Array.isArray(state.visits) ? state.visits : [];
   const visitLogs = Array.isArray(state.visitLogs) ? state.visitLogs : [];
+  const sameDayIpLogs = visitLogs.filter((log) => log.date === date && String(log.ip || "") === ip);
+  const visitCountByIp = sameDayIpLogs.length + 1;
   const day = visits.find((item) => item.date === date);
   if (day) {
-    day.count = Number(day.count || 0) + 1;
+    const uniqueIps = new Set(visitLogs.filter((log) => log.date === date).map((log) => String(log.ip || "")).filter(Boolean));
+    if (ip) uniqueIps.add(ip);
+    day.count = uniqueIps.size;
     day.browser = browser;
     day.os = os;
+    day.uniqueIps = [...uniqueIps];
   } else {
-    visits.unshift({ date, count: 1, browser, os });
+    visits.unshift({ date, count: ip ? 1 : 0, browser, os, uniqueIps: ip ? [ip] : [] });
   }
 
   visitLogs.unshift({
     id: `${Date.now()}`,
     date,
-    time: now.toLocaleString("ko-KR"),
+    time: koreaTime(now),
     memberId: member ? String(member.id) : "",
     name: member ? String(member.name || "") : "",
     nick: member ? String(member.nick || "") : "",
@@ -75,6 +101,7 @@ export default async function handler(req, res) {
     browser,
     os,
     ip,
+    visitCountByIp,
     userAgent,
   });
 
