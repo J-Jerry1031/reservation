@@ -87,7 +87,7 @@ const defaultAdminState = {
     metaTitle: "분당 Fox",
     metaDescription: "분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요.",
     metaKeywords: "분당 Fox\n분당폭스\n분당 데이트카페\n야탑 데이트카페\n분당 매니저 프로필\n실시간 출근부",
-    ogImage: "/assets/main-slide.png",
+    ogImage: "/assets/fox-og-20260609.png",
     canonicalUrl: "https://xn--she-vg3mw53b.com/",
     robots: "index,follow",
     googleVerification: "",
@@ -197,10 +197,12 @@ function syncChrome() {
   setMeta("name", "description", description);
   setMeta("name", "keywords", keywords);
   setMeta("name", "robots", config.robots || "index,follow");
-  const socialImage = adminState.themeSettings.mainImage || config.ogImage || "/assets/main-slide.png";
+  const socialImage = config.ogImage || adminState.themeSettings.mainImage || "/assets/fox-og-20260609.png";
   setMeta("property", "og:title", title);
   setMeta("property", "og:description", description);
   setMeta("property", "og:image", absoluteUrl(socialImage));
+  setMeta("property", "og:image:secure_url", absoluteUrl(socialImage));
+  setMeta("property", "og:image:type", "image/png");
   setMeta("property", "og:url", pageUrl());
   setMeta("name", "twitter:card", "summary_large_image");
   setMeta("name", "twitter:title", title);
@@ -451,6 +453,9 @@ function ensureFoxSeoState(state) {
     if (!keywords.includes(keyword)) keywords.push(keyword);
   });
   config.metaKeywords = keywords.join("\n");
+  if (!config.ogImage || config.ogImage.includes("main-slide")) {
+    config.ogImage = "/assets/fox-og-20260609.png";
+  }
   config.robots = "index,follow";
   state.config = config;
   state.themeSettings = {
@@ -2214,7 +2219,7 @@ function bindAdminSection(section) {
     adminState.config = {
       ...adminState.config,
       ...form,
-      ogImage: "/assets/main-slide.png",
+      ogImage: "/assets/fox-og-20260609.png",
       canonicalUrl: "https://xn--she-vg3mw53b.com/",
       robots: "index,follow",
       googleVerification: "",
