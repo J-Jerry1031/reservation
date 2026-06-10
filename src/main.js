@@ -1136,7 +1136,7 @@ function renderWritePage() {
         schedule: form.managerSchedule || "",
         profile: form.managerProfile || excerpt(content),
       };
-      nextPost.title = nextPost.manager.name;
+      nextPost.title = form.title || nextPost.manager.name;
       nextPost.summary = nextPost.manager.profile;
     }
     if (post) {
