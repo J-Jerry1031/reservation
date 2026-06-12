@@ -106,7 +106,7 @@ export default async function handler(req, res) {
   });
 
   state.visits = visits;
-  state.visitLogs = visitLogs.slice(0, 1000);
+  state.visitLogs = visitLogs;
 
   const { error: writeError } = await supabase
     .from("site_state")
