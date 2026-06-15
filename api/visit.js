@@ -44,6 +44,14 @@ function koreaTime(value = new Date()) {
   }).format(value);
 }
 
+function recentVisitLogDates(now = new Date()) {
+  const oneDay = 24 * 60 * 60 * 1000;
+  return new Set([
+    koreaDate(now),
+    koreaDate(new Date(now.getTime() - oneDay)),
+  ]);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return json(res, 405, { error: "Method not allowed" });
@@ -105,8 +113,9 @@ export default async function handler(req, res) {
     userAgent,
   });
 
+  const keepDates = recentVisitLogDates(now);
   state.visits = visits;
-  state.visitLogs = visitLogs;
+  state.visitLogs = visitLogs.filter((log) => keepDates.has(log.date));
 
   const { error: writeError } = await supabase
     .from("site_state")
