@@ -86,7 +86,7 @@ const defaultAdminState = {
     theme: "home",
     metaTitle: "분당 Fox",
     metaDescription: "분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요.",
-    metaKeywords: "분당 Fox\n분당폭스\n분당 데이트카페\n야탑 데이트카페\n분당 매니저 프로필\n실시간 출근부",
+    metaKeywords: "분당 Fox\n분당폭스\n분당키스방\n분당 키스방\n야탑 키스방\n성남 키스방\n분당 데이트카페\n야탑 데이트카페\n분당 매니저 프로필\n실시간 출근부",
     ogImage: "/assets/fox-og-20260609.png",
     canonicalUrl: "https://xn--she-vg3mw53b.com/",
     robots: "index,follow",
@@ -449,7 +449,7 @@ function ensureFoxSeoState(state) {
     config.metaDescription = "분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요.";
   }
   const keywords = seoKeywords(config.metaKeywords);
-  ["분당 Fox", "분당폭스", "분당 데이트카페", "야탑 데이트카페", "분당 매니저 프로필", "실시간 출근부"].forEach((keyword) => {
+  ["분당 Fox", "분당폭스", "분당키스방", "분당 키스방", "야탑 키스방", "성남 키스방", "분당 데이트카페", "야탑 데이트카페", "분당 매니저 프로필", "실시간 출근부"].forEach((keyword) => {
     if (!keywords.includes(keyword)) keywords.push(keyword);
   });
   config.metaKeywords = keywords.join("\n");
