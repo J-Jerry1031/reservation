@@ -90,7 +90,7 @@ const defaultAdminState = {
     ogImage: "/assets/fox-og-20260609.png",
     canonicalUrl: "https://xn--she-vg3mw53b.com/",
     robots: "index,follow",
-    googleVerification: "",
+    googleVerification: "I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI",
     naverVerification: "",
   },
   boards: defaultBoards,
@@ -456,6 +456,7 @@ function ensureFoxSeoState(state) {
   if (!config.ogImage || config.ogImage.includes("main-slide")) {
     config.ogImage = "/assets/fox-og-20260609.png";
   }
+  config.googleVerification = config.googleVerification || "I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI";
   config.robots = "index,follow";
   state.config = config;
   state.themeSettings = {
@@ -2223,7 +2224,7 @@ function bindAdminSection(section) {
       ogImage: "/assets/fox-og-20260609.png",
       canonicalUrl: "https://xn--she-vg3mw53b.com/",
       robots: "index,follow",
-      googleVerification: "",
+      googleVerification: form.googleVerification || adminState.config.googleVerification || "I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI",
       naverVerification: "",
     };
     await saveAdminState();
