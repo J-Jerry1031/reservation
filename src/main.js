@@ -612,6 +612,7 @@ function renderHome() {
       <div class="inner about-content">
         <h2>About ${escapeHtml(config.siteName)}</h2>
         <p>안녕하세요. ${escapeHtml(config.siteName)}입니다.<br>${escapeHtml(config.description)}</p>
+        <p class="local-seo-copy">분당·야탑 인근 키스방 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
       </div>
     </section>
   `);
