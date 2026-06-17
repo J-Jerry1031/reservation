@@ -44,6 +44,89 @@ function koreaTime(value = new Date()) {
   }).format(value);
 }
 
+function trimText(value, max = 500) {
+  return String(value || "").slice(0, max);
+}
+
+function queryParam(url, names = []) {
+  try {
+    const parsed = new URL(url);
+    for (const name of names) {
+      const value = parsed.searchParams.get(name);
+      if (value) return value;
+    }
+  } catch {
+  }
+  return "";
+}
+
+function classifySource({ referrer, landingUrl, utmSource, utmMedium, utmCampaign, utmTerm }) {
+  const ref = trimText(referrer, 1000);
+  const landing = trimText(landingUrl, 1000);
+  const source = trimText(utmSource, 80).toLowerCase();
+  const medium = trimText(utmMedium, 80);
+  const campaign = trimText(utmCampaign, 120);
+  const term = trimText(utmTerm || queryParam(ref, ["q", "query", "keyword", "search_query"]), 120);
+
+  if (source) {
+    const normalized = source.includes("google") ? "google"
+      : source.includes("naver") ? "naver"
+        : source.includes("kakao") || source.includes("daum") ? "kakao"
+          : source.includes("instagram") ? "instagram"
+            : source;
+    return {
+      source: normalized,
+      sourceLabel: sourceLabel(normalized),
+      medium,
+      campaign,
+      searchTerm: term,
+      referrer: ref,
+      landingUrl: landing,
+    };
+  }
+
+  if (!ref) {
+    return { source: "direct", sourceLabel: "직접유입", medium: "", campaign, searchTerm: term, referrer: "", landingUrl: landing };
+  }
+
+  let host = "";
+  try {
+    host = new URL(ref).hostname.replace(/^www\./, "").toLowerCase();
+  } catch {
+  }
+
+  const ownHosts = new Set(["xn--she-vg3mw53b.com", "분당she.com", "bundangshe.com"]);
+  const sourceKey = host.includes("google.") ? "google"
+    : host.includes("naver.") ? "naver"
+      : host.includes("kakao.") || host.includes("daum.") ? "kakao"
+        : host.includes("instagram.") ? "instagram"
+          : ownHosts.has(host) ? "internal"
+            : "external";
+
+  return {
+    source: sourceKey,
+    sourceLabel: sourceLabel(sourceKey),
+    medium,
+    campaign,
+    searchTerm: term,
+    referrer: ref,
+    landingUrl: landing,
+  };
+}
+
+function sourceLabel(value) {
+  const labels = {
+    google: "구글",
+    naver: "네이버",
+    kakao: "카카오/다음",
+    instagram: "인스타그램",
+    direct: "직접유입",
+    internal: "사이트 내부이동",
+    external: "외부사이트",
+  };
+  return labels[value] || value || "직접유입";
+}
+
 function recentVisitLogDates(now = new Date()) {
   const oneDay = 24 * 60 * 60 * 1000;
   return new Set([
@@ -62,12 +145,20 @@ export default async function handler(req, res) {
     return json(res, 503, { error: "Supabase env vars are not configured" });
   }
 
-  const { memberId } = req.body || {};
+  const { memberId, referrer, landingUrl, path, utmSource, utmMedium, utmCampaign, utmTerm } = req.body || {};
   const userAgent = String(req.headers["user-agent"] || "");
   const { browser, os } = parseUserAgent(userAgent);
   const ip = clientIp(req);
   const now = new Date();
   const date = koreaDate(now);
+  const traffic = classifySource({
+    referrer: referrer || req.headers.referer || "",
+    landingUrl,
+    utmSource,
+    utmMedium,
+    utmCampaign,
+    utmTerm,
+  });
 
   const { data, error: readError } = await supabase
     .from("site_state")
@@ -108,6 +199,16 @@ export default async function handler(req, res) {
     os,
     ip,
     visitCountByIp,
+    source: traffic.source,
+    sourceLabel: traffic.sourceLabel,
+    referrer: traffic.referrer,
+    landingUrl: traffic.landingUrl,
+    path: trimText(path, 500),
+    utmSource: trimText(utmSource, 80),
+    utmMedium: traffic.medium,
+    utmCampaign: traffic.campaign,
+    utmTerm: trimText(utmTerm, 120),
+    searchTerm: traffic.searchTerm,
     userAgent,
   });
 

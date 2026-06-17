@@ -92,6 +92,8 @@ const defaultAdminState = {
     robots: "index,follow",
     googleVerification: "I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI",
     naverVerification: "",
+    gaMeasurementId: "",
+    naverAnalyticsId: "",
   },
   boards: defaultBoards,
   members: [
@@ -211,6 +213,7 @@ function syncChrome() {
   setLink("canonical", pageUrl());
   if (config.googleVerification) setMeta("name", "google-site-verification", config.googleVerification);
   if (config.naverVerification) setMeta("name", "naver-site-verification", config.naverVerification);
+  syncAnalyticsScripts(config);
   document.documentElement.style.setProperty("--admin-primary", adminState.themeSettings.primaryColor || "#c92346");
   document.body.dataset.theme = adminState.themeSettings.headerMode || "dark";
   const heading = document.querySelector("#hd h1");
@@ -306,6 +309,47 @@ function setLink(rel, href) {
     document.head.appendChild(tag);
   }
   tag.setAttribute("href", href);
+}
+
+function syncAnalyticsScripts(config = {}) {
+  syncGa4Script(String(config.gaMeasurementId || "").trim());
+  syncNaverAnalyticsScript(String(config.naverAnalyticsId || "").trim());
+}
+
+function syncGa4Script(measurementId) {
+  document.querySelectorAll("[data-managed-ga4]").forEach((node) => node.remove());
+  if (!/^G-[A-Z0-9]+$/i.test(measurementId)) return;
+  const loader = document.createElement("script");
+  loader.async = true;
+  loader.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+  loader.dataset.managedGa4 = "loader";
+  const inline = document.createElement("script");
+  inline.dataset.managedGa4 = "config";
+  inline.textContent = `
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${measurementId}');
+  `;
+  document.head.append(loader, inline);
+}
+
+function syncNaverAnalyticsScript(siteId) {
+  document.querySelectorAll("[data-managed-naver-analytics]").forEach((node) => node.remove());
+  if (!siteId) return;
+  const inline = document.createElement("script");
+  inline.dataset.managedNaverAnalytics = "config";
+  inline.textContent = `
+    if (!window.wcs_add) window.wcs_add = {};
+    window.wcs_add.wa = '${siteId.replace(/['\\]/g, "")}';
+  `;
+  const loader = document.createElement("script");
+  loader.src = "https://wcs.naver.net/wcslog.js";
+  loader.dataset.managedNaverAnalytics = "loader";
+  loader.onload = () => {
+    if (window.wcs_do) window.wcs_do();
+  };
+  document.head.append(inline, loader);
 }
 
 function absoluteUrl(value) {
@@ -540,11 +584,21 @@ function storeMemberSession(member, remember = false) {
 async function recordVisit() {
   if (path.includes("/adm")) return;
   const user = memberSession() || (isAdminLoggedIn() ? { id: "admin" } : null);
+  const params = new URLSearchParams(location.search);
   try {
     await fetch("/api/visit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ memberId: user?.id || "" }),
+      body: JSON.stringify({
+        memberId: user?.id || "",
+        referrer: document.referrer || "",
+        landingUrl: location.href,
+        path: location.pathname + location.search,
+        utmSource: params.get("utm_source") || "",
+        utmMedium: params.get("utm_medium") || "",
+        utmCampaign: params.get("utm_campaign") || "",
+        utmTerm: params.get("utm_term") || params.get("query") || params.get("q") || "",
+      }),
     });
   } catch {
   }
@@ -1802,6 +1856,13 @@ function configPanel() {
           <strong class="seo-preview-title">등록된 키워드</strong>
           <div data-seo-chip-preview>${renderKeywordChips(config.metaKeywords)}</div>
         </div>
+        <label>GA4 Measurement ID
+          <input name="gaMeasurementId" value="${escapeHtml(config.gaMeasurementId || "")}" placeholder="예: G-XXXXXXXXXX">
+        </label>
+        <label>네이버 애널리틱스 ID
+          <input name="naverAnalyticsId" value="${escapeHtml(config.naverAnalyticsId || "")}" placeholder="네이버 애널리틱스 발급 ID">
+        </label>
+        <p class="admin-muted">유입 검색어는 구글 정책상 대부분 제공되지 않습니다. 검색어/노출/클릭은 Search Console에서 확인하고, 이 관리자 화면은 referrer와 UTM 기준 유입경로를 기록합니다.</p>
       </section>
       <button type="submit">저장</button>
     </form>
@@ -1983,6 +2044,7 @@ function pointsPanel() {
 function visitsPanel() {
   const selectedDate = new URLSearchParams(location.search).get("date") || "";
   const logs = (adminState.visitLogs || []).filter((log) => !selectedDate || log.date === selectedDate);
+  const sourceRows = trafficSourceRows(logs);
   const visitRows = (adminState.visits || []).map((visit) => {
     const dateLogs = (adminState.visitLogs || []).filter((log) => log.date === visit.date);
     const uniqueIps = new Set(dateLogs.map((log) => String(log.ip || "")).filter(Boolean));
@@ -2001,8 +2063,16 @@ function visitsPanel() {
       ]))}
     </section>
     <section class="admin-card">
+      <h2>${selectedDate ? `${escapeHtml(selectedDate)} 유입경로` : "전체 유입경로"}</h2>
+      ${adminTable(["유입경로", "방문수", "IP수"], sourceRows.map((row) => [
+        escapeHtml(row.label),
+        row.count,
+        row.ipCount,
+      ]))}
+    </section>
+    <section class="admin-card">
       <h2>${selectedDate ? `${escapeHtml(selectedDate)} 방문자 상세` : "전체 방문자 상세"}</h2>
-      ${adminTable(["시간", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "IP", "방문 횟수"], logs.map((log) => {
+      ${adminTable(["시간", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "IP", "방문 횟수", "유입경로", "유입URL", "검색어/UTM"], logs.map((log) => {
         const member = memberForVisitLog(log);
         return [
           escapeHtml(log.time || ""),
@@ -2014,10 +2084,36 @@ function visitsPanel() {
           escapeHtml(log.os || "-"),
           escapeHtml(log.ip || "-"),
           visitCountForIp(log, adminState.visitLogs || []),
+          escapeHtml(log.sourceLabel || log.source || "직접유입"),
+          log.referrer ? `<a href="${escapeHtml(log.referrer)}" target="_blank" rel="noopener noreferrer">${escapeHtml(shortUrl(log.referrer))}</a>` : "-",
+          escapeHtml(log.searchTerm || log.utmTerm || log.utmCampaign || "-"),
         ];
       }))}
     </section>
   `;
+}
+
+function trafficSourceRows(logs) {
+  const map = new Map();
+  logs.forEach((log) => {
+    const label = log.sourceLabel || log.source || "직접유입";
+    const row = map.get(label) || { label, count: 0, ips: new Set() };
+    row.count += 1;
+    if (log.ip) row.ips.add(String(log.ip));
+    map.set(label, row);
+  });
+  return [...map.values()]
+    .map((row) => ({ label: row.label, count: row.count, ipCount: row.ips.size }))
+    .sort((a, b) => b.count - a.count);
+}
+
+function shortUrl(value) {
+  try {
+    const url = new URL(value);
+    return `${url.hostname}${url.pathname}`.slice(0, 48);
+  } catch {
+    return String(value || "").slice(0, 48);
+  }
 }
 
 function memberForVisitLog(log) {
@@ -2235,6 +2331,8 @@ function bindAdminSection(section) {
       robots: "index,follow",
       googleVerification: form.googleVerification || adminState.config.googleVerification || "I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI",
       naverVerification: "",
+      gaMeasurementId: form.gaMeasurementId || "",
+      naverAnalyticsId: form.naverAnalyticsId || "",
     };
     await saveAdminState();
     syncChrome();
