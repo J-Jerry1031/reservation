@@ -2081,7 +2081,7 @@ function visitsPanel() {
           escapeHtml(log.name || member?.name || "-"),
           escapeHtml(log.nick || member?.nick || "-"),
           escapeHtml(log.phone || member?.phone || member?.contact || member?.mobile || "-"),
-          escapeHtml(log.browser || "-"),
+          escapeHtml(browserLabel(log)),
           escapeHtml(log.os || "-"),
           escapeHtml(log.ip || "-"),
           visitCountForIp(log, adminState.visitLogs || []),
@@ -2106,6 +2106,23 @@ function trafficSourceRows(logs) {
   return [...map.values()]
     .map((row) => ({ label: row.label, count: row.count, ipCount: row.ips.size }))
     .sort((a, b) => b.count - a.count);
+}
+
+function browserLabel(log) {
+  const ua = String(log?.userAgent || "");
+  if (/KAKAOTALK/i.test(ua)) return "카카오톡 인앱";
+  if (/NAVER\(inapp|NAVER/i.test(ua)) return "네이버 인앱";
+  if (/Instagram/i.test(ua)) return "인스타그램 인앱";
+  if (/FBAN|FBAV|FB_IAB|FBIOS|FB4A/i.test(ua)) return "페이스북 인앱";
+  if (/Line\//i.test(ua)) return "라인 인앱";
+  if (/DaumApps|DaumDevice/i.test(ua)) return "다음 인앱";
+  if (/CriOS/i.test(ua)) return "Chrome iOS";
+  if (/FxiOS/i.test(ua)) return "Firefox iOS";
+  if (/Edg\/|EdgiOS|EdgA/i.test(ua)) return "Edge";
+  if (/Whale/i.test(ua)) return "Whale";
+  if (/SamsungBrowser/i.test(ua)) return "Samsung Internet";
+  if (log?.browser && log.browser !== "기타") return log.browser;
+  return log?.browser || "기타";
 }
 
 function shortUrl(value) {

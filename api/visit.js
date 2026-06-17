@@ -2,12 +2,22 @@ import { getSupabase, json, visitStateId } from "./_shared.js";
 
 function parseUserAgent(userAgent = "") {
   const ua = String(userAgent);
-  const browser = /Edg\//.test(ua) ? "Edge"
-    : /Chrome\//.test(ua) && !/Chromium/.test(ua) ? "Chrome"
-      : /Safari\//.test(ua) && /Version\//.test(ua) ? "Safari"
-        : /Firefox\//.test(ua) ? "Firefox"
-          : /OPR\//.test(ua) || /Opera/.test(ua) ? "Opera"
-            : "기타";
+  const browser = /KAKAOTALK/i.test(ua) ? "카카오톡 인앱"
+    : /NAVER\(inapp|NAVER|Whale/i.test(ua) ? "네이버 인앱"
+      : /Instagram/i.test(ua) ? "인스타그램 인앱"
+        : /FBAN|FBAV|FB_IAB|FBIOS|FB4A/i.test(ua) ? "페이스북 인앱"
+          : /Line\//i.test(ua) ? "라인 인앱"
+            : /DaumApps|DaumDevice/i.test(ua) ? "다음 인앱"
+              : /CriOS/i.test(ua) ? "Chrome iOS"
+                : /FxiOS/i.test(ua) ? "Firefox iOS"
+                  : /Edg\//.test(ua) || /EdgiOS|EdgA/i.test(ua) ? "Edge"
+                    : /Whale/i.test(ua) ? "Whale"
+                      : /SamsungBrowser/i.test(ua) ? "Samsung Internet"
+                        : /Chrome\//.test(ua) && !/Chromium/.test(ua) ? "Chrome"
+                          : /Safari\//.test(ua) && /Version\//.test(ua) ? "Safari"
+                            : /Firefox\//.test(ua) ? "Firefox"
+                              : /OPR\//.test(ua) || /Opera/.test(ua) ? "Opera"
+                                : "기타";
   const os = /Windows NT/.test(ua) ? "Windows"
     : /Mac OS X/.test(ua) && !/Mobile/.test(ua) ? "macOS"
       : /Android/.test(ua) ? "Android"
