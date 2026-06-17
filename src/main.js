@@ -2072,10 +2072,11 @@ function visitsPanel() {
     </section>
     <section class="admin-card">
       <h2>${selectedDate ? `${escapeHtml(selectedDate)} 방문자 상세` : "전체 방문자 상세"}</h2>
-      ${adminTable(["시간", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "IP", "방문 횟수", "유입경로", "유입URL", "검색어/UTM"], logs.map((log) => {
+      ${adminTable(["첫 방문", "마지막 방문", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "IP", "방문 횟수", "유입경로", "유입URL", "검색어/UTM"], logs.map((log) => {
         const member = memberForVisitLog(log);
         return [
-          escapeHtml(log.time || ""),
+          escapeHtml(log.firstTime || log.time || ""),
+          escapeHtml(log.lastTime || log.time || ""),
           escapeHtml(log.memberId || "비회원"),
           escapeHtml(log.name || member?.name || "-"),
           escapeHtml(log.nick || member?.nick || "-"),
@@ -2098,7 +2099,7 @@ function trafficSourceRows(logs) {
   logs.forEach((log) => {
     const label = log.sourceLabel || log.source || "직접유입";
     const row = map.get(label) || { label, count: 0, ips: new Set() };
-    row.count += 1;
+    row.count += Math.max(1, Number(log.visitCountByIp || 0) || 1);
     if (log.ip) row.ips.add(String(log.ip));
     map.set(label, row);
   });

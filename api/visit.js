@@ -135,6 +135,42 @@ function recentVisitLogDates(now = new Date()) {
   ]);
 }
 
+function logVisitCount(log) {
+  return Math.max(1, Number(log?.visitCountByIp || 0) || 1);
+}
+
+function compactVisitLogs(logs = []) {
+  const map = new Map();
+  const compacted = [];
+  logs.forEach((log) => {
+    const ip = String(log.ip || "");
+    const key = ip ? `${log.date || ""}|${ip}` : "";
+    if (!key) {
+      compacted.push(log);
+      return;
+    }
+    const current = map.get(key);
+    if (!current) {
+      const next = { ...log, visitCountByIp: logVisitCount(log) };
+      map.set(key, next);
+      compacted.push(next);
+      return;
+    }
+    current.visitCountByIp += logVisitCount(log);
+    current.firstTime = log.firstTime || log.time || current.firstTime;
+    current.source = log.source || current.source;
+    current.sourceLabel = log.sourceLabel || current.sourceLabel;
+    current.referrer = log.referrer || current.referrer;
+    current.landingUrl = log.landingUrl || current.landingUrl;
+    current.utmSource = log.utmSource || current.utmSource;
+    current.utmMedium = log.utmMedium || current.utmMedium;
+    current.utmCampaign = log.utmCampaign || current.utmCampaign;
+    current.utmTerm = log.utmTerm || current.utmTerm;
+    current.searchTerm = log.searchTerm || current.searchTerm;
+  });
+  return compacted;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return json(res, 405, { error: "Method not allowed" });
@@ -173,8 +209,9 @@ export default async function handler(req, res) {
   const state = data?.data || {};
   const visits = Array.isArray(state.visits) ? state.visits : [];
   const visitLogs = Array.isArray(state.visitLogs) ? state.visitLogs : [];
-  const sameDayIpLogs = visitLogs.filter((log) => log.date === date && String(log.ip || "") === ip);
-  const visitCountByIp = sameDayIpLogs.length + 1;
+  const existingLogs = visitLogs.filter((log) => log.date === date && String(log.ip || "") === ip);
+  const existingLog = existingLogs[0] || null;
+  const visitCountByIp = existingLogs.reduce((total, log) => total + logVisitCount(log), 0) + 1;
   const day = visits.find((item) => item.date === date);
   if (day) {
     const uniqueIps = new Set(visitLogs.filter((log) => log.date === date).map((log) => String(log.ip || "")).filter(Boolean));
@@ -187,11 +224,14 @@ export default async function handler(req, res) {
     visits.unshift({ date, count: ip ? 1 : 0, browser, os, uniqueIps: ip ? [ip] : [] });
   }
 
-  visitLogs.unshift({
-    id: `${Date.now()}`,
+  const nextLog = {
+    ...(existingLog || {}),
+    id: existingLog?.id || `${Date.now()}`,
     date,
     time: koreaTime(now),
-    memberId: memberId ? String(memberId) : "",
+    firstTime: existingLog?.firstTime || existingLog?.time || koreaTime(now),
+    lastTime: koreaTime(now),
+    memberId: existingLog?.memberId || (memberId ? String(memberId) : ""),
     name: "",
     nick: "",
     phone: "",
@@ -199,22 +239,29 @@ export default async function handler(req, res) {
     os,
     ip,
     visitCountByIp,
-    source: traffic.source,
-    sourceLabel: traffic.sourceLabel,
-    referrer: traffic.referrer,
-    landingUrl: traffic.landingUrl,
-    path: trimText(path, 500),
-    utmSource: trimText(utmSource, 80),
-    utmMedium: traffic.medium,
-    utmCampaign: traffic.campaign,
-    utmTerm: trimText(utmTerm, 120),
-    searchTerm: traffic.searchTerm,
+    source: existingLog?.source || traffic.source,
+    sourceLabel: existingLog?.sourceLabel || traffic.sourceLabel,
+    lastSource: traffic.source,
+    lastSourceLabel: traffic.sourceLabel,
+    referrer: existingLog?.referrer || traffic.referrer,
+    lastReferrer: traffic.referrer,
+    landingUrl: existingLog?.landingUrl || traffic.landingUrl,
+    lastLandingUrl: traffic.landingUrl,
+    path: trimText(path, 500) || existingLog?.path || "",
+    utmSource: existingLog?.utmSource || trimText(utmSource, 80),
+    utmMedium: existingLog?.utmMedium || traffic.medium,
+    utmCampaign: existingLog?.utmCampaign || traffic.campaign,
+    utmTerm: existingLog?.utmTerm || trimText(utmTerm, 120),
+    searchTerm: existingLog?.searchTerm || traffic.searchTerm,
     userAgent,
-  });
+  };
 
   const keepDates = recentVisitLogDates(now);
   state.visits = visits;
-  state.visitLogs = visitLogs.filter((log) => keepDates.has(log.date));
+  state.visitLogs = compactVisitLogs([
+    nextLog,
+    ...visitLogs.filter((log) => !(log.date === date && String(log.ip || "") === ip)),
+  ].filter((log) => keepDates.has(log.date)));
 
   const { error: writeError } = await supabase
     .from("site_state")
