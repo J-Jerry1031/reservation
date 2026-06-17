@@ -2,6 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import crypto from "node:crypto";
 
 export const stateId = "default";
+export const visitStateId = "visits";
 export const defaultAdminHash = "736e537f0f664a3d8208e88c114f2c5a16fff5800e5c146b0b83b1c43213d003";
 
 export function getSupabase() {

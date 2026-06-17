@@ -1,4 +1,4 @@
-import { getSupabase, json, stateId } from "./_shared.js";
+import { getSupabase, json, visitStateId } from "./_shared.js";
 
 function parseUserAgent(userAgent = "") {
   const ua = String(userAgent);
@@ -72,7 +72,7 @@ export default async function handler(req, res) {
   const { data, error: readError } = await supabase
     .from("site_state")
     .select("data")
-    .eq("id", stateId)
+    .eq("id", visitStateId)
     .maybeSingle();
 
   if (readError) {
@@ -80,8 +80,6 @@ export default async function handler(req, res) {
   }
 
   const state = data?.data || {};
-  const members = Array.isArray(state.members) ? state.members : [];
-  const member = members.find((item) => String(item.id) === String(memberId));
   const visits = Array.isArray(state.visits) ? state.visits : [];
   const visitLogs = Array.isArray(state.visitLogs) ? state.visitLogs : [];
   const sameDayIpLogs = visitLogs.filter((log) => log.date === date && String(log.ip || "") === ip);
@@ -102,10 +100,10 @@ export default async function handler(req, res) {
     id: `${Date.now()}`,
     date,
     time: koreaTime(now),
-    memberId: member ? String(member.id) : "",
-    name: member ? String(member.name || "") : "",
-    nick: member ? String(member.nick || "") : "",
-    phone: member ? String(member.phone || member.contact || member.mobile || "") : "",
+    memberId: memberId ? String(memberId) : "",
+    name: "",
+    nick: "",
+    phone: "",
     browser,
     os,
     ip,
@@ -119,7 +117,7 @@ export default async function handler(req, res) {
 
   const { error: writeError } = await supabase
     .from("site_state")
-    .upsert({ id: stateId, data: state, updated_at: now.toISOString() });
+    .upsert({ id: visitStateId, data: state, updated_at: now.toISOString() });
 
   if (writeError) {
     return json(res, 500, { error: writeError.message });

@@ -2002,19 +2002,28 @@ function visitsPanel() {
     </section>
     <section class="admin-card">
       <h2>${selectedDate ? `${escapeHtml(selectedDate)} 방문자 상세` : "전체 방문자 상세"}</h2>
-      ${adminTable(["시간", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "IP", "방문 횟수"], logs.map((log) => [
-        escapeHtml(log.time || ""),
-        escapeHtml(log.memberId || "비회원"),
-        escapeHtml(log.name || "-"),
-        escapeHtml(log.nick || "-"),
-        escapeHtml(log.phone || "-"),
-        escapeHtml(log.browser || "-"),
-        escapeHtml(log.os || "-"),
-        escapeHtml(log.ip || "-"),
-        visitCountForIp(log, adminState.visitLogs || []),
-      ]))}
+      ${adminTable(["시간", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "IP", "방문 횟수"], logs.map((log) => {
+        const member = memberForVisitLog(log);
+        return [
+          escapeHtml(log.time || ""),
+          escapeHtml(log.memberId || "비회원"),
+          escapeHtml(log.name || member?.name || "-"),
+          escapeHtml(log.nick || member?.nick || "-"),
+          escapeHtml(log.phone || member?.phone || member?.contact || member?.mobile || "-"),
+          escapeHtml(log.browser || "-"),
+          escapeHtml(log.os || "-"),
+          escapeHtml(log.ip || "-"),
+          visitCountForIp(log, adminState.visitLogs || []),
+        ];
+      }))}
     </section>
   `;
+}
+
+function memberForVisitLog(log) {
+  const memberId = String(log.memberId || "");
+  if (!memberId || memberId === "admin") return null;
+  return (adminState.members || []).find((member) => String(member.id || "") === memberId) || null;
 }
 
 function visitCountForIp(log, logs) {
