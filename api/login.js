@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
   const token = signToken({
     sub: "admin",
-    exp: Date.now() + 1000 * 60 * 60,
+    exp: Date.now() + 1000 * 60 * 60 * 6,
   });
 
   return json(res, 200, { token });
