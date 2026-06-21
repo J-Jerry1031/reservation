@@ -3,23 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요." />
+    <meta name="description" content="분당·야탑 인근 분당 Fox 공식 사이트입니다. 오늘의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요." />
     <meta name="keywords" content="분당 Fox, 분당폭스, 분당키스방, 분당 키스방, 야탑 키스방, 성남 키스방, 분당 데이트카페, 야탑 데이트카페, 분당 매니저 프로필, 실시간 출근부" />
     <meta name="robots" content="index,follow" />
     <meta name="google-site-verification" content="I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI" />
     <link rel="canonical" href="https://xn--she-vg3mw53b.com/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="분당 Fox" />
-    <meta property="og:description" content="분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요." />
+    <meta property="og:title" content="분당 Fox | 분당·야탑 키스방 실시간 출근부" />
+    <meta property="og:description" content="분당·야탑 인근 분당 Fox 공식 사이트입니다. 오늘의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요." />
     <meta property="og:image" content="https://xn--she-vg3mw53b.com/assets/fox-og-20260609.png" />
     <meta property="og:image:secure_url" content="https://xn--she-vg3mw53b.com/assets/fox-og-20260609.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:url" content="https://xn--she-vg3mw53b.com/" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="분당 Fox" />
-    <meta name="twitter:description" content="분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요." />
+    <meta name="twitter:title" content="분당 Fox | 분당·야탑 키스방 실시간 출근부" />
+    <meta name="twitter:description" content="분당·야탑 인근 분당 Fox 공식 사이트입니다. 오늘의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요." />
     <meta name="twitter:image" content="https://xn--she-vg3mw53b.com/assets/fox-og-20260609.png" />
-    <title>분당 Fox</title>
+    <script type="application/ld+json" data-site-structured-data>
+      {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://xn--she-vg3mw53b.com/#organization","name":"분당 Fox","url":"https://xn--she-vg3mw53b.com/","logo":"https://xn--she-vg3mw53b.com/assets/fox-logo.png"},{"@type":"WebSite","@id":"https://xn--she-vg3mw53b.com/#website","name":"분당 Fox","url":"https://xn--she-vg3mw53b.com/","publisher":{"@id":"https://xn--she-vg3mw53b.com/#organization"}},{"@type":"WebPage","name":"분당 Fox | 분당·야탑 키스방 실시간 출근부","description":"분당·야탑 인근 분당 Fox 공식 사이트입니다. 오늘의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요.","url":"https://xn--she-vg3mw53b.com/","isPartOf":{"@id":"https://xn--she-vg3mw53b.com/#website"}}]}
+    </script>
+    <title>분당 Fox | 분당·야탑 키스방 실시간 출근부</title>
+    <script>
+      (() => {
+        const path = location.pathname;
+        const query = new URLSearchParams(location.search);
+        const table = query.get("bo_table");
+        const pages = {
+          day: ["분당·야탑 실시간 출근부 | 분당 Fox", "분당 Fox의 오늘 실시간 출근 정보와 최신 일정을 확인하세요."],
+          gallery: ["분당 매니저 프로필 | 분당 Fox", "분당 Fox 매니저의 최신 프로필과 출근 정보를 확인하세요."],
+          notice: ["분당 Fox 공지사항 | 분당·야탑 이용 안내", "분당 Fox의 운영 소식과 이용 안내를 확인하세요."],
+          review: ["분당 Fox 이용후기 | 분당·야탑", "분당 Fox 이용후기 게시판에서 최신 후기를 확인하세요."],
+        };
+        const page = path.includes("/bbs/board.php") && pages[table] ? pages[table] : null;
+        const noindex = /\/adm|\/bbs\/(login|register|member|write)\.php/.test(path);
+        if (!page && !noindex) return;
+        const canonical = page
+          ? `https://xn--she-vg3mw53b.com/bbs/board.php?bo_table=${encodeURIComponent(table)}`
+          : `https://xn--she-vg3mw53b.com${path}`;
+        if (page) document.title = page[0];
+        const setContent = (selector, value) => {
+          const node = document.querySelector(selector);
+          if (node) node.setAttribute("content", value);
+        };
+        if (page) {
+          setContent('meta[name="description"]', page[1]);
+          setContent('meta[property="og:title"]', page[0]);
+          setContent('meta[property="og:description"]', page[1]);
+          setContent('meta[property="og:url"]', canonical);
+          setContent('meta[name="twitter:title"]', page[0]);
+          setContent('meta[name="twitter:description"]', page[1]);
+        }
+        if (noindex) setContent('meta[name="robots"]', "noindex,nofollow");
+        const canonicalNode = document.querySelector('link[rel="canonical"]');
+        if (canonicalNode) canonicalNode.setAttribute("href", canonical);
+      })();
+    </script>
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/src/styles.css" />
@@ -46,7 +84,7 @@
       <section class="static-seo-summary">
         <div class="inner">
           <h2>분당 Fox</h2>
-          <p>분당·야탑 인근 키스방 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
+          <p>분당·야탑 인근에서 오늘의 실시간 출근부와 매니저 프로필, 운영 공지와 이용후기를 확인할 수 있는 공식 안내 사이트입니다.</p>
         </div>
       </section>
     </main>

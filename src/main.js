@@ -84,8 +84,8 @@ const defaultAdminState = {
     address: "분당 야탑역 도보 3분 직진 차병원 앞",
     hours: "AM 11:00~출근부 마감전까지",
     theme: "home",
-    metaTitle: "분당 Fox",
-    metaDescription: "분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요.",
+    metaTitle: "분당 Fox | 분당·야탑 키스방 실시간 출근부",
+    metaDescription: "분당·야탑 인근 분당 Fox 공식 사이트입니다. 오늘의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요.",
     metaKeywords: "분당 Fox\n분당폭스\n분당키스방\n분당 키스방\n야탑 키스방\n성남 키스방\n분당 데이트카페\n야탑 데이트카페\n분당 매니저 프로필\n실시간 출근부",
     ogImage: "/assets/fox-og-20260609.png",
     canonicalUrl: "https://xn--she-vg3mw53b.com/",
@@ -192,25 +192,27 @@ function visibleMenus() {
 
 function syncChrome() {
   const config = adminState.config;
-  const title = config.metaTitle || config.siteName;
-  const description = config.metaDescription || config.description;
+  const seo = currentPageSeo(config);
+  const title = seo.title;
+  const description = seo.description;
   const keywords = seoKeywords(config.metaKeywords).join(", ");
   document.title = title;
   setMeta("name", "description", description);
   setMeta("name", "keywords", keywords);
-  setMeta("name", "robots", config.robots || "index,follow");
+  setMeta("name", "robots", seo.robots);
   const socialImage = config.ogImage || adminState.themeSettings.mainImage || "/assets/fox-og-20260609.png";
   setMeta("property", "og:title", title);
   setMeta("property", "og:description", description);
   setMeta("property", "og:image", absoluteUrl(socialImage));
   setMeta("property", "og:image:secure_url", absoluteUrl(socialImage));
   setMeta("property", "og:image:type", "image/png");
-  setMeta("property", "og:url", pageUrl());
+  setMeta("property", "og:url", seo.canonical);
   setMeta("name", "twitter:card", "summary_large_image");
   setMeta("name", "twitter:title", title);
   setMeta("name", "twitter:description", description);
   setMeta("name", "twitter:image", absoluteUrl(socialImage));
-  setLink("canonical", pageUrl());
+  setLink("canonical", seo.canonical);
+  setJsonLd(seo);
   if (config.googleVerification) setMeta("name", "google-site-verification", config.googleVerification);
   if (config.naverVerification) setMeta("name", "naver-site-verification", config.naverVerification);
   syncAnalyticsScripts(config);
@@ -311,6 +313,92 @@ function setLink(rel, href) {
   tag.setAttribute("href", href);
 }
 
+function currentPageSeo(config) {
+  const origin = String(config.canonicalUrl || "https://xn--she-vg3mw53b.com/").replace(/\/$/, "");
+  const siteName = config.siteName || "분당 Fox";
+  const home = {
+    title: config.metaTitle || `${siteName} | 분당·야탑 키스방 실시간 출근부`,
+    description: config.metaDescription || `분당·야탑 인근 ${siteName}의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요.`,
+    canonical: `${origin}/`,
+    robots: config.robots || "index,follow",
+    type: "website",
+  };
+  if (/\/adm|\/bbs\/(login|register|member|write)\.php/.test(path)) {
+    return { ...home, canonical: `${origin}${path}`, robots: "noindex,nofollow" };
+  }
+  if (!path.includes("/bbs/board.php")) return home;
+
+  const table = params.get("bo_table") || "day";
+  const boardSeo = {
+    day: {
+      title: `분당·야탑 실시간 출근부 | ${siteName}`,
+      description: `${siteName}의 오늘 실시간 출근 정보와 최신 일정을 확인하세요.`,
+    },
+    gallery: {
+      title: `분당 매니저 프로필 | ${siteName}`,
+      description: `${siteName} 매니저의 최신 프로필과 출근 정보를 확인하세요.`,
+    },
+    notice: {
+      title: `${siteName} 공지사항 | 분당·야탑 이용 안내`,
+      description: `${siteName}의 운영 소식과 이용 안내를 확인하세요.`,
+    },
+    review: {
+      title: `${siteName} 이용후기 | 분당·야탑`,
+      description: `${siteName} 이용후기 게시판에서 최신 후기를 확인하세요.`,
+    },
+  }[table] || {
+    title: `${boards[table]?.title || "게시판"} | ${siteName}`,
+    description: `${siteName} ${boards[table]?.title || "게시판"}입니다.`,
+  };
+  const wrId = params.get("wr_id");
+  const post = wrId !== null ? findPost(boards[table] || { posts: [] }, wrId) : null;
+  const canonicalParams = new URLSearchParams({ bo_table: table });
+  if (wrId !== null) canonicalParams.set("wr_id", wrId);
+  return {
+    title: post?.title ? `${post.title} | ${boards[table]?.title || "게시판"} | ${siteName}` : boardSeo.title,
+    description: post?.summary || plainText(post?.content || "").slice(0, 150) || boardSeo.description,
+    canonical: `${origin}/bbs/board.php?${canonicalParams}`,
+    robots: config.robots || "index,follow",
+    type: post ? "article" : "website",
+  };
+}
+
+function setJsonLd(seo) {
+  let script = document.querySelector("script[data-site-structured-data]");
+  if (!script) {
+    script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.dataset.siteStructuredData = "true";
+    document.head.appendChild(script);
+  }
+  script.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://xn--she-vg3mw53b.com/#organization",
+        name: adminState.config.siteName || "분당 Fox",
+        url: "https://xn--she-vg3mw53b.com/",
+        logo: absoluteUrl("/assets/fox-logo.png"),
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://xn--she-vg3mw53b.com/#website",
+        name: adminState.config.siteName || "분당 Fox",
+        url: "https://xn--she-vg3mw53b.com/",
+        publisher: { "@id": "https://xn--she-vg3mw53b.com/#organization" },
+      },
+      {
+        "@type": "WebPage",
+        name: seo.title,
+        description: seo.description,
+        url: seo.canonical,
+        isPartOf: { "@id": "https://xn--she-vg3mw53b.com/#website" },
+      },
+    ],
+  });
+}
+
 function syncAnalyticsScripts(config = {}) {
   syncGa4Script(String(config.gaMeasurementId || "").trim());
   syncNaverAnalyticsScript(String(config.naverAnalyticsId || "").trim());
@@ -375,6 +463,12 @@ function seoKeywords(value) {
     .map((item) => item.trim().replace(/^#+/, ""))
     .filter(Boolean)
     .filter((item, index, array) => array.indexOf(item) === index);
+}
+
+function plainText(value) {
+  const template = document.createElement("template");
+  template.innerHTML = String(value || "");
+  return String(template.content.textContent || "").replace(/\s+/g, " ").trim();
 }
 
 function seoKeywordValue(value) {
@@ -489,8 +583,11 @@ function ensureFoxSeoState(state) {
   const config = state.config || {};
   config.siteName = config.siteName || "분당 Fox";
   config.metaTitle = cleanMetaTitle(config.metaTitle, config.siteName || "분당 Fox");
-  if (!config.metaDescription || config.metaDescription.includes("매니저 안내")) {
-    config.metaDescription = "분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요.";
+  if (["분당 Fox", "분당Fox"].includes(config.metaTitle)) {
+    config.metaTitle = "분당 Fox | 분당·야탑 키스방 실시간 출근부";
+  }
+  if (!config.metaDescription || config.metaDescription.includes("매니저 안내") || config.metaDescription === "분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요.") {
+    config.metaDescription = "분당·야탑 인근 분당 Fox 공식 사이트입니다. 오늘의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요.";
   }
   const keywords = seoKeywords(config.metaKeywords);
   ["분당 Fox", "분당폭스", "분당키스방", "분당 키스방", "야탑 키스방", "성남 키스방", "분당 데이트카페", "야탑 데이트카페", "분당 매니저 프로필", "실시간 출근부"].forEach((keyword) => {
@@ -668,6 +765,23 @@ function renderHome() {
         <h2>About ${escapeHtml(config.siteName)}</h2>
         <p>안녕하세요. ${escapeHtml(config.siteName)}입니다.<br>${escapeHtml(config.description)}</p>
         <p class="local-seo-copy">분당·야탑 인근 키스방 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
+      </div>
+    </section>
+
+    <section class="main-section home-local-guide" aria-labelledby="local-guide-title">
+      <div class="inner home-local-guide-inner">
+        <div>
+          <p class="section-label">BUNDANG · YATAB</p>
+          <h2 id="local-guide-title">분당·야탑 실시간 안내</h2>
+          <p>${escapeHtml(config.siteName)}은 분당 야탑역 인근에서 오늘의 출근 일정과 매니저 프로필을 확인할 수 있는 공식 안내 사이트입니다.</p>
+          <p>운영시간은 ${escapeHtml(config.hours)}이며, 출근 정보와 공지사항은 운영 상황에 맞춰 수시로 업데이트됩니다.</p>
+        </div>
+        <nav class="home-guide-links" aria-label="주요 안내 바로가기">
+          <a href="/bbs/board.php?bo_table=day"><span>오늘의 일정</span><strong>실시간 출근부</strong></a>
+          <a href="/bbs/board.php?bo_table=gallery"><span>사진과 안내</span><strong>매니저 프로필</strong></a>
+          <a href="/bbs/board.php?bo_table=notice"><span>운영 정보</span><strong>공지사항</strong></a>
+          <a href="/bbs/board.php?bo_table=review"><span>이용자 게시판</span><strong>이용후기</strong></a>
+        </nav>
       </div>
     </section>
   `);
