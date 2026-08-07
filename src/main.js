@@ -75,6 +75,7 @@ const defaultBoards = {
 const app = document.querySelector("#app");
 const params = new URLSearchParams(location.search);
 const path = location.pathname;
+const defaultMainImage = "/assets/main-slide.png";
 document.body.classList.toggle("admin-mode", path.includes("/adm"));
 
 const defaultAdminState = {
@@ -127,8 +128,8 @@ const defaultAdminState = {
   themeSettings: {
     primaryColor: "#c92346",
     headerMode: "dark",
-    mainCopy: "낭만! 자연스런 교감!",
-    mainImage: "/assets/main-slide.png",
+    mainCopy: "",
+    mainImage: defaultMainImage,
   },
   groups: [
     { id: "community", name: "커뮤니티", description: "기본 게시판 그룹" },
@@ -286,7 +287,7 @@ function brandNameMarkup(value) {
 }
 
 function cssImageUrl(value) {
-  return String(value || "/assets/main-slide.png").replace(/[\\')]/g, "");
+  return String(value || defaultMainImage).replace(/[\\')]/g, "");
 }
 
 function setMeta(attr, key, content) {
@@ -603,7 +604,8 @@ function ensureFoxSeoState(state) {
   state.themeSettings = {
     ...defaultAdminState.themeSettings,
     ...(state.themeSettings || {}),
-    mainImage: state.themeSettings?.mainImage || "/assets/main-slide.png",
+    mainCopy: "",
+    mainImage: state.themeSettings?.mainImage || defaultMainImage,
   };
   return state;
 }
@@ -613,10 +615,10 @@ async function saveAdminState() {
   boards = adminState.boards;
   const token = sessionStorage.getItem("dateclubAdminToken") || localStorage.getItem("dateclubAdminToken");
   if (!token) {
-    return;
+    return false;
   }
   try {
-    await fetch("/api/state", {
+    const response = await fetch("/api/state", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -624,7 +626,9 @@ async function saveAdminState() {
       },
       body: JSON.stringify({ data: adminState }),
     });
+    return response.ok;
   } catch {
+    return false;
   }
 }
 
@@ -724,7 +728,7 @@ function navHref(table) {
 
 function renderHome() {
   const config = adminState.config;
-  const mainImage = adminState.themeSettings.mainImage || "/assets/main-slide.png";
+  const mainImage = adminState.themeSettings.mainImage || defaultMainImage;
   const aboutImages = managerThumbs(8);
   const homeBoards = [
     ["공지사항", boards.notice],
@@ -735,17 +739,7 @@ function renderHome() {
   layout(`
     ${renderActivePopups()}
     <section class="visual-banner" style="--main-visual-image: url('${escapeHtml(cssImageUrl(mainImage))}')">
-      <div class="inner hero-text active">
-        <h2 class="brand-title">${brandNameMarkup(config.siteName)}</h2>
-        <strong>${escapeHtml(config.description)}<br>${escapeHtml(config.address.replace(" 도보 3분 직진 차병원 앞", " 인근"))}</strong>
-      </div>
-      <div class="inner hero-text">
-        <h2 class="brand-title">${brandNameMarkup(config.siteName)}</h2>
-        <strong>${escapeHtml(adminState.themeSettings.mainCopy || "낭만! 자연스런 교감!")}</strong>
-      </div>
-      <button class="slide-nav prev" type="button" aria-label="이전">‹</button>
-      <button class="slide-nav next" type="button" aria-label="다음">›</button>
-      <div class="dots"><span class="on"></span><span></span></div>
+      <img class="visual-banner-image" src="${escapeHtml(mainImage)}" alt="${escapeHtml(config.siteName)} 메인 이미지">
     </section>
 
     <section class="main-section main-latest-list">
@@ -794,7 +788,7 @@ function managerThumbs(count = 8) {
   const images = (adminState.boards.gallery?.posts || [])
     .map((post) => postThumbnail(post))
     .filter(Boolean);
-  const fallback = adminState.themeSettings.mainImage || "/assets/main-slide.png";
+  const fallback = adminState.themeSettings.mainImage || defaultMainImage;
   while (images.length < count) images.push(fallback);
   return images.slice(0, count);
 }
@@ -1605,6 +1599,30 @@ async function uploadEditorImage(imageData, name = "image") {
   }
 }
 
+async function uploadThemeImage(imageData, name = "main-image") {
+  const token = sessionStorage.getItem("dateclubAdminToken") || localStorage.getItem("dateclubAdminToken") || "";
+  if (!token) throw new Error("Admin login required");
+  const response = await fetch("/api/upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      image: imageData,
+      name,
+      memberId: "",
+    }),
+  });
+  if (!response.ok) {
+    const message = await response.text().catch(() => "");
+    throw new Error(message || "Image upload failed");
+  }
+  const result = await response.json();
+  if (!result.url) throw new Error("Image URL missing");
+  return result.url;
+}
+
 function prepareEditorHtml(html) {
   return sanitizeRichHtml(String(html || "").replace(/<div class="editor-image-tools"[\s\S]*?<\/div>/gi, ""));
 }
@@ -1720,13 +1738,31 @@ function bindImageUpload(scope = document, fallback = "") {
   const preview = scope.querySelector("[data-image-preview]");
   if (!input || !hidden) return;
   hidden.value = hidden.value || fallback;
-  input.addEventListener("change", () => {
+  input.addEventListener("change", async () => {
     const file = input.files?.[0];
     if (!file) return;
+    const previousValue = hidden.value;
+    scope.dataset.imageUploading = "1";
+    if (preview) preview.innerHTML = "<span>이미지를 업로드하고 있습니다.</span>";
     const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      hidden.value = reader.result;
+    reader.addEventListener("load", async () => {
       if (preview) preview.innerHTML = `<img src="${reader.result}" alt="">`;
+      try {
+        const imageData = await resizeEditorImage(file, 1800, 0.82);
+        const imageUrl = await uploadThemeImage(imageData, file.name);
+        hidden.value = imageUrl;
+        if (preview) preview.innerHTML = `<img src="${escapeHtml(imageUrl)}" alt="">`;
+      } catch {
+        hidden.value = previousValue;
+        if (preview) {
+          preview.innerHTML = previousValue
+            ? `<img src="${escapeHtml(previousValue)}" alt="">`
+            : "<span>이미지 업로드에 실패했습니다. 다시 시도해주세요.</span>";
+        }
+        alert("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
+      } finally {
+        delete scope.dataset.imageUploading;
+      }
     });
     reader.readAsDataURL(file);
   });
@@ -2294,7 +2330,7 @@ function themePanel() {
       <label>메인 슬라이드 보조문구<input name="mainCopy" value="${escapeHtml(theme.mainCopy || "")}"></label>
       <label>메인 간판 이미지
         <input type="file" name="imageFile" accept="image/*" data-image-file>
-        <input type="hidden" name="mainImage" value="${escapeHtml(theme.mainImage || "/assets/main-slide.png")}" data-image-data>
+        <input type="hidden" name="mainImage" value="${escapeHtml(theme.mainImage || defaultMainImage)}" data-image-data>
       </label>
       <div class="image-preview theme-main-preview" data-image-preview>
         ${theme.mainImage ? `<img src="${escapeHtml(theme.mainImage)}" alt="">` : "<span>이미지를 업로드하면 메인 화면 배경으로 표시됩니다.</span>"}
@@ -2593,16 +2629,25 @@ function bindAdminSection(section) {
 
   document.querySelector("#theme-form")?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (event.currentTarget.dataset.imageUploading === "1") {
+      alert("이미지 업로드가 끝난 뒤 저장해주세요.");
+      return;
+    }
     const form = Object.fromEntries(new FormData(event.currentTarget).entries());
     const nextTheme = {
       ...adminState.themeSettings,
       primaryColor: form.primaryColor || "#c92346",
       headerMode: form.headerMode || "dark",
       mainCopy: form.mainCopy || "",
-      mainImage: form.resetMainImage ? "/assets/main-slide.png" : (form.mainImage || adminState.themeSettings.mainImage || "/assets/main-slide.png"),
+      mainImage: form.resetMainImage ? defaultMainImage : (form.mainImage || adminState.themeSettings.mainImage || defaultMainImage),
     };
     adminState.themeSettings = nextTheme;
-    await saveAdminState();
+    const saved = await saveAdminState();
+    if (!saved) {
+      alert("테마설정 저장에 실패했습니다. 관리자 로그인을 다시 확인해주세요.");
+      return;
+    }
+    alert("테마설정이 저장되었습니다.");
     syncChrome();
     renderAdmin("theme");
   });
@@ -2892,13 +2937,16 @@ function setupSlider() {
   let current = 0;
   const slides = [...document.querySelectorAll(".hero-text")];
   const dots = [...document.querySelectorAll(".dots span")];
+  const next = document.querySelector(".next");
+  const prev = document.querySelector(".prev");
+  if (!slides.length || !next || !prev) return;
   const show = (index) => {
     current = (index + slides.length) % slides.length;
     slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
     dots.forEach((dot, i) => dot.classList.toggle("on", i === current));
   };
-  document.querySelector(".next").addEventListener("click", () => show(current + 1));
-  document.querySelector(".prev").addEventListener("click", () => show(current - 1));
+  next.addEventListener("click", () => show(current + 1));
+  prev.addEventListener("click", () => show(current - 1));
   setInterval(() => show(current + 1), 5000);
 }
 
