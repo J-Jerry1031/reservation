@@ -2,57 +2,16 @@ const defaultBoards = {
   day: {
     title: "실시간 출근부",
     banner: "board-1",
-    total: 2,
+    total: 0,
     type: "list",
-    posts: [
-      {
-        title: "6월 3일 수요일 ⭐️ █████ [ ❄️ 분당 NO.1 ❄️] █████✅ACE매니저✅Ⓜ️N.FACⓂ️N.…",
-        writer: "관리자",
-        hit: "76071",
-        date: "2026-02-01",
-        content: "<p>6월 3일 수요일 출근 안내입니다.</p>",
-        notice: true,
-      },
-      {
-        title: "마감 출근시 개제",
-        writer: "관리자",
-        hit: "533",
-        date: "2026-02-01",
-        content: "<p>출근 일정은 마감 전 업데이트됩니다.</p>",
-      },
-    ],
+    posts: [],
   },
   gallery: {
     title: "매니저 프로필",
     banner: "board-3",
-    total: 3,
+    total: 0,
     type: "gallery",
-    posts: [
-      {
-        title: "하루",
-        summary: "하루 / 밝고 편안한 분위기의 매니저입니다.",
-        hit: "288",
-        date: "2026-06-01",
-        image: "",
-        manager: { name: "하루", fee: "13만", status: "출근", schedule: "상담 후 안내", profile: "밝고 편안한 분위기의 매니저입니다." },
-      },
-      {
-        title: "NF 승아",
-        summary: "승아 / 차분한 대화와 세심한 응대가 강점입니다.",
-        hit: "412",
-        date: "2026-06-01",
-        image: "http://dateclub.kr/data/file/gallery/thumb-980950297_yFLSo31D_b106f59d28d501e35ba3238ef393b407db0544c3_300x300.jpg",
-        manager: { name: "승아", fee: "상담문의", status: "출근", schedule: "상담 후 안내", profile: "차분한 대화와 세심한 응대가 강점입니다." },
-      },
-      {
-        title: "현정",
-        summary: "현정 / 자연스러운 분위기의 매니저입니다.",
-        hit: "197",
-        date: "2026-06-01",
-        image: "",
-        manager: { name: "현정", fee: "상담문의", status: "대기", schedule: "상담 후 안내", profile: "자연스러운 분위기의 매니저입니다." },
-      },
-    ],
+    posts: [],
   },
   notice: {
     title: "공지사항",
@@ -86,10 +45,10 @@ const defaultAdminState = {
     hours: "AM 11:00~출근부 마감전까지",
     theme: "home",
     metaTitle: "분당 Fox | 분당·야탑 키스방 실시간 출근부",
-    metaDescription: "분당·야탑 인근 분당 Fox 공식 사이트입니다. 오늘의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요.",
-    metaKeywords: "분당 Fox\n분당폭스\n분당키스방\n분당 키스방\n야탑 키스방\n성남 키스방\n분당 데이트카페\n야탑 데이트카페\n분당 매니저 프로필\n실시간 출근부",
+    metaDescription: "분당·야탑 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 공식 안내 사이트입니다. 고액 알바, 단기 고액알바, 고액단기알바 관련 안내도 확인하세요.",
+    metaKeywords: "분당 Fox\n분당폭스\n분당 키스방\n분당키스방\n야탑 키스방\n야탑키스방\n성남 키스방\n성남키스방\n분당 야탑 키스방\n분당 키스방 실시간 출근부\n분당 매니저 프로필\n실시간 출근부\n고액 알바\n고액알바\n단기 고액알바\n단기고액알바\n고액단기알바\n단기 알바",
     ogImage: "/assets/fox-og-20260609.png",
-    canonicalUrl: "https://xn--she-vg3mw53b.com/",
+    canonicalUrl: "https://xn--she-vg3mw53b.com",
     robots: "index,follow",
     googleVerification: "I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI",
     naverVerification: "",
@@ -99,7 +58,6 @@ const defaultAdminState = {
   boards: defaultBoards,
   members: [
     { id: "admin", name: "관리자", nick: "관리자", phone: "", level: 10, point: 1000, status: "정상", joined: "2026-06-01" },
-    { id: "sample01", name: "샘플회원", nick: "분당러버", phone: "", level: 2, point: 1200, status: "정상", joined: "2026-06-02" },
   ],
   popups: [
     { id: "welcome", title: "공지 팝업", enabled: false, content: "분당 Fox 공지사항을 입력하세요." },
@@ -110,9 +68,7 @@ const defaultAdminState = {
     { label: "공지사항", url: "/bbs/board.php?bo_table=notice", visible: true },
     { label: "이용후기", url: "/bbs/board.php?bo_table=review", visible: true },
   ],
-  points: [
-    { member: "sample01", reason: "회원가입 축하", point: 1000, date: "2026-06-02" },
-  ],
+  points: [],
   contents: [
     { id: "privacy", title: "개인정보처리방침", body: "운영 정책을 입력하세요." },
     { id: "provision", title: "이용약관", body: "서비스 이용약관을 입력하세요." },
@@ -280,7 +236,7 @@ function adminSessionLinks(mode = "mobile") {
 
 function brandNameMarkup(value) {
   const text = String(value || "분당 Fox").trim();
-  const match = text.match(/^(.*?)(Fox|She)$/i);
+  const match = text.match(/^(.*?)(NYX|Fox|She)$/i);
   if (!match) return escapeHtml(text);
   const prefix = match[1].trim();
   return `${prefix ? `<b class="brand-kor">${escapeHtml(prefix)}</b>` : ""}<em class="brand-en">${escapeHtml(match[2])}</em>`;
@@ -288,6 +244,46 @@ function brandNameMarkup(value) {
 
 function cssImageUrl(value) {
   return String(value || defaultMainImage).replace(/[\\')]/g, "");
+}
+
+const areaPages = {
+  "/area/bundang": {
+    key: "bundang",
+    label: "분당",
+    roman: "BUNDANG",
+    title: "분당 키스방 실시간 출근부 | 분당 Fox",
+    description: "분당 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 지역 안내 페이지입니다. 분당 오늘의 출근 일정과 공지사항을 확인하세요.",
+    keywords: ["분당 키스방", "분당키스방", "분당 키스방 실시간 출근부", "분당 매니저 프로필", "분당 고액 알바"],
+    heading: "분당 키스방 실시간 출근부",
+    lead: "분당에서 오늘의 출근 일정과 매니저 프로필을 빠르게 확인할 수 있는 분당 Fox 안내 페이지입니다.",
+    intro: "분당 인근 실시간 출근 정보, 매니저 프로필, 운영 공지와 이용후기를 기존 분당 Fox 게시판에서 바로 확인할 수 있습니다.",
+  },
+  "/area/yatap": {
+    key: "yatap",
+    label: "야탑",
+    roman: "YATAP",
+    title: "야탑 키스방 실시간 출근부 | 분당 Fox",
+    description: "야탑 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 지역 안내 페이지입니다. 야탑 인근 오늘의 일정과 공지를 확인하세요.",
+    keywords: ["야탑 키스방", "야탑키스방", "야탑 키스방 실시간 출근부", "야탑 매니저 프로필", "야탑 고액 알바"],
+    heading: "야탑 키스방 실시간 출근부",
+    lead: "야탑 인근에서 오늘의 출근 일정과 매니저 프로필을 확인할 수 있는 분당 Fox 안내 페이지입니다.",
+    intro: "야탑권 실시간 출근 정보와 매니저 프로필은 기존 분당 Fox 게시판과 동일하게 운영되며, 공지사항과 이용후기도 함께 확인할 수 있습니다.",
+  },
+  "/area/seongnam": {
+    key: "seongnam",
+    label: "성남",
+    roman: "SEONGNAM",
+    title: "성남 키스방 실시간 출근부 | 분당 Fox",
+    description: "성남 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 지역 안내 페이지입니다. 성남 인근 오늘의 출근 안내를 확인하세요.",
+    keywords: ["성남 키스방", "성남키스방", "성남 키스방 실시간 출근부", "성남 매니저 프로필", "성남 고액 알바"],
+    heading: "성남 키스방 실시간 출근부",
+    lead: "성남 인근에서 오늘의 출근 일정과 매니저 프로필을 확인할 수 있는 분당 Fox 안내 페이지입니다.",
+    intro: "성남권 실시간 출근 정보, 매니저 프로필, 운영 공지는 기존 분당 Fox 게시판으로 연결되어 최신 내용으로 확인할 수 있습니다.",
+  },
+};
+
+function currentAreaPage() {
+  return areaPages[path.replace(/\/$/, "")] || null;
 }
 
 function setMeta(attr, key, content) {
@@ -315,15 +311,25 @@ function setLink(rel, href) {
 }
 
 function currentPageSeo(config) {
-  const origin = String(config.canonicalUrl || "https://xn--she-vg3mw53b.com/").replace(/\/$/, "");
+  const origin = String(config.canonicalUrl || location.origin).replace(/\/$/, "");
   const siteName = config.siteName || "분당 Fox";
+  const area = currentAreaPage();
   const home = {
     title: config.metaTitle || `${siteName} | 분당·야탑 키스방 실시간 출근부`,
-    description: config.metaDescription || `분당·야탑 인근 ${siteName}의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요.`,
+    description: config.metaDescription || `분당·야탑 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 ${siteName} 공식 안내 사이트입니다.`,
     canonical: `${origin}/`,
     robots: config.robots || "index,follow",
     type: "website",
   };
+  if (area) {
+    return {
+      ...home,
+      title: area.title,
+      description: area.description,
+      canonical: `${origin}/area/${area.key}`,
+      area,
+    };
+  }
   if (/\/adm|\/bbs\/(login|register|member|write)\.php/.test(path)) {
     return { ...home, canonical: `${origin}${path}`, robots: "noindex,nofollow" };
   }
@@ -332,19 +338,19 @@ function currentPageSeo(config) {
   const table = params.get("bo_table") || "day";
   const boardSeo = {
     day: {
-      title: `분당·야탑 실시간 출근부 | ${siteName}`,
-      description: `${siteName}의 오늘 실시간 출근 정보와 최신 일정을 확인하세요.`,
+      title: `분당·야탑 키스방 실시간 출근부 | ${siteName}`,
+      description: `${siteName}의 오늘 키스방 실시간 출근 정보와 최신 일정을 확인하세요.`,
     },
     gallery: {
-      title: `분당 매니저 프로필 | ${siteName}`,
+      title: `분당·야탑 매니저 프로필 | ${siteName}`,
       description: `${siteName} 매니저의 최신 프로필과 출근 정보를 확인하세요.`,
     },
     notice: {
-      title: `${siteName} 공지사항 | 분당·야탑 이용 안내`,
+      title: `${siteName} 공지사항 | 분당·야탑 키스방 이용 안내`,
       description: `${siteName}의 운영 소식과 이용 안내를 확인하세요.`,
     },
     review: {
-      title: `${siteName} 이용후기 | 분당·야탑`,
+      title: `${siteName} 이용후기 | 분당·야탑 키스방`,
       description: `${siteName} 이용후기 게시판에서 최신 후기를 확인하세요.`,
     },
   }[table] || {
@@ -372,29 +378,34 @@ function setJsonLd(seo) {
     script.dataset.siteStructuredData = "true";
     document.head.appendChild(script);
   }
+  const origin = String(adminState.config.canonicalUrl || location.origin).replace(/\/$/, "");
+  const organizationId = `${origin}/#organization`;
+  const websiteId = `${origin}/#website`;
   script.textContent = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://xn--she-vg3mw53b.com/#organization",
+        "@id": organizationId,
         name: adminState.config.siteName || "분당 Fox",
-        url: "https://xn--she-vg3mw53b.com/",
+        alternateName: ["분당폭스", "분당 Fox"],
+        url: `${origin}/`,
         logo: absoluteUrl("/assets/fox-logo.png"),
       },
       {
         "@type": "WebSite",
-        "@id": "https://xn--she-vg3mw53b.com/#website",
+        "@id": websiteId,
         name: adminState.config.siteName || "분당 Fox",
-        url: "https://xn--she-vg3mw53b.com/",
-        publisher: { "@id": "https://xn--she-vg3mw53b.com/#organization" },
+        url: `${origin}/`,
+        publisher: { "@id": organizationId },
       },
       {
         "@type": "WebPage",
         name: seo.title,
         description: seo.description,
+        keywords: seo.area ? [...seo.area.keywords, ...seoKeywords(adminState.config.metaKeywords)] : seoKeywords(adminState.config.metaKeywords),
         url: seo.canonical,
-        isPartOf: { "@id": "https://xn--she-vg3mw53b.com/#website" },
+        isPartOf: { "@id": websiteId },
       },
     ],
   });
@@ -546,7 +557,7 @@ function mergeState(saved) {
 
 function normalizeAdminState(state) {
   state = migrateBrandState(state);
-  state = ensureFoxSeoState(state);
+  state = ensureBundangSeoState(state);
   if (state.boards.gallery) state.boards.gallery.title = "매니저 프로필";
   if (state.boards.review) state.boards.review.title = "이용후기";
   state.menus = (state.menus || []).map((menu) => {
@@ -569,7 +580,13 @@ function normalizeAdminState(state) {
 
 function migrateBrandState(value) {
   if (typeof value === "string") {
-    return value.replace(/분당\s*She/g, "분당 Fox").replace(/분당She/g, "분당Fox");
+    return value
+      .replace(/분당\s*She/g, "분당 Fox")
+      .replace(/분당She/g, "분당Fox")
+      .replace(/분당\s*FOX/g, "분당 Fox")
+      .replace(/분당FOX/g, "분당Fox")
+      .replace(/Yellow\s*date\s*cafe/gi, "분당 Fox")
+      .replace(/옐로우데이트카페/g, "분당 Fox");
   }
   if (Array.isArray(value)) {
     return value.map((item) => migrateBrandState(item));
@@ -580,24 +597,27 @@ function migrateBrandState(value) {
   return value;
 }
 
-function ensureFoxSeoState(state) {
+function ensureBundangSeoState(state) {
   const config = state.config || {};
-  config.siteName = config.siteName || "분당 Fox";
+  config.siteName = "분당 Fox";
+  config.description = "이성과 교감적인 데이트를 즐길 수 있는 대화 카페입니다.";
+  config.address = "분당 야탑역 도보 3분 직진 차병원 앞";
   config.metaTitle = cleanMetaTitle(config.metaTitle, config.siteName || "분당 Fox");
-  if (["분당 Fox", "분당Fox"].includes(config.metaTitle)) {
+  if (["분당 Fox", "분당Fox"].includes(config.metaTitle) || /강남|NYX|역삼|선릉/.test(config.metaTitle) || !/키스방/.test(config.metaTitle)) {
     config.metaTitle = "분당 Fox | 분당·야탑 키스방 실시간 출근부";
   }
-  if (!config.metaDescription || config.metaDescription.includes("매니저 안내") || config.metaDescription === "분당 Fox 공식 사이트입니다. 실시간 출근부, 매니저 프로필, 공지사항, 이용후기를 확인하세요.") {
-    config.metaDescription = "분당·야탑 인근 분당 Fox 공식 사이트입니다. 오늘의 실시간 출근부, 매니저 프로필, 공지사항과 이용후기를 확인하세요.";
+  if (!config.metaDescription || /강남|NYX|역삼|선릉|매니저 안내/.test(config.metaDescription) || !/키스방/.test(config.metaDescription)) {
+    config.metaDescription = "분당·야탑 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 공식 안내 사이트입니다. 고액 알바, 단기 고액알바, 고액단기알바 관련 안내도 확인하세요.";
   }
-  const keywords = seoKeywords(config.metaKeywords);
-  ["분당 Fox", "분당폭스", "분당키스방", "분당 키스방", "야탑 키스방", "성남 키스방", "분당 데이트카페", "야탑 데이트카페", "분당 매니저 프로필", "실시간 출근부"].forEach((keyword) => {
+  const keywords = seoKeywords(config.metaKeywords).filter((keyword) => !/강남|NYX|엔와이엑스|역삼|선릉/.test(keyword));
+  ["분당 Fox", "분당폭스", "분당 키스방", "분당키스방", "야탑 키스방", "야탑키스방", "성남 키스방", "성남키스방", "분당 야탑 키스방", "분당 키스방 실시간 출근부", "분당 매니저 프로필", "실시간 출근부", "고액 알바", "고액알바", "단기 고액알바", "단기고액알바", "고액단기알바", "단기 알바"].forEach((keyword) => {
     if (!keywords.includes(keyword)) keywords.push(keyword);
   });
   config.metaKeywords = keywords.join("\n");
-  if (!config.ogImage || config.ogImage.includes("main-slide")) {
+  if (!config.ogImage || /main-slide|nyx/i.test(config.ogImage)) {
     config.ogImage = "/assets/fox-og-20260609.png";
   }
+  config.canonicalUrl = "https://xn--she-vg3mw53b.com";
   config.googleVerification = config.googleVerification || "I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI";
   config.robots = "index,follow";
   state.config = config;
@@ -605,7 +625,9 @@ function ensureFoxSeoState(state) {
     ...defaultAdminState.themeSettings,
     ...(state.themeSettings || {}),
     mainCopy: "",
-    mainImage: state.themeSettings?.mainImage || defaultMainImage,
+    mainImage: !state.themeSettings?.mainImage || /nyx/.test(state.themeSettings.mainImage)
+      ? defaultMainImage
+      : state.themeSettings.mainImage,
   };
   return state;
 }
@@ -726,6 +748,22 @@ function navHref(table) {
   return `/bbs/board.php?bo_table=${table}`;
 }
 
+function isPostHidden(post) {
+  return Boolean(post?.hidden) || post?.manager?.status === "휴무";
+}
+
+function visiblePosts(posts = []) {
+  return posts.filter((post) => !isPostHidden(post));
+}
+
+function managerStatusOptions(selected = "출근") {
+  return ["출근", "휴무"].map((status) => `<option value="${status}" ${selected === status ? "selected" : ""}>${status}</option>`).join("");
+}
+
+function clonePost(post) {
+  return JSON.parse(JSON.stringify(post || {}));
+}
+
 function renderHome() {
   const config = adminState.config;
   const mainImage = adminState.themeSettings.mainImage || defaultMainImage;
@@ -758,16 +796,16 @@ function renderHome() {
       <div class="inner about-content">
         <h2>About ${escapeHtml(config.siteName)}</h2>
         <p>안녕하세요. ${escapeHtml(config.siteName)}입니다.<br>${escapeHtml(config.description)}</p>
-        <p class="local-seo-copy">분당·야탑 인근 키스방 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
+        <p class="local-seo-copy">분당 야탑역 인근 키스방 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
       </div>
     </section>
 
     <section class="main-section home-local-guide" aria-labelledby="local-guide-title">
       <div class="inner home-local-guide-inner">
         <div>
-          <p class="section-label">BUNDANG · YATAB</p>
-          <h2 id="local-guide-title">분당·야탑 실시간 안내</h2>
-          <p>${escapeHtml(config.siteName)}은 분당 야탑역 인근에서 오늘의 출근 일정과 매니저 프로필을 확인할 수 있는 공식 안내 사이트입니다.</p>
+          <p class="section-label">BUNDANG · YATAP · SEONGNAM</p>
+          <h2 id="local-guide-title">분당,야탑,성남 실시간 안내</h2>
+          <p>분당 Fox는 분당 야탑역 인근에서 오늘의 출근 일정과 매니저 프로필을 확인할 수 있는 공식 안내 사이트입니다.</p>
           <p>운영시간은 ${escapeHtml(config.hours)}이며, 출근 정보와 공지사항은 운영 상황에 맞춰 수시로 업데이트됩니다.</p>
         </div>
         <nav class="home-guide-links" aria-label="주요 안내 바로가기">
@@ -775,6 +813,85 @@ function renderHome() {
           <a href="/bbs/board.php?bo_table=gallery"><span>사진과 안내</span><strong>매니저 프로필</strong></a>
           <a href="/bbs/board.php?bo_table=notice"><span>운영 정보</span><strong>공지사항</strong></a>
           <a href="/bbs/board.php?bo_table=review"><span>이용자 게시판</span><strong>이용후기</strong></a>
+        </nav>
+        ${areaLinkNav()}
+      </div>
+    </section>
+  `);
+  setupSlider();
+  bindPopupClose();
+  bindPollForm();
+}
+
+function renderAreaPage(area = currentAreaPage()) {
+  if (!area) return renderHome();
+  const config = adminState.config;
+  const mainImage = adminState.themeSettings.mainImage || defaultMainImage;
+  const aboutImages = managerThumbs(8);
+  const relatedAreas = Object.values(areaPages).filter((item) => item.key !== area.key);
+  layout(`
+    ${renderActivePopups()}
+    <section class="visual-banner area-visual" style="--main-visual-image: url('${escapeHtml(cssImageUrl(mainImage))}')">
+      <img class="visual-banner-image" src="${escapeHtml(mainImage)}" alt="${escapeHtml(config.siteName)} 메인 이미지">
+      <div class="hero-text active area-hero-copy">
+        <p>${escapeHtml(area.roman)} · FOX</p>
+        <h2>${escapeHtml(area.heading)}</h2>
+        <strong>${escapeHtml(area.lead)}</strong>
+      </div>
+    </section>
+
+    <section class="main-section area-seo-landing">
+      <div class="inner area-seo-inner">
+        <div class="area-seo-copy">
+          <p class="section-label">${escapeHtml(area.roman)} AREA GUIDE</p>
+          <h2>${escapeHtml(area.heading)}</h2>
+          <p>${escapeHtml(area.intro)}</p>
+          <p>분당 Fox는 분당·야탑·성남 인근 키스방 실시간 출근부와 매니저 프로필을 한 곳에서 확인할 수 있도록 운영됩니다.</p>
+        </div>
+        <nav class="home-guide-links area-cta-links" aria-label="${escapeHtml(area.label)} 주요 게시판 바로가기">
+          <a href="/bbs/board.php?bo_table=day"><span>${escapeHtml(area.label)} 오늘의 일정</span><strong>실시간 출근부 보기</strong></a>
+          <a href="/bbs/board.php?bo_table=gallery"><span>${escapeHtml(area.label)} 사진과 안내</span><strong>매니저 프로필 보기</strong></a>
+          <a href="/bbs/board.php?bo_table=notice"><span>${escapeHtml(area.label)} 운영 정보</span><strong>공지사항 보기</strong></a>
+          <a href="/bbs/board.php?bo_table=review"><span>${escapeHtml(area.label)} 이용자 게시판</span><strong>이용후기 보기</strong></a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="main-section main-latest-list area-latest-list">
+      <div class="inner latest-wrap">
+        ${[
+          ["공지사항", boards.notice],
+          ["출근부", boards.day],
+          ["매니저 프로필", boards.gallery],
+          ["이용후기", boards.review],
+        ].map(([label, board]) => latestBox(label, board)).join("")}
+      </div>
+    </section>
+
+    <section class="main-section about area-about">
+      <div class="about-bg-grid" aria-hidden="true">${aboutImages.slice(0, 4).map((image, index) => `
+        <div class="about-bg-cell">
+          <span style="background-image:url('${escapeHtml(cssImageUrl(image))}')"></span>
+          <span class="alt" style="background-image:url('${escapeHtml(cssImageUrl(aboutImages[index + 4] || image))}')"></span>
+        </div>
+      `).join("")}</div>
+      <div class="inner about-content">
+        <h2>About ${escapeHtml(config.siteName)}</h2>
+        <p>안녕하세요. ${escapeHtml(config.siteName)}입니다.<br>${escapeHtml(config.description)}</p>
+        <p class="local-seo-copy">${escapeHtml(area.label)} 인근 키스방 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
+      </div>
+    </section>
+
+    <section class="main-section home-local-guide area-related-guide" aria-labelledby="area-related-title">
+      <div class="inner home-local-guide-inner">
+        <div>
+          <p class="section-label">RELATED AREA</p>
+          <h2 id="area-related-title">분당권 지역별 안내</h2>
+          <p>${escapeHtml(area.label)} 외에도 분당 Fox의 분당·야탑·성남 실시간 출근부와 매니저 프로필 안내를 같은 사이트에서 확인할 수 있습니다.</p>
+        </div>
+        <nav class="area-link-list" aria-label="지역별 안내 링크">
+          ${relatedAreas.map((item) => `<a href="/area/${item.key}">${escapeHtml(item.label)} 키스방 실시간 출근부</a>`).join("")}
+          <a href="/">분당 Fox 메인</a>
         </nav>
       </div>
     </section>
@@ -784,8 +901,18 @@ function renderHome() {
   bindPollForm();
 }
 
+function areaLinkNav() {
+  return `
+    <nav class="area-link-list home-area-links" aria-label="지역별 키스방 안내">
+      <a href="/area/bundang">분당 키스방 실시간 출근부</a>
+      <a href="/area/yatap">야탑 키스방 실시간 출근부</a>
+      <a href="/area/seongnam">성남 키스방 실시간 출근부</a>
+    </nav>
+  `;
+}
+
 function managerThumbs(count = 8) {
-  const images = (adminState.boards.gallery?.posts || [])
+  const images = visiblePosts(adminState.boards.gallery?.posts || [])
     .map((post) => postThumbnail(post))
     .filter(Boolean);
   const fallback = adminState.themeSettings.mainImage || defaultMainImage;
@@ -870,8 +997,9 @@ function bindPollForm() {
 
 function latestBox(label, board) {
   const table = boardKeyByTitle(board.title);
-  const items = board.posts.length
-    ? board.posts.slice(0, 5).map((post, index) => `
+  const posts = visiblePosts(board.posts || []);
+  const items = posts.length
+    ? posts.slice(0, 5).map((post, index) => `
       <li>
         <a class="list-link" href="${navHref(table)}&wr_id=${post.id || index}">
           <div class="list-tit-box">
@@ -932,7 +1060,7 @@ function subMenu(title) {
 
 function renderList(board) {
   const table = boardKeyByTitle(board.title);
-  const filteredPosts = filterPosts(board.posts);
+  const filteredPosts = filterPosts(visiblePosts(board.posts || []));
   const rows = filteredPosts.length
     ? filteredPosts.map((post, index) => `
       <li class="board-list-body ${post.notice ? "bo-notice" : ""}">
@@ -959,7 +1087,7 @@ function renderList(board) {
 
 function renderGallery(board) {
   const table = boardKeyByTitle(board.title);
-  const filteredPosts = filterPosts(board.posts);
+  const filteredPosts = filterPosts(visiblePosts(board.posts || []));
   const cards = filteredPosts.map((post, index) => {
     const manager = post.manager || {};
     const canSeePreview = Boolean(currentUser());
@@ -1020,6 +1148,17 @@ function boardKeyByTitle(title) {
 function renderPostDetail(table, board, wrId, options = {}) {
   const post = board.posts.find((item) => String(item.id) === String(wrId)) || board.posts[Number(wrId)] || board.posts[0];
   const postId = post?.id ?? board.posts.indexOf(post);
+  if (post && isPostHidden(post) && !isAdminLoggedIn()) {
+    layout(`
+      <section class="sub-banner ${board.banner}"><h2>${board.title}</h2></section>
+      <article class="inner post-detail">
+        <h2>게시글을 볼 수 없습니다.</h2>
+        <p class="admin-muted">현재 숨김 처리된 게시글입니다.</p>
+        <div class="post-actions"><a href="${navHref(table)}" class="back-link">목록</a></div>
+      </article>
+    `);
+    return;
+  }
   layout(`
     <section class="sub-banner ${board.banner}"><h2>${board.title}</h2></section>
     <article class="inner post-detail">
@@ -1293,15 +1432,17 @@ function renderWritePage() {
       comments: post?.comments || [],
     };
     if (board.type === "gallery") {
+      const managerStatus = form.managerStatus || "출근";
       nextPost.manager = {
         name: form.managerName || form.title,
         fee: form.managerFee || "",
-        status: form.managerStatus || "상담",
+        status: managerStatus,
         schedule: form.managerSchedule || "",
         profile: form.managerProfile || excerpt(content),
       };
       nextPost.title = form.title || nextPost.manager.name;
       nextPost.summary = nextPost.manager.profile;
+      nextPost.hidden = managerStatus === "휴무";
     }
     if (post) {
       const index = board.posts.indexOf(post);
@@ -1410,7 +1551,7 @@ function postEditorFields(board, post = null) {
         <label>이용 금액<input name="managerFee" value="${escapeHtml(manager.fee || "")}" placeholder="예: 13만 / 상담문의"></label>
         <label>출근 상태
           <select name="managerStatus">
-            ${["출근", "대기", "휴무", "상담"].map((status) => `<option value="${status}" ${manager.status === status ? "selected" : ""}>${status}</option>`).join("")}
+            ${managerStatusOptions(manager.status || "출근")}
           </select>
         </label>
         <label>출근 일정<input name="managerSchedule" value="${escapeHtml(manager.schedule || "")}" placeholder="예: 13:00 - 22:00"></label>
@@ -1425,6 +1566,40 @@ function postEditorFields(board, post = null) {
 }
 
 function editorToolbar() {
+  const editorColors = [
+    ["검정", "#222222"],
+    ["회색", "#777777"],
+    ["흰색", "#ffffff"],
+    ["빨강", "#e53935"],
+    ["주황", "#f57c00"],
+    ["노랑", "#fbc02d"],
+    ["초록", "#2e7d32"],
+    ["연두", "#8bc34a"],
+    ["파랑", "#1565c0"],
+    ["하늘", "#29b6f6"],
+    ["보라", "#7b1fa2"],
+    ["연보라", "#b39ddb"],
+    ["진회색", "#444444"],
+    ["분홍", "#ec407a"],
+    ["코랄", "#ff7043"],
+    ["갈색", "#8d6e63"],
+    ["금색", "#c9a227"],
+    ["민트", "#26a69a"],
+    ["청록", "#00897b"],
+    ["남색", "#283593"],
+    ["라벤더", "#9575cd"],
+    ["와인", "#ad1457"],
+    ["살구", "#ffb74d"],
+    ["올리브", "#7cb342"],
+    ["진초록", "#00695c"],
+    ["네이비", "#0d47a1"],
+    ["인디고", "#3949ab"],
+    ["자주", "#8e24aa"],
+    ["핫핑크", "#d81b60"],
+    ["연회색", "#bdbdbd"],
+    ["아이보리", "#fff8e1"],
+    ["진빨강", "#b71c1c"],
+  ];
   return `
     <div class="editor-toolbar" aria-label="본문 편집 도구">
       <div class="toolbar-group">
@@ -1450,7 +1625,20 @@ function editorToolbar() {
         <option value="22px">22px</option>
         <option value="28px">28px</option>
       </select>
-      <label class="toolbar-color">색상<input type="color" data-editor-color value="#222222" aria-label="글자 색상"></label>
+      <div class="toolbar-color-picker" data-editor-color-picker>
+        <button type="button" class="toolbar-color-trigger" data-editor-color-trigger aria-haspopup="true" aria-expanded="false">
+          <span>색상</span>
+          <span class="toolbar-color-current" data-editor-color-current style="--swatch-color:#222222" aria-hidden="true"></span>
+        </button>
+        <div class="toolbar-color-palette" data-editor-color-palette role="menu" aria-label="글자 색상 선택" hidden>
+          ${editorColors.map(([name, color]) => `
+            <button type="button" class="toolbar-color-option${color === "#ffffff" ? " is-light" : ""}" data-editor-color="${color}" role="menuitem" title="${name}" aria-label="${name}">
+              <span class="toolbar-color-swatch" style="--swatch-color:${color}" aria-hidden="true"></span>
+              <span>${name}</span>
+            </button>
+          `).join("")}
+        </div>
+      </div>
       <select data-editor-line aria-label="줄간격">
         <option value="">줄간격</option>
         <option value="1.4">1.4</option>
@@ -1532,10 +1720,38 @@ function bindEditorTools(scope = document) {
     event.currentTarget.value = "";
     rememberRange();
   });
-  scope.querySelector("[data-editor-color]")?.addEventListener("input", (event) => {
-    restoreRange();
-    wrapSelection(editor, { color: event.currentTarget.value });
-    rememberRange();
+  const colorPicker = scope.querySelector("[data-editor-color-picker]");
+  const colorTrigger = colorPicker?.querySelector("[data-editor-color-trigger]");
+  const colorPalette = colorPicker?.querySelector("[data-editor-color-palette]");
+  const closeColorPalette = () => {
+    if (!colorPalette || !colorTrigger) return;
+    colorPalette.hidden = true;
+    colorTrigger.setAttribute("aria-expanded", "false");
+  };
+  colorTrigger?.addEventListener("click", () => {
+    if (!colorPalette) return;
+    const willOpen = colorPalette.hidden;
+    colorPalette.hidden = !willOpen;
+    colorTrigger.setAttribute("aria-expanded", String(willOpen));
+  });
+  colorPicker?.querySelectorAll("[data-editor-color]").forEach((button) => {
+    button.addEventListener("mousedown", (event) => event.preventDefault());
+    button.addEventListener("click", () => {
+      const color = button.dataset.editorColor;
+      restoreRange();
+      wrapSelection(editor, { color });
+      colorPicker.querySelector("[data-editor-color-current]")?.style.setProperty("--swatch-color", color);
+      closeColorPalette();
+      rememberRange();
+    });
+  });
+  scope.addEventListener("click", (event) => {
+    if (!colorPicker?.contains(event.target)) closeColorPalette();
+  });
+  colorPicker?.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    closeColorPalette();
+    colorTrigger?.focus();
   });
   scope.querySelector("[data-editor-line]")?.addEventListener("change", (event) => {
     restoreRange();
@@ -2000,7 +2216,7 @@ function configPanel() {
         <label>메타 타이틀<input name="metaTitle" value="${escapeHtml(config.metaTitle || config.siteName)}"></label>
         <label>메타 설명<textarea name="metaDescription">${escapeHtml(config.metaDescription || config.description)}</textarea></label>
         <label>키워드 태그
-          <textarea name="metaKeywords" data-seo-keywords placeholder="#분당Fox&#10;#분당키스방&#10;#야탑데이트카페">${escapeHtml(seoKeywordValue(config.metaKeywords))}</textarea>
+          <textarea name="metaKeywords" data-seo-keywords placeholder="#분당Fox&#10;#분당키스방&#10;#야탑키스방&#10;#성남키스방&#10;#고액알바">${escapeHtml(seoKeywordValue(config.metaKeywords))}</textarea>
         </label>
         <div>
           <strong class="seo-preview-title">등록된 키워드</strong>
@@ -2119,14 +2335,15 @@ function postsPanel() {
     </form>
     <section class="admin-card">
       <h2>게시글 목록</h2>
-      ${adminTable(["게시판", "제목", "작성자", "조회", "댓글", "날짜", "관리"], pageItems.map(({ key, board, post, index }) => [
+      ${adminTable(["게시판", "제목", "상태", "작성자", "조회", "댓글", "날짜", "관리"], pageItems.map(({ key, board, post, index }) => [
         board.title,
-        escapeHtml(post.title || ""),
+        `${isPostHidden(post) ? '<span class="admin-status-pill muted">비활성</span> ' : ""}${escapeHtml(post.title || "")}`,
+        `<span class="admin-status-pill ${isPostHidden(post) ? "off" : "on"}">${isPostHidden(post) ? "비활성" : "활성"}</span>`,
         escapeHtml(post.writer || "관리자"),
         escapeHtml(post.hit || "0"),
         (post.comments || []).length,
         escapeHtml(post.date || ""),
-        `<a class="admin-mini-link" href="/bbs/write.php?bo_table=${key}&wr_id=${post.id ?? index}">수정</a><button data-delete-post="${key}:${index}">삭제</button>`,
+        `<a class="admin-mini-link" href="/bbs/write.php?bo_table=${key}&wr_id=${post.id ?? index}">수정</a><button data-toggle-post-hidden="${key}:${index}">${isPostHidden(post) ? "노출" : "숨김"}</button><button data-copy-post="${key}:${index}">복사</button><button data-delete-post="${key}:${index}">삭제</button>`,
       ]))}
       <nav class="admin-pagination" aria-label="게시글 페이지">
         ${Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => `<a href="${pageHref(page)}" data-post-page="${page}" class="${page === safePage ? "active" : ""}">${page}</a>`).join("")}
@@ -2495,10 +2712,10 @@ function bindAdminSection(section) {
       ...adminState.config,
       ...form,
       ogImage: "/assets/fox-og-20260609.png",
-      canonicalUrl: "https://xn--she-vg3mw53b.com/",
+      canonicalUrl: "https://xn--she-vg3mw53b.com",
       robots: "index,follow",
-      googleVerification: form.googleVerification || adminState.config.googleVerification || "I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI",
-      naverVerification: "",
+      googleVerification: form.googleVerification || "",
+      naverVerification: form.naverVerification || "",
       gaMeasurementId: form.gaMeasurementId || "",
       naverAnalyticsId: form.naverAnalyticsId || "",
     };
@@ -2548,6 +2765,7 @@ function bindAdminSection(section) {
     const form = Object.fromEntries(new FormData(event.currentTarget).entries());
     const content = readEditorContent(event.currentTarget);
     const image = firstContentImage(content);
+    const managerStatus = form.managerStatus || "출근";
     const post = {
       id: Date.now().toString(),
       title: form.managerName || form.title,
@@ -2559,10 +2777,11 @@ function bindAdminSection(section) {
       image,
       notice: false,
       comments: [],
+      hidden: managerStatus === "휴무",
       manager: {
         name: form.managerName || form.title,
         fee: form.managerFee || "",
-        status: form.managerStatus || "상담",
+        status: managerStatus,
         schedule: form.managerSchedule || "",
         profile: form.managerProfile || excerpt(content),
       },
@@ -2738,6 +2957,40 @@ function bindAdminSection(section) {
     await saveAdminState();
     alert("삭제가 완료되었습니다.");
     renderAdmin(section === "posts" ? "posts" : "boards");
+  }));
+  document.querySelectorAll("[data-toggle-post-hidden]").forEach((button) => button.addEventListener("click", async () => {
+    const [key, index] = button.dataset.togglePostHidden.split(":");
+    const post = adminState.boards[key]?.posts?.[Number(index)];
+    if (!post) return;
+    const nextHidden = !isPostHidden(post);
+    post.hidden = nextHidden;
+    if (post.manager) post.manager.status = nextHidden ? "휴무" : "출근";
+    await saveAdminState();
+    alert(nextHidden ? "숨김 처리되었습니다." : "노출 처리되었습니다.");
+    renderAdmin(section === "posts" ? "posts" : "boards");
+  }));
+  document.querySelectorAll("[data-copy-post]").forEach((button) => button.addEventListener("click", async () => {
+    const [key, index] = button.dataset.copyPost.split(":");
+    const board = adminState.boards[key];
+    const source = board?.posts?.[Number(index)];
+    if (!board || !source) return;
+    const copied = clonePost(source);
+    copied.id = Date.now().toString();
+    copied.title = `${source.title || "게시글"} 복사본`;
+    copied.hit = "0";
+    copied.date = today();
+    copied.comments = [];
+    if (board.type === "gallery") {
+      copied.hidden = true;
+      copied.manager = {
+        ...(copied.manager || {}),
+        status: "휴무",
+      };
+    }
+    board.posts.unshift(copied);
+    await saveAdminState();
+    alert("복사본이 생성되었습니다. 내용을 수정한 뒤 출근 상태로 변경하면 노출됩니다.");
+    location.href = `/bbs/write.php?bo_table=${key}&wr_id=${copied.id}`;
   }));
   document.querySelectorAll("[data-toggle-board]").forEach((button) => button.addEventListener("click", async () => {
     const board = adminState.boards[button.dataset.toggleBoard];
@@ -2973,6 +3226,7 @@ async function init() {
   else if (path.includes("/bbs/content.php")) renderContentPage();
   else if (path.includes("/bbs/faq.php")) renderFaqPage();
   else if (path.includes("/bbs/board.php")) renderBoard(params.get("bo_table"));
+  else if (currentAreaPage()) renderAreaPage();
   else renderHome();
   recordVisit();
 }
