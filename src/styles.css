@@ -152,7 +152,7 @@ body:not(.home) #hd {
   display: block;
   min-height: 0;
   overflow: hidden;
-  --main-visual-image: url("/assets/main-slide.png");
+  --main-visual-image: url("/assets/fox-og-20260609.png");
   background-color: #050403;
   background-image: linear-gradient(rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.62)), var(--main-visual-image);
   background-size: cover;

@@ -34,7 +34,7 @@ const defaultBoards = {
 const app = document.querySelector("#app");
 const params = new URLSearchParams(location.search);
 const path = location.pathname;
-const defaultMainImage = "/assets/main-slide.png";
+const defaultMainImage = "/assets/fox-og-20260609.png";
 document.body.classList.toggle("admin-mode", path.includes("/adm"));
 
 const defaultAdminState = {
@@ -621,13 +621,16 @@ function ensureBundangSeoState(state) {
   config.googleVerification = config.googleVerification || "I7Pir-KxLwjmrfDzidQ5f0c-V1iev1YlDSj559gTykI";
   config.robots = "index,follow";
   state.config = config;
+  const savedMainImage = state.themeSettings?.mainImage || "";
+  const shouldUseBundangMainImage = !savedMainImage || /main-slide|she|kiss|nyx/i.test(savedMainImage);
+
   state.themeSettings = {
     ...defaultAdminState.themeSettings,
     ...(state.themeSettings || {}),
     mainCopy: "",
-    mainImage: !state.themeSettings?.mainImage || /nyx/.test(state.themeSettings.mainImage)
+    mainImage: shouldUseBundangMainImage
       ? defaultMainImage
-      : state.themeSettings.mainImage,
+      : savedMainImage,
   };
   return state;
 }
