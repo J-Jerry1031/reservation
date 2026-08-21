@@ -32,10 +32,16 @@ const defaultBoards = {
 };
 
 const app = document.querySelector("#app");
-const params = new URLSearchParams(location.search);
-const path = location.pathname;
 const defaultMainImage = "/assets/fox-og-20260609.png";
-document.body.classList.toggle("admin-mode", path.includes("/adm"));
+document.body.classList.toggle("admin-mode", currentPath().includes("/adm"));
+
+function currentPath() {
+  return location.pathname;
+}
+
+function currentParams() {
+  return new URLSearchParams(location.search);
+}
 
 const defaultAdminState = {
   config: {
@@ -283,7 +289,7 @@ const areaPages = {
 };
 
 function currentAreaPage() {
-  return areaPages[path.replace(/\/$/, "")] || null;
+  return areaPages[currentPath().replace(/\/$/, "")] || null;
 }
 
 function setMeta(attr, key, content) {
@@ -311,6 +317,8 @@ function setLink(rel, href) {
 }
 
 function currentPageSeo(config) {
+  const path = currentPath();
+  const params = currentParams();
   const origin = String(config.canonicalUrl || location.origin).replace(/\/$/, "");
   const siteName = config.siteName || "분당 Fox";
   const area = currentAreaPage();
@@ -513,7 +521,7 @@ function explicitTrue(value) {
 }
 
 async function loadAdminState() {
-  const allowLocalFallback = path.startsWith("/adm");
+  const allowLocalFallback = currentPath().startsWith("/adm");
   try {
     const response = await fetch(apiUrl("/api/state"), { cache: "no-store" });
     if (response.ok) {
@@ -727,7 +735,7 @@ function storeMemberSession(member, remember = false) {
 }
 
 async function recordVisit() {
-  if (path.includes("/adm")) return;
+  if (currentPath().includes("/adm")) return;
   const user = memberSession() || (isAdminLoggedIn() ? { id: "admin" } : null);
   const params = new URLSearchParams(location.search);
   try {
@@ -1045,6 +1053,7 @@ function latestBox(label, board) {
 }
 
 function renderBoard(table) {
+  const params = currentParams();
   const board = boards[table] || boards.day;
   if (!canReadBoard(board)) {
     renderLogin("목록을 볼 권한이 없습니다. 회원이시라면 로그인 후 이용해 보십시오.");
@@ -1428,6 +1437,7 @@ function renderLogin(message = "") {
 }
 
 function renderWritePage() {
+  const params = currentParams();
   const table = params.get("bo_table") || "day";
   const board = boards[table] || boards.day;
   const wrId = params.get("wr_id");
@@ -1538,7 +1548,7 @@ function bindBoardDeleteButtons() {
       const deleted = await deleteBoardPost(table, postRef);
       if (!deleted) return;
       alert("삭제가 완료되었습니다.");
-      if (params.get("wr_id") !== null) {
+      if (currentParams().get("wr_id") !== null) {
         location.href = navHref(table);
       } else {
         renderBoard(table);
@@ -2084,7 +2094,7 @@ async function loginAdmin(id, password) {
   }
 }
 
-function renderAdmin(section = params.get("section") || "dashboard") {
+function renderAdmin(section = currentParams().get("section") || "dashboard") {
   if (!isAdminLoggedIn()) {
     renderAdminLogin();
     return;
@@ -3194,7 +3204,7 @@ function renderMemberPage() {
 }
 
 function renderContentPage() {
-  const id = params.get("co_id") || "privacy";
+  const id = currentParams().get("co_id") || "privacy";
   const content = adminState.contents.find((item) => item.id === id) || adminState.contents[0];
   layout(`
     <section class="sub-banner user"><h2>${escapeHtml(content?.title || "내용관리")}</h2></section>
@@ -3248,9 +3258,15 @@ addEventListener("scroll", () => {
   document.querySelector("#top-btn").classList.toggle("show", scrollY > 0);
 });
 
+addEventListener("pageshow", (event) => {
+  if (event.persisted) location.reload();
+});
+
 async function init() {
   await loadAdminState();
   syncChrome();
+  const path = currentPath();
+  const params = currentParams();
   if (path.includes("/adm")) renderAdmin();
   else if (path.includes("/bbs/login.php")) renderLogin();
   else if (path.includes("/bbs/register.php")) renderRegister();
