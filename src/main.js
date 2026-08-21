@@ -542,9 +542,17 @@ function explicitTrue(value) {
 async function loadAdminState() {
   const allowLocalFallback = currentPath().startsWith("/adm");
   const endpoint = stateApiPath(allowLocalFallback);
+  const requestOptions = { cache: "no-store" };
+  if (allowLocalFallback) {
+    const token = sessionStorage.getItem("dateclubAdminToken") || localStorage.getItem("dateclubAdminToken") || "";
+    if (token) {
+      requestOptions.headers = { Authorization: `Bearer ${token}` };
+    }
+  }
+
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
-      const response = await fetch(apiUrl(endpoint), { cache: "no-store" });
+      const response = await fetch(apiUrl(endpoint), requestOptions);
       if (response.ok) {
         const payload = await response.json();
         if (payload.data) {

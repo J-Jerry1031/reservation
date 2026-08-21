@@ -132,8 +132,11 @@ export default async function handler(req, res) {
         visitLogs: visitState.visitLogs || mainState.visitLogs || [],
       } : null;
 
+    const token = String(req.headers.authorization || "").replace(/^Bearer\s+/i, "");
+    const shouldReturnPublicState = queryValue(req.query?.public) === "1" || !verifyToken(token);
+
     return json(res, 200, {
-      data: mergedState && queryValue(req.query?.public) === "1" ? publicState(mergedState, req) : mergedState,
+      data: mergedState && shouldReturnPublicState ? publicState(mergedState, req) : mergedState,
     });
   }
 
