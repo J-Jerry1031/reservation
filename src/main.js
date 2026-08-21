@@ -121,6 +121,7 @@ const defaultAdminState = {
 
 let adminState = structuredClone(defaultAdminState);
 let boards = adminState.boards;
+let adminStateLoadedWithAdminToken = false;
 
 const adminHelp = {
   dashboard: "전체 운영 현황을 빠르게 보는 화면입니다. 회원, 게시글, 팝업, 포인트 내역과 최근 게시글을 확인합니다.",
@@ -541,13 +542,31 @@ function explicitTrue(value) {
 
 async function loadAdminState() {
   const allowLocalFallback = currentPath().startsWith("/adm");
-  const endpoint = stateApiPath(allowLocalFallback);
-  const requestOptions = { cache: "no-store" };
-  if (allowLocalFallback) {
-    const token = sessionStorage.getItem("dateclubAdminToken") || localStorage.getItem("dateclubAdminToken") || "";
-    if (token) {
-      requestOptions.headers = { Authorization: `Bearer ${token}` };
+  const token = sessionStorage.getItem("dateclubAdminToken") || localStorage.getItem("dateclubAdminToken") || "";
+  const hasAdminFlag = sessionStorage.getItem("dateclubAdmin") === "1" || localStorage.getItem("dateclubAdmin") === "1";
+  const shouldLoadFullState = Boolean(token && hasAdminFlag);
+
+  if (allowLocalFallback && !token) {
+    adminStateLoadedWithAdminToken = false;
+    try {
+      const saved = JSON.parse(localStorage.getItem("dateclubAdminState") || "null");
+      if (saved) {
+        adminState = mergeState(saved);
+        boards = adminState.boards;
+        return;
+      }
+    } catch {
+      localStorage.removeItem("dateclubAdminState");
     }
+    adminState = structuredClone(defaultAdminState);
+    boards = adminState.boards;
+    return;
+  }
+
+  const endpoint = shouldLoadFullState ? "/api/state" : stateApiPath(false);
+  const requestOptions = { cache: "no-store" };
+  if (shouldLoadFullState) {
+    requestOptions.headers = { Authorization: `Bearer ${token}` };
   }
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
@@ -558,7 +577,8 @@ async function loadAdminState() {
         if (payload.data) {
           adminState = mergeState(payload.data);
           boards = adminState.boards;
-          if (allowLocalFallback) {
+          adminStateLoadedWithAdminToken = shouldLoadFullState;
+          if (adminStateLoadedWithAdminToken) {
             localStorage.setItem("dateclubAdminState", JSON.stringify(adminState));
           }
           return;
@@ -572,6 +592,7 @@ async function loadAdminState() {
   }
 
   if (!allowLocalFallback) {
+    adminStateLoadedWithAdminToken = false;
     adminState = structuredClone(defaultAdminState);
     boards = adminState.boards;
     adminState.loadFailed = true;
@@ -581,6 +602,7 @@ async function loadAdminState() {
   try {
     const saved = JSON.parse(localStorage.getItem("dateclubAdminState") || "null");
     if (saved) {
+      adminStateLoadedWithAdminToken = false;
       adminState = mergeState(saved);
       boards = adminState.boards;
       return;
@@ -588,6 +610,7 @@ async function loadAdminState() {
   } catch {
     localStorage.removeItem("dateclubAdminState");
   }
+  adminStateLoadedWithAdminToken = false;
   adminState = structuredClone(defaultAdminState);
   boards = adminState.boards;
 }
@@ -699,12 +722,13 @@ function ensureBundangSeoState(state) {
 }
 
 async function saveAdminState() {
-  localStorage.setItem("dateclubAdminState", JSON.stringify(adminState));
-  boards = adminState.boards;
   const token = sessionStorage.getItem("dateclubAdminToken") || localStorage.getItem("dateclubAdminToken");
-  if (!token) {
+  if (!token || !adminStateLoadedWithAdminToken) {
+    console.error("Refusing to save state that was not loaded with an admin token.");
     return false;
   }
+  localStorage.setItem("dateclubAdminState", JSON.stringify(adminState));
+  boards = adminState.boards;
   try {
     const response = await fetch("/api/state", {
       method: "PUT",
@@ -712,7 +736,7 @@ async function saveAdminState() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ data: adminState }),
+      body: JSON.stringify({ data: adminState, fullStateWrite: true }),
     });
     return response.ok;
   } catch {

@@ -146,9 +146,15 @@ export default async function handler(req, res) {
       return json(res, 401, { error: "Unauthorized" });
     }
 
-    const { data: state } = req.body || {};
+    const { data: state, fullStateWrite } = req.body || {};
     if (!state || typeof state !== "object") {
       return json(res, 400, { error: "Invalid state payload" });
+    }
+    if (fullStateWrite !== true) {
+      return json(res, 400, { error: "Full state write confirmation is required" });
+    }
+    if (!state.boards || !Array.isArray(state.members)) {
+      return json(res, 400, { error: "Full admin state payload is required" });
     }
 
     const { mainState, visitState } = splitVisitState(state);
