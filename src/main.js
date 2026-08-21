@@ -514,6 +514,10 @@ function apiUrl(pathname) {
   return `${url.pathname}${url.search}`;
 }
 
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function explicitTrue(value) {
   if (value === true || value === 1) return true;
   if (typeof value === "string") return /^(true|1|yes|y)$/i.test(value.trim());
@@ -522,23 +526,29 @@ function explicitTrue(value) {
 
 async function loadAdminState() {
   const allowLocalFallback = currentPath().startsWith("/adm");
-  try {
-    const response = await fetch(apiUrl("/api/state"), { cache: "no-store" });
-    if (response.ok) {
-      const payload = await response.json();
-      if (payload.data) {
-        adminState = mergeState(payload.data);
-        boards = adminState.boards;
-        localStorage.setItem("dateclubAdminState", JSON.stringify(adminState));
-        return;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      const response = await fetch(apiUrl("/api/state"), { cache: "no-store" });
+      if (response.ok) {
+        const payload = await response.json();
+        if (payload.data) {
+          adminState = mergeState(payload.data);
+          boards = adminState.boards;
+          localStorage.setItem("dateclubAdminState", JSON.stringify(adminState));
+          return;
+        }
       }
+    } catch {
     }
-  } catch {
+    if (attempt < 2) {
+      await wait(250 * (attempt + 1));
+    }
   }
 
   if (!allowLocalFallback) {
     adminState = structuredClone(defaultAdminState);
     boards = adminState.boards;
+    adminState.loadFailed = true;
     return;
   }
 
@@ -1055,6 +1065,17 @@ function latestBox(label, board) {
 function renderBoard(table) {
   const params = currentParams();
   const board = boards[table] || boards.day;
+  if (adminState.loadFailed) {
+    layout(`
+      <section class="sub-banner ${board.banner || "notice"}"><h2>${escapeHtml(board.title || "게시판")}</h2></section>
+      <article class="inner post-detail">
+        <h2>데이터를 불러오지 못했습니다.</h2>
+        <p class="admin-muted">네트워크 상태를 확인한 뒤 새로고침해 주세요.</p>
+        <button class="back-link" type="button" onclick="location.reload()">새로고침</button>
+      </article>
+    `);
+    return;
+  }
   if (!canReadBoard(board)) {
     renderLogin("목록을 볼 권한이 없습니다. 회원이시라면 로그인 후 이용해 보십시오.");
     return;
