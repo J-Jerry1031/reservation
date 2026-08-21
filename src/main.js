@@ -514,6 +514,21 @@ function apiUrl(pathname) {
   return `${url.pathname}${url.search}`;
 }
 
+function stateApiPath(isAdminArea = currentPath().startsWith("/adm")) {
+  if (isAdminArea) return "/api/state";
+
+  const params = currentParams();
+  const url = new URL("/api/state", location.origin);
+  url.searchParams.set("public", "1");
+
+  const table = params.get("bo_table");
+  const wrId = params.get("wr_id");
+  if (table) url.searchParams.set("bo_table", table);
+  if (wrId !== null) url.searchParams.set("wr_id", wrId);
+
+  return `${url.pathname}${url.search}`;
+}
+
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -526,15 +541,18 @@ function explicitTrue(value) {
 
 async function loadAdminState() {
   const allowLocalFallback = currentPath().startsWith("/adm");
+  const endpoint = stateApiPath(allowLocalFallback);
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
-      const response = await fetch(apiUrl("/api/state"), { cache: "no-store" });
+      const response = await fetch(apiUrl(endpoint), { cache: "no-store" });
       if (response.ok) {
         const payload = await response.json();
         if (payload.data) {
           adminState = mergeState(payload.data);
           boards = adminState.boards;
-          localStorage.setItem("dateclubAdminState", JSON.stringify(adminState));
+          if (allowLocalFallback) {
+            localStorage.setItem("dateclubAdminState", JSON.stringify(adminState));
+          }
           return;
         }
       }

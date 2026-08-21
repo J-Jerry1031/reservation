@@ -16,6 +16,96 @@ function mergeVisits(primary = [], secondary = []) {
   return [...map.values()].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
 
+function queryValue(value) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function explicitTrue(value) {
+  if (value === true || value === 1) return true;
+  if (typeof value === "string") return /^(true|1|yes|y)$/i.test(value.trim());
+  return false;
+}
+
+function firstContentImage(html = "") {
+  const match = String(html || "").match(/<img[^>]+src=(?:"([^"]+)"|'([^']+)'|([^\s>]+))/i);
+  return match?.[1] || match?.[2] || match?.[3] || "";
+}
+
+function stripHtml(html = "") {
+  return String(html || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function isPostHidden(post) {
+  return explicitTrue(post?.hidden) || post?.manager?.status === "휴무";
+}
+
+function publicPost(post = {}, full = false) {
+  const content = String(post.content || "");
+  const image = firstContentImage(content) || post.image || firstContentImage(post.summary);
+  const nextPost = {
+    id: post.id,
+    title: post.title,
+    writer: post.writer,
+    writerId: post.writerId,
+    hit: post.hit,
+    date: post.date,
+    summary: post.summary || stripHtml(content).slice(0, 180),
+    image,
+    notice: Boolean(post.notice),
+    hidden: post.hidden,
+    manager: post.manager || null,
+    comments: [],
+    content: "",
+  };
+
+  if (full) {
+    nextPost.content = content || post.summary || "";
+    nextPost.comments = Array.isArray(post.comments) ? post.comments : [];
+  }
+
+  return nextPost;
+}
+
+function publicBoards(state = {}, req) {
+  const selectedTable = String(queryValue(req.query?.bo_table) || "");
+  const selectedWrId = queryValue(req.query?.wr_id);
+  const isDetail = selectedTable && selectedWrId !== undefined && selectedWrId !== null;
+  const boards = state.boards || {};
+
+  return Object.fromEntries(Object.entries(boards).map(([key, board]) => {
+    const posts = Array.isArray(board.posts) ? board.posts : [];
+    let selectedPosts = posts;
+
+    if (!selectedTable) {
+      selectedPosts = posts.slice(0, key === "gallery" ? 12 : 5);
+    } else if (key !== selectedTable) {
+      selectedPosts = posts.slice(0, key === "gallery" ? 8 : 5);
+    }
+
+    return [key, {
+      ...board,
+      posts: selectedPosts.map((post, index) => {
+        const full = isDetail && key === selectedTable
+          && (String(post?.id) === String(selectedWrId) || String(index) === String(selectedWrId));
+        return publicPost(post, full);
+      }),
+    }];
+  }));
+}
+
+function publicState(state = {}, req) {
+  return {
+    config: state.config || {},
+    boards: publicBoards(state, req),
+    permissions: state.permissions || {},
+    themeSettings: state.themeSettings || {},
+    menus: state.menus || [],
+    popups: state.popups || [],
+    popular: state.popular || [],
+    polls: state.polls || [],
+  };
+}
+
 export default async function handler(req, res) {
   const supabase = getSupabase();
   if (!supabase) {
@@ -36,12 +126,14 @@ export default async function handler(req, res) {
     const mainState = rows.find((row) => row.id === stateId)?.data || null;
     const visitState = rows.find((row) => row.id === visitStateId)?.data || {};
 
-    return json(res, 200, {
-      data: mainState ? {
+    const mergedState = mainState ? {
         ...mainState,
         visits: mergeVisits(visitState.visits || [], mainState.visits || []),
         visitLogs: visitState.visitLogs || mainState.visitLogs || [],
-      } : null,
+      } : null;
+
+    return json(res, 200, {
+      data: mergedState && queryValue(req.query?.public) === "1" ? publicState(mergedState, req) : mergedState,
     });
   }
 
