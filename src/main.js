@@ -1112,7 +1112,8 @@ function subMenu(title) {
 
 function renderList(board) {
   const table = boardKeyByTitle(board.title);
-  const filteredPosts = filterPosts(visiblePosts(board.posts || []));
+  const params = currentParams();
+  const filteredPosts = filterPosts(visiblePosts(board.posts || []), params);
   const rows = filteredPosts.length
     ? filteredPosts.map((post, index) => `
       <li class="board-list-body ${post.notice ? "bo-notice" : ""}">
@@ -1133,13 +1134,14 @@ function renderList(board) {
         <li class="board-head-list"><div>Title</div><div>Writer</div><div>Hit</div><div>DateTime</div></li>
         ${rows}
       </ul>
-      ${searchBox()}
+      ${searchBox(params)}
     </section>`;
 }
 
 function renderGallery(board) {
   const table = boardKeyByTitle(board.title);
-  const filteredPosts = filterPosts(visiblePosts(board.posts || []));
+  const params = currentParams();
+  const filteredPosts = filterPosts(visiblePosts(board.posts || []), params);
   const cards = filteredPosts.map((post, index) => {
     const manager = post.manager || {};
     const canSeePreview = Boolean(currentUser());
@@ -1164,11 +1166,11 @@ function renderGallery(board) {
       <ul class="gallery-grid">
         ${cards || `<li class="empty-li">게시물이 없습니다.</li>`}
       </ul>
-      ${searchBox()}
+      ${searchBox(params)}
     </section>`;
 }
 
-function searchBox() {
+function searchBox(params = currentParams()) {
   return `
     <form class="search-box" method="get" action="/bbs/board.php">
       <input type="hidden" name="bo_table" value="${escapeHtml(params.get("bo_table") || "day")}">
@@ -1178,7 +1180,7 @@ function searchBox() {
     </form>`;
 }
 
-function filterPosts(posts) {
+function filterPosts(posts, params = currentParams()) {
   const keyword = (params.get("stx") || "").trim().toLowerCase();
   const field = params.get("sfl") || "title_content";
   if (!keyword) return posts;
