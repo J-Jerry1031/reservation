@@ -1168,7 +1168,18 @@ function boardKeyByTitle(title) {
 }
 
 function renderPostDetail(table, board, wrId, options = {}) {
-  const post = board.posts.find((item) => String(item.id) === String(wrId)) || board.posts[Number(wrId)] || board.posts[0];
+  const post = findPost(board, wrId);
+  if (!post) {
+    layout(`
+      <section class="sub-banner ${board.banner}"><h2>${board.title}</h2></section>
+      <article class="inner post-detail">
+        <h2>게시글을 찾을 수 없습니다.</h2>
+        <p class="admin-muted">주소가 잘못되었거나 삭제된 게시글입니다.</p>
+        <div class="post-actions"><a href="${navHref(table)}" class="back-link">목록</a></div>
+      </article>
+    `);
+    return;
+  }
   const postId = post?.id ?? board.posts.indexOf(post);
   if (post && isPostHidden(post) && !isAdminLoggedIn()) {
     layout(`
