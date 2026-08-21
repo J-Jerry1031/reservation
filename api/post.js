@@ -9,6 +9,12 @@ function koreaDate(value = new Date()) {
   }).format(value);
 }
 
+function explicitTrue(value) {
+  if (value === true || value === 1) return true;
+  if (typeof value === "string") return /^(true|1|yes|y)$/i.test(value.trim());
+  return false;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return json(res, 405, { error: "Method not allowed" });
@@ -69,6 +75,9 @@ export default async function handler(req, res) {
 
   if (board.type === "gallery" && isAdmin) {
     nextPost.manager = post.manager || null;
+    nextPost.hidden = explicitTrue(post.hidden) || post.manager?.status === "휴무";
+  } else if (isAdmin) {
+    nextPost.hidden = explicitTrue(post.hidden);
   }
 
   board.posts.unshift(nextPost);

@@ -500,9 +500,22 @@ function renderKeywordChips(value) {
     : `<p class="admin-muted">등록된 키워드가 없습니다.</p>`;
 }
 
+function apiUrl(pathname) {
+  const url = new URL(pathname, location.origin);
+  url.searchParams.set("_", Date.now().toString());
+  return `${url.pathname}${url.search}`;
+}
+
+function explicitTrue(value) {
+  if (value === true || value === 1) return true;
+  if (typeof value === "string") return /^(true|1|yes|y)$/i.test(value.trim());
+  return false;
+}
+
 async function loadAdminState() {
+  const allowLocalFallback = path.startsWith("/adm");
   try {
-    const response = await fetch("/api/state");
+    const response = await fetch(apiUrl("/api/state"), { cache: "no-store" });
     if (response.ok) {
       const payload = await response.json();
       if (payload.data) {
@@ -513,6 +526,12 @@ async function loadAdminState() {
       }
     }
   } catch {
+  }
+
+  if (!allowLocalFallback) {
+    adminState = structuredClone(defaultAdminState);
+    boards = adminState.boards;
+    return;
   }
 
   try {
@@ -752,7 +771,7 @@ function navHref(table) {
 }
 
 function isPostHidden(post) {
-  return Boolean(post?.hidden) || post?.manager?.status === "휴무";
+  return explicitTrue(post?.hidden) || post?.manager?.status === "휴무";
 }
 
 function visiblePosts(posts = []) {
