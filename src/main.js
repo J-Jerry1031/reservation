@@ -2656,10 +2656,21 @@ function browserLabel(log) {
 
 function hostFromUrl(value) {
   try {
-    return new URL(value).hostname.replace(/^www\./, "");
+    return new URL(value).hostname.replace(/^www\./, "").toLowerCase();
   } catch {
     return "";
   }
+}
+
+function sourceLabelFromHost(host = "") {
+  if (host.includes("kissinfo")) return "키스인포";
+  if (host.includes("kisstime")) return "키스타임";
+  if (host.includes("google.")) return "구글";
+  if (host.includes("naver.")) return "네이버";
+  if (host.includes("kakao.") || host.includes("daum.")) return "카카오/다음";
+  if (host.includes("instagram.")) return "인스타그램";
+  if (host.includes("facebook.") || host.includes("fb.")) return "페이스북";
+  return "";
 }
 
 function sourceDisplay(log, mode = "first") {
@@ -2669,7 +2680,8 @@ function sourceDisplay(log, mode = "first") {
   const referrer = isLast ? (log.lastReferrer || log.referrer) : log.referrer;
   const host = isLast ? (log.lastReferrerHost || hostFromUrl(referrer)) : (log.referrerHost || hostFromUrl(referrer));
   if (!isLast && source === "internal") return "직접유입";
-  if (host) return `${label || source || "외부사이트"} (${host})`;
+  const hostLabel = sourceLabelFromHost(host);
+  if (host) return `${hostLabel || label || source || "외부사이트"} (${host})`;
   return label || source || "직접유입";
 }
 
