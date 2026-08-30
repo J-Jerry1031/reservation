@@ -2569,7 +2569,7 @@ function visitsPanel() {
       ]))}
     </section>
     <section class="admin-card">
-      <h2>${selectedDate ? `${escapeHtml(selectedDate)} 유입경로` : "전체 유입경로"}</h2>
+      <h2>${selectedDate ? `${escapeHtml(selectedDate)} 유입경로` : "최근 2일 유입경로"}</h2>
       ${adminTable(["유입경로", "방문수", "IP수"], sourceRows.map((row) => [
         escapeHtml(row.label),
         row.count,
@@ -2623,8 +2623,13 @@ function trafficSourceRows(logs) {
   logs.forEach((log) => {
     const label = sourceDisplay(log, "first");
     const row = map.get(label) || { label, count: 0, ips: new Set() };
-    row.count += Math.max(1, Number(log.visitCountByIp || 0) || 1);
-    if (log.ip) row.ips.add(String(log.ip));
+    const ip = String(log.ip || "");
+    if (ip) {
+      if (!row.ips.has(ip)) row.count += 1;
+      row.ips.add(ip);
+    } else {
+      row.count += 1;
+    }
     map.set(label, row);
   });
   return [...map.values()]
@@ -2663,6 +2668,7 @@ function sourceDisplay(log, mode = "first") {
   const source = isLast ? (log.lastSource || log.source) : log.source;
   const referrer = isLast ? (log.lastReferrer || log.referrer) : log.referrer;
   const host = isLast ? (log.lastReferrerHost || hostFromUrl(referrer)) : (log.referrerHost || hostFromUrl(referrer));
+  if (!isLast && source === "internal") return "직접유입";
   if (host) return `${label || source || "외부사이트"} (${host})`;
   return label || source || "직접유입";
 }

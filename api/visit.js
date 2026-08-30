@@ -173,6 +173,25 @@ function sourceLabel(value) {
   return labels[value] || value || "직접유입";
 }
 
+function normalizeFirstTraffic(traffic) {
+  if (traffic.source !== "internal") return traffic;
+  return {
+    ...traffic,
+    source: "direct",
+    sourceLabel: sourceLabel("direct"),
+    referrer: "",
+    referrerHost: "",
+  };
+}
+
+function shouldUseIncomingFirstTraffic(existingLog, traffic) {
+  if (!existingLog) return true;
+  const currentSource = String(existingLog.source || "");
+  const incomingSource = String(normalizeFirstTraffic(traffic).source || "");
+  if (!currentSource || currentSource === "internal") return true;
+  return currentSource === "direct" && incomingSource && incomingSource !== "direct" && incomingSource !== "internal";
+}
+
 function logVisitCount(log) {
   return Math.max(1, Number(log?.visitCountByIp || 0) || 1);
 }
@@ -196,27 +215,27 @@ function compactVisitLogs(logs = []) {
     }
     current.visitCountByIp += logVisitCount(log);
     current.firstTime = log.firstTime || log.time || current.firstTime;
-    current.lastTime = log.lastTime || log.time || current.lastTime;
+    current.lastTime = current.lastTime || log.lastTime || log.time;
     current.browser = log.browser || current.browser;
     current.os = log.os || current.os;
     current.device = log.device || current.device;
-    current.source = log.source || current.source;
-    current.sourceLabel = log.sourceLabel || current.sourceLabel;
-    current.lastSource = log.lastSource || log.source || current.lastSource;
-    current.lastSourceLabel = log.lastSourceLabel || log.sourceLabel || current.lastSourceLabel;
-    current.referrer = log.referrer || current.referrer;
-    current.referrerHost = log.referrerHost || current.referrerHost;
-    current.lastReferrer = log.lastReferrer || log.referrer || current.lastReferrer;
-    current.lastReferrerHost = log.lastReferrerHost || log.referrerHost || current.lastReferrerHost;
-    current.landingUrl = log.landingUrl || current.landingUrl;
-    current.lastLandingUrl = log.lastLandingUrl || log.landingUrl || current.lastLandingUrl;
-    current.path = log.path || current.path;
-    current.lastPath = log.lastPath || log.path || current.lastPath;
-    current.utmSource = log.utmSource || current.utmSource;
-    current.utmMedium = log.utmMedium || current.utmMedium;
-    current.utmCampaign = log.utmCampaign || current.utmCampaign;
-    current.utmTerm = log.utmTerm || current.utmTerm;
-    current.searchTerm = log.searchTerm || current.searchTerm;
+    current.source = current.source || log.source;
+    current.sourceLabel = current.sourceLabel || log.sourceLabel;
+    current.lastSource = current.lastSource || log.lastSource || log.source;
+    current.lastSourceLabel = current.lastSourceLabel || log.lastSourceLabel || log.sourceLabel;
+    current.referrer = current.referrer || log.referrer;
+    current.referrerHost = current.referrerHost || log.referrerHost;
+    current.lastReferrer = current.lastReferrer || log.lastReferrer || log.referrer;
+    current.lastReferrerHost = current.lastReferrerHost || log.lastReferrerHost || log.referrerHost;
+    current.landingUrl = current.landingUrl || log.landingUrl;
+    current.lastLandingUrl = current.lastLandingUrl || log.lastLandingUrl || log.landingUrl;
+    current.path = current.path || log.path;
+    current.lastPath = current.lastPath || log.lastPath || log.path;
+    current.utmSource = current.utmSource || log.utmSource;
+    current.utmMedium = current.utmMedium || log.utmMedium;
+    current.utmCampaign = current.utmCampaign || log.utmCampaign;
+    current.utmTerm = current.utmTerm || log.utmTerm;
+    current.searchTerm = current.searchTerm || log.searchTerm;
     current.userAgent = log.userAgent || current.userAgent;
   });
   return compacted;
@@ -262,6 +281,8 @@ export default async function handler(req, res) {
   const visitLogs = Array.isArray(state.visitLogs) ? state.visitLogs : [];
   const existingLogs = visitLogs.filter((log) => log.date === date && String(log.ip || "") === ip);
   const existingLog = existingLogs[0] || null;
+  const firstTraffic = normalizeFirstTraffic(traffic);
+  const useIncomingFirstTraffic = shouldUseIncomingFirstTraffic(existingLog, traffic);
   const visitCountByIp = existingLogs.reduce((total, log) => total + logVisitCount(log), 0) + 1;
   const day = visits.find((item) => item.date === date);
   if (day) {
@@ -292,15 +313,15 @@ export default async function handler(req, res) {
     device,
     ip,
     visitCountByIp,
-    source: existingLog?.source || traffic.source,
-    sourceLabel: existingLog?.sourceLabel || traffic.sourceLabel,
+    source: useIncomingFirstTraffic ? firstTraffic.source : existingLog?.source || firstTraffic.source,
+    sourceLabel: useIncomingFirstTraffic ? firstTraffic.sourceLabel : existingLog?.sourceLabel || firstTraffic.sourceLabel,
     lastSource: traffic.source,
     lastSourceLabel: traffic.sourceLabel,
-    referrer: existingLog?.referrer || traffic.referrer,
-    referrerHost: existingLog?.referrerHost || traffic.referrerHost,
+    referrer: useIncomingFirstTraffic ? firstTraffic.referrer : existingLog?.referrer || firstTraffic.referrer,
+    referrerHost: useIncomingFirstTraffic ? firstTraffic.referrerHost : existingLog?.referrerHost || firstTraffic.referrerHost,
     lastReferrer: traffic.referrer,
     lastReferrerHost: traffic.referrerHost,
-    landingUrl: existingLog?.landingUrl || traffic.landingUrl,
+    landingUrl: useIncomingFirstTraffic ? firstTraffic.landingUrl : existingLog?.landingUrl || firstTraffic.landingUrl,
     lastLandingUrl: traffic.landingUrl,
     path: trimText(path, 500) || existingLog?.path || "",
     lastPath: trimText(path, 500) || existingLog?.lastPath || "",
