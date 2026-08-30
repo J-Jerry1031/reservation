@@ -794,9 +794,30 @@ function storeMemberSession(member, remember = false) {
   storage.setItem("dateclubMember", JSON.stringify(member));
 }
 
+function visitAttribution() {
+  const key = "dateclubVisitAttribution";
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(key) || "null");
+    if (saved?.landingUrl) return saved;
+  } catch {
+    sessionStorage.removeItem(key);
+  }
+  const next = {
+    referrer: document.referrer || "",
+    landingUrl: location.href,
+  };
+  try {
+    sessionStorage.setItem(key, JSON.stringify(next));
+  } catch {
+  }
+  return next;
+}
+
 async function recordVisit() {
   if (currentPath().includes("/adm")) return;
   const user = memberSession() || (isAdminLoggedIn() ? { id: "admin" } : null);
+  const attribution = visitAttribution();
+  const landingParams = new URL(attribution.landingUrl, location.origin).searchParams;
   const params = new URLSearchParams(location.search);
   try {
     await fetch("/api/visit", {
@@ -804,13 +825,13 @@ async function recordVisit() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         memberId: user?.id || "",
-        referrer: document.referrer || "",
-        landingUrl: location.href,
+        referrer: attribution.referrer || "",
+        landingUrl: attribution.landingUrl || location.href,
         path: location.pathname + location.search,
-        utmSource: params.get("utm_source") || "",
-        utmMedium: params.get("utm_medium") || "",
-        utmCampaign: params.get("utm_campaign") || "",
-        utmTerm: params.get("utm_term") || params.get("query") || params.get("q") || "",
+        utmSource: landingParams.get("utm_source") || params.get("utm_source") || "",
+        utmMedium: landingParams.get("utm_medium") || params.get("utm_medium") || "",
+        utmCampaign: landingParams.get("utm_campaign") || params.get("utm_campaign") || "",
+        utmTerm: landingParams.get("utm_term") || landingParams.get("query") || landingParams.get("q") || params.get("utm_term") || params.get("query") || params.get("q") || "",
       }),
     });
   } catch {
