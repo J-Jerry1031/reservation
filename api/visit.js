@@ -2,8 +2,8 @@ import { getSupabase, json, visitStateId } from "./_shared.js";
 
 function parseUserAgent(userAgent = "") {
   const ua = String(userAgent);
-  const browser = /KAKAOTALK/i.test(ua) ? "카카오톡 인앱"
-    : /NAVER\(inapp|NAVER|Whale/i.test(ua) ? "네이버 인앱"
+  const browser = /KAKAOTALK|KakaoTalk/i.test(ua) ? "카카오톡 인앱브라우저"
+    : /NAVER\(inapp|NaverApp|NAVER/i.test(ua) ? "네이버 인앱브라우저"
       : /Instagram/i.test(ua) ? "인스타그램 인앱"
         : /FBAN|FBAV|FB_IAB|FBIOS|FB4A/i.test(ua) ? "페이스북 인앱"
           : /Line\//i.test(ua) ? "라인 인앱"
@@ -11,8 +11,8 @@ function parseUserAgent(userAgent = "") {
               : /CriOS/i.test(ua) ? "Chrome iOS"
                 : /FxiOS/i.test(ua) ? "Firefox iOS"
                   : /Edg\//.test(ua) || /EdgiOS|EdgA/i.test(ua) ? "Edge"
-                    : /Whale/i.test(ua) ? "Whale"
-                      : /SamsungBrowser/i.test(ua) ? "Samsung Internet"
+                    : /SamsungBrowser/i.test(ua) ? "삼성 인터넷"
+                      : /Whale/i.test(ua) ? "네이버 웨일"
                         : /Chrome\//.test(ua) && !/Chromium/.test(ua) ? "Chrome"
                           : /Safari\//.test(ua) && /Version\//.test(ua) ? "Safari"
                             : /Firefox\//.test(ua) ? "Firefox"
@@ -24,7 +24,15 @@ function parseUserAgent(userAgent = "") {
         : /iPhone|iPad|iPod/.test(ua) ? "iOS"
           : /Linux/.test(ua) ? "Linux"
             : "기타";
-  return { browser, os };
+  const device = /iPhone/.test(ua) ? "iPhone"
+    : /iPad/.test(ua) ? "iPad"
+      : /iPod/.test(ua) ? "iPod"
+        : /SM-|SAMSUNG|Samsung/i.test(ua) ? "Samsung Galaxy"
+          : /Android/.test(ua) ? "Android 기기"
+            : /Windows NT/.test(ua) ? "Windows PC"
+              : /Macintosh|Mac OS X/.test(ua) ? "Mac"
+                : "기타";
+  return { browser, os, device };
 }
 
 function clientIp(req) {
@@ -70,9 +78,41 @@ function queryParam(url, names = []) {
   return "";
 }
 
+function referrerHost(value) {
+  try {
+    return new URL(value).hostname.replace(/^www\./, "").toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+function ownHostSet() {
+  const hosts = new Set(
+    String(process.env.SITE_HOSTS || process.env.VERCEL_PROJECT_PRODUCTION_URL || "")
+      .split(",")
+      .map((item) => item.trim().replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/^www\./, "").toLowerCase())
+      .filter(Boolean)
+  );
+  ["xn--she-vg3mw53b.com", "분당she.com", "bundangshe.com"].forEach((host) => hosts.add(host.toLowerCase()));
+  return hosts;
+}
+
+function platformSourceForHost(host = "") {
+  if (!host) return "";
+  if (host.includes("kisstime")) return "kisstime";
+  if (host.includes("kissinfo")) return "kissinfo";
+  if (host.includes("google.")) return "google";
+  if (host.includes("naver.")) return "naver";
+  if (host.includes("kakao.") || host.includes("daum.")) return "kakao";
+  if (host.includes("instagram.")) return "instagram";
+  if (host.includes("facebook.") || host.includes("fb.")) return "facebook";
+  return "";
+}
+
 function classifySource({ referrer, landingUrl, utmSource, utmMedium, utmCampaign, utmTerm }) {
   const ref = trimText(referrer, 1000);
   const landing = trimText(landingUrl, 1000);
+  const host = referrerHost(ref);
   const source = trimText(utmSource, 80).toLowerCase();
   const medium = trimText(utmMedium, 80);
   const campaign = trimText(utmCampaign, 120);
@@ -82,8 +122,10 @@ function classifySource({ referrer, landingUrl, utmSource, utmMedium, utmCampaig
     const normalized = source.includes("google") ? "google"
       : source.includes("naver") ? "naver"
         : source.includes("kakao") || source.includes("daum") ? "kakao"
-          : source.includes("instagram") ? "instagram"
-            : source;
+          : source.includes("kisstime") ? "kisstime"
+            : source.includes("kissinfo") ? "kissinfo"
+              : source.includes("instagram") ? "instagram"
+                : source;
     return {
       source: normalized,
       sourceLabel: sourceLabel(normalized),
@@ -91,27 +133,17 @@ function classifySource({ referrer, landingUrl, utmSource, utmMedium, utmCampaig
       campaign,
       searchTerm: term,
       referrer: ref,
+      referrerHost: host,
       landingUrl: landing,
     };
   }
 
   if (!ref) {
-    return { source: "direct", sourceLabel: "직접유입", medium: "", campaign, searchTerm: term, referrer: "", landingUrl: landing };
+    return { source: "direct", sourceLabel: "직접유입", medium: "", campaign, searchTerm: term, referrer: "", referrerHost: "", landingUrl: landing };
   }
 
-  let host = "";
-  try {
-    host = new URL(ref).hostname.replace(/^www\./, "").toLowerCase();
-  } catch {
-  }
-
-  const ownHosts = new Set(["xn--she-vg3mw53b.com", "분당she.com", "bundangshe.com"]);
-  const sourceKey = host.includes("google.") ? "google"
-    : host.includes("naver.") ? "naver"
-      : host.includes("kakao.") || host.includes("daum.") ? "kakao"
-        : host.includes("instagram.") ? "instagram"
-          : ownHosts.has(host) ? "internal"
-            : "external";
+  const ownHosts = ownHostSet();
+  const sourceKey = platformSourceForHost(host) || (ownHosts.has(host) ? "internal" : "external");
 
   return {
     source: sourceKey,
@@ -120,6 +152,7 @@ function classifySource({ referrer, landingUrl, utmSource, utmMedium, utmCampaig
     campaign,
     searchTerm: term,
     referrer: ref,
+    referrerHost: host,
     landingUrl: landing,
   };
 }
@@ -129,20 +162,15 @@ function sourceLabel(value) {
     google: "구글",
     naver: "네이버",
     kakao: "카카오/다음",
+    kisstime: "키스타임",
+    kissinfo: "키스인포",
     instagram: "인스타그램",
+    facebook: "페이스북",
     direct: "직접유입",
     internal: "사이트 내부이동",
     external: "외부사이트",
   };
   return labels[value] || value || "직접유입";
-}
-
-function recentVisitLogDates(now = new Date()) {
-  const oneDay = 24 * 60 * 60 * 1000;
-  return new Set([
-    koreaDate(now),
-    koreaDate(new Date(now.getTime() - oneDay)),
-  ]);
 }
 
 function logVisitCount(log) {
@@ -168,15 +196,28 @@ function compactVisitLogs(logs = []) {
     }
     current.visitCountByIp += logVisitCount(log);
     current.firstTime = log.firstTime || log.time || current.firstTime;
+    current.lastTime = log.lastTime || log.time || current.lastTime;
+    current.browser = log.browser || current.browser;
+    current.os = log.os || current.os;
+    current.device = log.device || current.device;
     current.source = log.source || current.source;
     current.sourceLabel = log.sourceLabel || current.sourceLabel;
+    current.lastSource = log.lastSource || log.source || current.lastSource;
+    current.lastSourceLabel = log.lastSourceLabel || log.sourceLabel || current.lastSourceLabel;
     current.referrer = log.referrer || current.referrer;
+    current.referrerHost = log.referrerHost || current.referrerHost;
+    current.lastReferrer = log.lastReferrer || log.referrer || current.lastReferrer;
+    current.lastReferrerHost = log.lastReferrerHost || log.referrerHost || current.lastReferrerHost;
     current.landingUrl = log.landingUrl || current.landingUrl;
+    current.lastLandingUrl = log.lastLandingUrl || log.landingUrl || current.lastLandingUrl;
+    current.path = log.path || current.path;
+    current.lastPath = log.lastPath || log.path || current.lastPath;
     current.utmSource = log.utmSource || current.utmSource;
     current.utmMedium = log.utmMedium || current.utmMedium;
     current.utmCampaign = log.utmCampaign || current.utmCampaign;
     current.utmTerm = log.utmTerm || current.utmTerm;
     current.searchTerm = log.searchTerm || current.searchTerm;
+    current.userAgent = log.userAgent || current.userAgent;
   });
   return compacted;
 }
@@ -193,7 +234,7 @@ export default async function handler(req, res) {
 
   const { memberId, referrer, landingUrl, path, utmSource, utmMedium, utmCampaign, utmTerm } = req.body || {};
   const userAgent = String(req.headers["user-agent"] || "");
-  const { browser, os } = parseUserAgent(userAgent);
+  const { browser, os, device } = parseUserAgent(userAgent);
   const ip = clientIp(req);
   const now = new Date();
   const date = koreaDate(now);
@@ -229,9 +270,10 @@ export default async function handler(req, res) {
     day.count = uniqueIps.size;
     day.browser = browser;
     day.os = os;
+    day.device = device;
     day.uniqueIps = [...uniqueIps];
   } else {
-    visits.unshift({ date, count: ip ? 1 : 0, browser, os, uniqueIps: ip ? [ip] : [] });
+    visits.unshift({ date, count: ip ? 1 : 0, browser, os, device, uniqueIps: ip ? [ip] : [] });
   }
 
   const nextLog = {
@@ -247,6 +289,7 @@ export default async function handler(req, res) {
     phone: "",
     browser,
     os,
+    device,
     ip,
     visitCountByIp,
     source: existingLog?.source || traffic.source,
@@ -254,10 +297,13 @@ export default async function handler(req, res) {
     lastSource: traffic.source,
     lastSourceLabel: traffic.sourceLabel,
     referrer: existingLog?.referrer || traffic.referrer,
+    referrerHost: existingLog?.referrerHost || traffic.referrerHost,
     lastReferrer: traffic.referrer,
+    lastReferrerHost: traffic.referrerHost,
     landingUrl: existingLog?.landingUrl || traffic.landingUrl,
     lastLandingUrl: traffic.landingUrl,
     path: trimText(path, 500) || existingLog?.path || "",
+    lastPath: trimText(path, 500) || existingLog?.lastPath || "",
     utmSource: existingLog?.utmSource || trimText(utmSource, 80),
     utmMedium: existingLog?.utmMedium || traffic.medium,
     utmCampaign: existingLog?.utmCampaign || traffic.campaign,
@@ -266,12 +312,11 @@ export default async function handler(req, res) {
     userAgent,
   };
 
-  const keepDates = recentVisitLogDates(now);
   state.visits = visits;
   state.visitLogs = compactVisitLogs([
     nextLog,
     ...visitLogs.filter((log) => !(log.date === date && String(log.ip || "") === ip)),
-  ].filter((log) => keepDates.has(log.date)));
+  ]);
 
   const { error: writeError } = await supabase
     .from("site_state")

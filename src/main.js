@@ -2526,7 +2526,8 @@ function pointsPanel() {
 
 function visitsPanel() {
   const selectedDate = new URLSearchParams(location.search).get("date") || "";
-  const logs = (adminState.visitLogs || []).filter((log) => !selectedDate || log.date === selectedDate);
+  const recentDates = recentVisitDates();
+  const logs = (adminState.visitLogs || []).filter((log) => selectedDate ? log.date === selectedDate : recentDates.has(log.date));
   const sourceRows = trafficSourceRows(logs);
   const visitRows = (adminState.visits || []).map((visit) => {
     const dateLogs = (adminState.visitLogs || []).filter((log) => log.date === visit.date);
@@ -2539,6 +2540,7 @@ function visitsPanel() {
   return `
     <section class="admin-card">
       <h2>접속자집계</h2>
+      <p class="admin-help-text">기본 화면은 한국시간 기준 최근 2일 상세만 보여줍니다. 과거 날짜는 해당 날짜의 방문자 보기를 누르면 필요할 때만 확인할 수 있습니다.</p>
       ${adminTable(["일자", "방문수", "상세"], visitRows.map((visit) => [
         visit.date,
         visit.count,
@@ -2553,9 +2555,10 @@ function visitsPanel() {
         row.ipCount,
       ]))}
     </section>
-    <section class="admin-card">
+    <section class="admin-card" id="visit-detail">
       <h2>${selectedDate ? `${escapeHtml(selectedDate)} 방문자 상세` : "전체 방문자 상세"}</h2>
-      ${adminTable(["첫 방문", "마지막 방문", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "IP", "방문 횟수", "유입경로", "유입URL", "검색어/UTM"], logs.map((log) => {
+      ${selectedDate && !logs.length ? `<p class="admin-empty">이 날짜의 상세 로그가 아직 없거나 이전 방식으로 수집된 데이터입니다. 일자별 방문수 집계는 유지됩니다.</p>` : ""}
+      ${adminTable(["첫 방문", "마지막 방문", "아이디", "이름", "닉네임", "연락처", "브라우저", "OS", "기기", "IP", "방문 횟수", "최초 유입", "최근 유입", "첫 진입", "최근 경로", "검색어/UTM", "User Agent"], logs.map((log) => {
         const member = memberForVisitLog(log);
         return [
           escapeHtml(log.firstTime || log.time || ""),
@@ -2566,21 +2569,38 @@ function visitsPanel() {
           escapeHtml(log.phone || member?.phone || member?.contact || member?.mobile || "-"),
           escapeHtml(browserLabel(log)),
           escapeHtml(log.os || "-"),
+          escapeHtml(deviceLabel(log)),
           escapeHtml(log.ip || "-"),
           visitCountForIp(log, adminState.visitLogs || []),
-          escapeHtml(log.sourceLabel || log.source || "직접유입"),
-          log.referrer ? `<a href="${escapeHtml(log.referrer)}" target="_blank" rel="noopener noreferrer">${escapeHtml(shortUrl(log.referrer))}</a>` : "-",
+          escapeHtml(sourceDisplay(log, "first")),
+          escapeHtml(sourceDisplay(log, "last")),
+          landingDisplay(log, "landingUrl"),
+          landingDisplay(log, "lastLandingUrl", log.lastPath || log.path),
           escapeHtml(log.searchTerm || log.utmTerm || log.utmCampaign || "-"),
+          userAgentSummary(log),
         ];
       }))}
     </section>
   `;
 }
 
+function recentVisitDates(now = new Date()) {
+  return new Set(Array.from({ length: 2 }, (_, index) => {
+    const date = new Date(now);
+    date.setUTCDate(date.getUTCDate() - index);
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Seoul",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
+  }));
+}
+
 function trafficSourceRows(logs) {
   const map = new Map();
   logs.forEach((log) => {
-    const label = log.sourceLabel || log.source || "직접유입";
+    const label = sourceDisplay(log, "first");
     const row = map.get(label) || { label, count: 0, ips: new Set() };
     row.count += Math.max(1, Number(log.visitCountByIp || 0) || 1);
     if (log.ip) row.ips.add(String(log.ip));
@@ -2592,6 +2612,7 @@ function trafficSourceRows(logs) {
 }
 
 function browserLabel(log) {
+  if (log?.browser && log.browser !== "기타") return log.browser;
   const ua = String(log?.userAgent || "");
   if (/KAKAOTALK/i.test(ua)) return "카카오톡 인앱";
   if (/NAVER\(inapp|NAVER/i.test(ua)) return "네이버 인앱";
@@ -2604,16 +2625,48 @@ function browserLabel(log) {
   if (/Edg\/|EdgiOS|EdgA/i.test(ua)) return "Edge";
   if (/Whale/i.test(ua)) return "Whale";
   if (/SamsungBrowser/i.test(ua)) return "Samsung Internet";
-  if (log?.browser && log.browser !== "기타") return log.browser;
   return log?.browser || "기타";
 }
 
-function shortUrl(value) {
+function hostFromUrl(value) {
+  try {
+    return new URL(value).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
+function sourceDisplay(log, mode = "first") {
+  const isLast = mode === "last";
+  const label = isLast ? (log.lastSourceLabel || log.sourceLabel) : log.sourceLabel;
+  const source = isLast ? (log.lastSource || log.source) : log.source;
+  const referrer = isLast ? (log.lastReferrer || log.referrer) : log.referrer;
+  const host = isLast ? (log.lastReferrerHost || hostFromUrl(referrer)) : (log.referrerHost || hostFromUrl(referrer));
+  if (host) return `${label || source || "외부사이트"} (${host})`;
+  return label || source || "직접유입";
+}
+
+function landingDisplay(log, key, fallback = "") {
+  const value = String(log?.[key] || fallback || "");
+  if (!value) return "-";
+  return `<a href="${escapeHtml(value)}" target="_blank" rel="noopener noreferrer">${escapeHtml(shortUrl(value, 70))}</a>`;
+}
+
+function userAgentSummary(log) {
+  const ua = String(log?.userAgent || "");
+  return ua ? escapeHtml(ua.slice(0, 140)) : "-";
+}
+
+function deviceLabel(log) {
+  return log?.device || "-";
+}
+
+function shortUrl(value, max = 48) {
   try {
     const url = new URL(value);
-    return `${url.hostname}${url.pathname}`.slice(0, 48);
+    return `${url.hostname}${url.pathname}${url.search}`.slice(0, max);
   } catch {
-    return String(value || "").slice(0, 48);
+    return String(value || "").slice(0, max);
   }
 }
 
@@ -3043,6 +3096,9 @@ function bindAdminSection(section) {
     event.preventDefault();
     history.pushState(null, "", link.getAttribute("href"));
     renderAdmin("visits");
+    requestAnimationFrame(() => {
+      document.querySelector("#visit-detail")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }));
 
   document.querySelector("#clear-cache")?.addEventListener("click", async () => {
