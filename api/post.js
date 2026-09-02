@@ -59,13 +59,20 @@ export default async function handler(req, res) {
   }
 
   board.posts = Array.isArray(board.posts) ? board.posts : [];
+  const hasPostId = post.id !== undefined && post.id !== null && String(post.id) !== "";
+  const existingIndex = hasPostId ? board.posts.findIndex((item, index) => String(item.id ?? index) === String(post.id)) : -1;
+  const existingPost = existingIndex >= 0 ? board.posts[existingIndex] : null;
+  if (!isAdmin && existingPost && String(existingPost.writerId || "") !== String(member.id)) {
+    return json(res, 403, { error: "You can edit your own posts only" });
+  }
+
   const nextPost = {
     id: String(post.id || Date.now()),
     title: String(post.title),
-    writer: isAdmin ? "관리자" : String(member.nick || member.id),
-    writerId: isAdmin ? "admin" : String(member.id),
-    hit: String(post.hit || "0"),
-    date: koreaDate(),
+    writer: isAdmin ? String(post.writer || existingPost?.writer || "관리자") : String(member.nick || member.id),
+    writerId: isAdmin ? String(post.writerId || existingPost?.writerId || "admin") : String(member.id),
+    hit: String(post.hit || existingPost?.hit || "0"),
+    date: String(post.date || existingPost?.date || koreaDate()),
     summary: String(post.summary || ""),
     content: String(post.content),
     image: String(post.image || ""),
@@ -80,7 +87,11 @@ export default async function handler(req, res) {
     nextPost.hidden = explicitTrue(post.hidden);
   }
 
-  board.posts.unshift(nextPost);
+  if (existingIndex >= 0) {
+    board.posts[existingIndex] = nextPost;
+  } else {
+    board.posts.unshift(nextPost);
+  }
 
   const { error: writeError } = await supabase
     .from("site_state")

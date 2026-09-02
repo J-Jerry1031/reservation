@@ -1582,9 +1582,15 @@ function renderWritePage() {
       nextPost.hidden = managerStatus === "휴무";
     }
     if (post) {
-      const index = board.posts.indexOf(post);
-      adminState.boards[table].posts[index] = nextPost;
-      await saveAdminState();
+      const savedPost = await persistPost(table, nextPost);
+      if (savedPost && !savedPost.error) {
+        await loadAdminState();
+        alert("수정이 완료되었습니다.");
+        location.href = `${navHref(table)}&wr_id=${savedPost.id}`;
+        return;
+      }
+      alert(savedPost?.error || "게시글 수정에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+      return;
     } else {
       const savedPost = await persistPost(table, nextPost);
       if (savedPost && !savedPost.error) {
@@ -1600,7 +1606,7 @@ function renderWritePage() {
       adminState.boards[table].posts.unshift(nextPost);
       await saveAdminState();
     }
-    alert(post ? "수정이 완료되었습니다." : "등록이 완료되었습니다.");
+    alert("등록이 완료되었습니다.");
     location.href = `${navHref(table)}&wr_id=${nextPost.id}`;
   });
 }
