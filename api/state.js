@@ -16,8 +16,31 @@ function mergeVisits(primary = [], secondary = []) {
   return [...map.values()].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
 
+function recentVisitDates(now = new Date()) {
+  return new Set(Array.from({ length: 2 }, (_, index) => {
+    const date = new Date(now);
+    date.setUTCDate(date.getUTCDate() - index);
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Seoul",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
+  }));
+}
+
 function queryValue(value) {
   return Array.isArray(value) ? value[0] : value;
+}
+
+function visibleVisitLogs(logs = [], req, canViewVisits = false) {
+  if (!canViewVisits || queryValue(req.query?.includeVisits) !== "1") return [];
+  const selectedDate = queryValue(req.query?.date);
+  if (selectedDate) {
+    return logs.filter((log) => log?.date === selectedDate);
+  }
+  const dates = recentVisitDates();
+  return logs.filter((log) => dates.has(log?.date));
 }
 
 function explicitTrue(value) {
@@ -125,15 +148,16 @@ export default async function handler(req, res) {
     const rows = Array.isArray(data) ? data : [];
     const mainState = rows.find((row) => row.id === stateId)?.data || null;
     const visitState = rows.find((row) => row.id === visitStateId)?.data || {};
+    const token = String(req.headers.authorization || "").replace(/^Bearer\s+/i, "");
+    const isAuthorized = verifyToken(token);
 
     const mergedState = mainState ? {
         ...mainState,
         visits: mergeVisits(visitState.visits || [], mainState.visits || []),
-        visitLogs: visitState.visitLogs || mainState.visitLogs || [],
+        visitLogs: visibleVisitLogs(visitState.visitLogs || mainState.visitLogs || [], req, isAuthorized),
       } : null;
 
-    const token = String(req.headers.authorization || "").replace(/^Bearer\s+/i, "");
-    const shouldReturnPublicState = queryValue(req.query?.public) === "1" || !verifyToken(token);
+    const shouldReturnPublicState = queryValue(req.query?.public) === "1" || !isAuthorized;
 
     return json(res, 200, {
       data: mergedState && shouldReturnPublicState ? publicState(mergedState, req) : mergedState,

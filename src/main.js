@@ -563,7 +563,15 @@ async function loadAdminState() {
     return;
   }
 
-  const endpoint = shouldLoadFullState ? "/api/state" : stateApiPath(false);
+  const adminSection = currentParams().get("section") || "dashboard";
+  let endpoint = shouldLoadFullState ? "/api/state" : stateApiPath(false);
+  if (shouldLoadFullState && adminSection === "visits") {
+    const visitUrl = new URL("/api/state", location.origin);
+    visitUrl.searchParams.set("includeVisits", "1");
+    const selectedDate = currentParams().get("date");
+    if (selectedDate) visitUrl.searchParams.set("date", selectedDate);
+    endpoint = `${visitUrl.pathname}${visitUrl.search}`;
+  }
   const requestOptions = { cache: "no-store" };
   if (shouldLoadFullState) {
     requestOptions.headers = { Authorization: `Bearer ${token}` };
