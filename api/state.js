@@ -181,14 +181,11 @@ export default async function handler(req, res) {
       return json(res, 400, { error: "Full admin state payload is required" });
     }
 
-    const { mainState, visitState } = splitVisitState(state);
+    const { mainState } = splitVisitState(state);
     const now = new Date().toISOString();
     const { error } = await supabase
       .from("site_state")
-      .upsert([
-        { id: stateId, data: mainState, updated_at: now },
-        { id: visitStateId, data: visitState, updated_at: now },
-      ]);
+      .upsert({ id: stateId, data: mainState, updated_at: now });
 
     if (error) {
       return json(res, 500, { error: error.message });
