@@ -544,7 +544,7 @@ async function loadAdminState() {
   const allowLocalFallback = currentPath().startsWith("/adm");
   const token = sessionStorage.getItem("dateclubAdminToken") || localStorage.getItem("dateclubAdminToken") || "";
   const hasAdminFlag = sessionStorage.getItem("dateclubAdmin") === "1" || localStorage.getItem("dateclubAdmin") === "1";
-  const shouldLoadFullState = Boolean(token && hasAdminFlag);
+  const shouldLoadFullState = Boolean(token && hasAdminFlag && isAdminLoggedIn());
 
   if (allowLocalFallback && !token) {
     adminStateLoadedWithAdminToken = false;
