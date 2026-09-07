@@ -2241,11 +2241,15 @@ function renderAdmin(section = currentParams().get("section") || "dashboard") {
   `);
 
   document.querySelectorAll("[data-admin-section]").forEach((link) => {
-    link.addEventListener("click", (event) => {
+    link.addEventListener("click", async (event) => {
       event.preventDefault();
+      const nextSection = link.dataset.adminSection;
       document.body.classList.remove("admin-drawer-open");
-      history.pushState(null, "", `/adm/?section=${link.dataset.adminSection}`);
-      renderAdmin(link.dataset.adminSection);
+      history.pushState(null, "", `/adm/?section=${nextSection}`);
+      if (nextSection === "visits") {
+        await loadAdminState();
+      }
+      renderAdmin(nextSection);
     });
   });
   document.querySelector("#admin-menu-toggle")?.addEventListener("click", () => {
@@ -2918,7 +2922,14 @@ function adminTable(headers, rows) {
 
 function bindAdminSection(section) {
   document.querySelectorAll(".admin-actions [data-admin-section]").forEach((button) => {
-    button.addEventListener("click", () => renderAdmin(button.dataset.adminSection));
+    button.addEventListener("click", async () => {
+      const nextSection = button.dataset.adminSection;
+      history.pushState(null, "", `/adm/?section=${nextSection}`);
+      if (nextSection === "visits") {
+        await loadAdminState();
+      }
+      renderAdmin(nextSection);
+    });
   });
   document.querySelectorAll(".admin-form").forEach((form) => {
     bindEditorTools(form);
@@ -3148,10 +3159,9 @@ function bindAdminSection(section) {
   document.querySelectorAll("[data-visit-date]").forEach((link) => link.addEventListener("click", (event) => {
     event.preventDefault();
     history.pushState(null, "", link.getAttribute("href"));
-    renderAdmin("visits");
-    requestAnimationFrame(() => {
+    loadAdminState().then(() => renderAdmin("visits")).then(() => requestAnimationFrame(() => {
       document.querySelector("#visit-detail")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+    }));
   }));
 
   document.querySelector("#clear-cache")?.addEventListener("click", async () => {
