@@ -769,7 +769,7 @@ function isAdminLoggedIn() {
 
 function readTokenPayload(token) {
   try {
-    return JSON.parse(atob(token.split(".")[0].replace(/-/g, "+").replace(/_/g, "/")));
+    return JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
   } catch {
     return null;
   }
