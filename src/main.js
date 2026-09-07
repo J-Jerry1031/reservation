@@ -544,7 +544,7 @@ async function loadAdminState() {
   const allowLocalFallback = currentPath().startsWith("/adm");
   const token = sessionStorage.getItem("dateclubAdminToken") || localStorage.getItem("dateclubAdminToken") || "";
   const hasAdminFlag = sessionStorage.getItem("dateclubAdmin") === "1" || localStorage.getItem("dateclubAdmin") === "1";
-  const shouldLoadFullState = Boolean(token && hasAdminFlag && isAdminLoggedIn());
+  const shouldLoadFullState = Boolean(token && hasAdminFlag);
 
   if (allowLocalFallback && !token) {
     adminStateLoadedWithAdminToken = false;
@@ -580,6 +580,10 @@ async function loadAdminState() {
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
       const response = await fetch(apiUrl(endpoint), requestOptions);
+      if (response.status === 401) {
+        clearAdminSession();
+        break;
+      }
       if (response.ok) {
         const payload = await response.json();
         if (payload.data) {
@@ -765,6 +769,13 @@ function isAdminLoggedIn() {
     return false;
   }
   return true;
+}
+
+function clearAdminSession() {
+  sessionStorage.removeItem("dateclubAdmin");
+  sessionStorage.removeItem("dateclubAdminToken");
+  localStorage.removeItem("dateclubAdmin");
+  localStorage.removeItem("dateclubAdminToken");
 }
 
 function readTokenPayload(token) {
