@@ -273,6 +273,7 @@ export default async function handler(req, res) {
     .maybeSingle();
 
   if (readError) {
+    console.error("Failed to load visit state", readError);
     return json(res, 500, { error: readError.message });
   }
 
@@ -333,7 +334,7 @@ export default async function handler(req, res) {
     userAgent,
   };
 
-  state.visits = visits;
+  state.visits = visits.map(({ uniqueIps, ...visit }) => visit);
   state.visitLogs = compactVisitLogs([
     nextLog,
     ...visitLogs.filter((log) => !(log.date === date && String(log.ip || "") === ip)),
@@ -344,6 +345,7 @@ export default async function handler(req, res) {
     .upsert({ id: visitStateId, data: state, updated_at: now.toISOString() });
 
   if (writeError) {
+    console.error("Failed to save visit state", writeError);
     return json(res, 500, { error: writeError.message });
   }
 

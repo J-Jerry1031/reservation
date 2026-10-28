@@ -11,7 +11,10 @@ function splitVisitState(state) {
 function mergeVisits(primary = [], secondary = []) {
   const map = new Map();
   [...secondary, ...primary].forEach((visit) => {
-    if (visit?.date) map.set(visit.date, visit);
+    if (visit?.date) {
+      const { uniqueIps, ...safeVisit } = visit;
+      map.set(visit.date, safeVisit);
+    }
   });
   return [...map.values()].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
@@ -136,21 +139,22 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "GET") {
+    const token = String(req.headers.authorization || "").replace(/^Bearer\s+/i, "");
+    const isAuthorized = verifyToken(token);
+    const requestedIds = isAuthorized ? [stateId, visitStateId] : [stateId];
     const { data, error } = await supabase
       .from("site_state")
       .select("id,data")
-      .in("id", [stateId, visitStateId]);
+      .in("id", requestedIds);
 
     if (error) {
+      console.error("Failed to load site state", error);
       return json(res, 500, { error: error.message });
     }
 
     const rows = Array.isArray(data) ? data : [];
     const mainState = rows.find((row) => row.id === stateId)?.data || null;
     const visitState = rows.find((row) => row.id === visitStateId)?.data || {};
-    const token = String(req.headers.authorization || "").replace(/^Bearer\s+/i, "");
-    const isAuthorized = verifyToken(token);
-
     const mergedState = mainState ? {
         ...mainState,
         visits: mergeVisits(visitState.visits || [], mainState.visits || []),
@@ -158,6 +162,14 @@ export default async function handler(req, res) {
       } : null;
 
     const shouldReturnPublicState = queryValue(req.query?.public) === "1" || !isAuthorized;
+
+    res.setHeader("Vary", "Authorization");
+    res.setHeader(
+      "Cache-Control",
+      isAuthorized
+        ? "private, no-store"
+        : "public, s-maxage=30, stale-while-revalidate=300",
+    );
 
     return json(res, 200, {
       data: mergedState && shouldReturnPublicState ? publicState(mergedState, req) : mergedState,

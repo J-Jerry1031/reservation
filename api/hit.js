@@ -39,6 +39,7 @@ export default async function handler(req, res) {
     .maybeSingle();
 
   if (readError) {
+    console.error("Failed to load hit state", readError);
     return json(res, 500, { error: readError.message });
   }
 
@@ -77,6 +78,7 @@ export default async function handler(req, res) {
     .upsert({ id: stateId, data: state, updated_at: new Date().toISOString() });
 
   if (writeError) {
+    console.error("Failed to save hit state", writeError);
     return json(res, 500, { error: writeError.message });
   }
 

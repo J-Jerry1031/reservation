@@ -572,14 +572,20 @@ async function loadAdminState() {
     if (selectedDate) visitUrl.searchParams.set("date", selectedDate);
     endpoint = `${visitUrl.pathname}${visitUrl.search}`;
   }
-  const requestOptions = { cache: "no-store" };
+  const requestOptions = {};
   if (shouldLoadFullState) {
+    requestOptions.cache = "no-store";
     requestOptions.headers = { Authorization: `Bearer ${token}` };
   }
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
     try {
-      const response = await fetch(apiUrl(endpoint), requestOptions);
+      const response = await fetch(
+        shouldLoadFullState ? apiUrl(endpoint) : endpoint,
+        { ...requestOptions, signal: controller.signal },
+      );
       if (response.status === 401) {
         clearAdminSession();
         break;
@@ -597,6 +603,8 @@ async function loadAdminState() {
         }
       }
     } catch {
+    } finally {
+      clearTimeout(timeoutId);
     }
     if (attempt < 2) {
       await wait(250 * (attempt + 1));
