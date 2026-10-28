@@ -265,6 +265,42 @@ export default async function handler(req, res) {
     utmCampaign,
     utmTerm,
   });
+  const firstTraffic = normalizeFirstTraffic(traffic);
+  const eventTime = koreaTime(now);
+
+  const { data: atomicVisit, error: atomicError } = await supabase.rpc("record_site_visit", {
+    p_visit_date: date,
+    p_ip: ip,
+    p_event_id: `${Date.now()}`,
+    p_time: eventTime,
+    p_member_id: memberId ? String(memberId) : "",
+    p_browser: browser,
+    p_os: os,
+    p_device: device,
+    p_source: firstTraffic.source,
+    p_source_label: firstTraffic.sourceLabel,
+    p_referrer: firstTraffic.referrer,
+    p_referrer_host: firstTraffic.referrerHost,
+    p_landing_url: firstTraffic.landingUrl,
+    p_path: trimText(path, 500),
+    p_utm_source: trimText(utmSource, 80),
+    p_utm_medium: traffic.medium,
+    p_utm_campaign: traffic.campaign,
+    p_utm_term: trimText(utmTerm, 120),
+    p_search_term: traffic.searchTerm,
+    p_user_agent: trimText(userAgent, 1000),
+  });
+
+  if (!atomicError) {
+    const result = Array.isArray(atomicVisit) ? atomicVisit[0] : atomicVisit;
+    return json(res, 200, {
+      ok: true,
+      uniqueVisitors: Number(result?.unique_visitors || 0),
+      visitCount: Number(result?.visit_count || 1),
+    });
+  }
+
+  console.warn("Atomic visit tracking unavailable; using legacy fallback", atomicError.message);
 
   const { data, error: readError } = await supabase
     .from("site_state")
@@ -282,7 +318,6 @@ export default async function handler(req, res) {
   const visitLogs = Array.isArray(state.visitLogs) ? state.visitLogs : [];
   const existingLogs = visitLogs.filter((log) => log.date === date && String(log.ip || "") === ip);
   const existingLog = existingLogs[0] || null;
-  const firstTraffic = normalizeFirstTraffic(traffic);
   const useIncomingFirstTraffic = shouldUseIncomingFirstTraffic(existingLog, traffic);
   const visitCountByIp = existingLogs.reduce((total, log) => total + logVisitCount(log), 0) + 1;
   const day = visits.find((item) => item.date === date);
@@ -302,9 +337,9 @@ export default async function handler(req, res) {
     ...(existingLog || {}),
     id: existingLog?.id || `${Date.now()}`,
     date,
-    time: koreaTime(now),
-    firstTime: existingLog?.firstTime || existingLog?.time || koreaTime(now),
-    lastTime: koreaTime(now),
+    time: eventTime,
+    firstTime: existingLog?.firstTime || existingLog?.time || eventTime,
+    lastTime: eventTime,
     memberId: existingLog?.memberId || (memberId ? String(memberId) : ""),
     name: "",
     nick: "",

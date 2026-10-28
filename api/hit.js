@@ -32,6 +32,24 @@ export default async function handler(req, res) {
   const ip = clientIp(req);
   const date = koreaDate();
 
+  const { data: atomicHit, error: atomicError } = await supabase.rpc("increment_post_hit", {
+    p_visit_date: date,
+    p_board: String(table),
+    p_post_id: String(postId),
+    p_ip: ip,
+    p_base_hit: 0,
+  });
+
+  if (!atomicError) {
+    const result = Array.isArray(atomicHit) ? atomicHit[0] : atomicHit;
+    return json(res, 200, {
+      hit: String(Number(result?.hit_count || 0)),
+      counted: Boolean(result?.counted),
+    });
+  }
+
+  console.warn("Atomic hit tracking unavailable; using legacy fallback", atomicError.message);
+
   const { data, error: readError } = await supabase
     .from("site_state")
     .select("data")
