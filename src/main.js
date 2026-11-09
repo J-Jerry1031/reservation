@@ -2023,6 +2023,40 @@ function insertEditorImage(editor, src) {
   document.execCommand("insertHTML", false, editorImageMarkup(src));
 }
 
+function setEditorImageLink(figure) {
+  const image = figure.querySelector("img");
+  if (!image) return;
+  const currentLink = image.parentElement?.matches("a") ? image.parentElement : null;
+  const value = prompt("사진을 눌렀을 때 이동할 주소를 입력하세요.\n주소를 비우면 링크가 제거됩니다.", currentLink?.getAttribute("href") || "https://");
+  if (value === null) return;
+  const rawUrl = value.trim();
+  if (!rawUrl || rawUrl === "https://") {
+    if (currentLink) currentLink.replaceWith(image);
+    return;
+  }
+  let url;
+  try {
+    url = new URL(rawUrl, location.origin);
+  } catch {
+    alert("올바른 링크 주소를 입력해 주세요.");
+    return;
+  }
+  if (!['http:', 'https:'].includes(url.protocol)) {
+    alert("http 또는 https 주소만 사용할 수 있습니다.");
+    return;
+  }
+  const link = currentLink || document.createElement("a");
+  link.href = url.href;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.title = "연결된 링크 열기";
+  if (!currentLink) {
+    image.replaceWith(link);
+    link.append(image);
+  }
+  link.onclick = (event) => event.preventDefault();
+}
+
 function normalizeEditorImages(editor) {
   editor.querySelectorAll("figure").forEach((figure) => {
     if (!figure.querySelector("img")) return;
@@ -2033,9 +2067,16 @@ function normalizeEditorImages(editor) {
     figure.insertAdjacentHTML("afterbegin", `
       <div class="editor-image-tools" contenteditable="false">
         <button type="button" class="editor-image-drag" title="사진 이동">이동</button>
+        <button type="button" class="editor-image-link" title="사진에 링크 연결">링크</button>
         <button type="button" class="editor-image-remove" title="사진 삭제">삭제</button>
       </div>
     `);
+    const linkedImage = figure.querySelector("a:has(img)");
+    if (linkedImage) {
+      linkedImage.target = "_blank";
+      linkedImage.rel = "noopener noreferrer";
+      linkedImage.onclick = (event) => event.preventDefault();
+    }
     if (figure.dataset.editorDragBound !== "1") {
       figure.dataset.editorDragBound = "1";
       figure.addEventListener("dragstart", (event) => {
@@ -2049,6 +2090,12 @@ function normalizeEditorImages(editor) {
       const next = figure.nextElementSibling;
       figure.remove();
       if (next?.matches("p") && !next.textContent.trim() && !next.querySelector("img")) next.remove();
+      editor.focus();
+    });
+    figure.querySelector(".editor-image-link")?.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setEditorImageLink(figure);
       editor.focus();
     });
   });
