@@ -2058,6 +2058,19 @@ function setEditorImageLink(figure) {
 }
 
 function normalizeEditorImages(editor) {
+  editor.querySelectorAll("img").forEach((image) => {
+    if (image.closest("figure")) return;
+    const linkedImage = image.parentElement?.matches("a") ? image.parentElement : image;
+    const figure = document.createElement("figure");
+    figure.className = "editor-image";
+    const container = linkedImage.parentElement;
+    if (container?.matches("p") && !container.textContent.trim() && container.children.length === 1) {
+      container.replaceWith(figure);
+    } else {
+      linkedImage.replaceWith(figure);
+    }
+    figure.append(linkedImage);
+  });
   editor.querySelectorAll("figure").forEach((figure) => {
     if (!figure.querySelector("img")) return;
     figure.classList.add("editor-image");
