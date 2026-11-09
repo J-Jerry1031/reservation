@@ -1329,6 +1329,55 @@ body:not(.home) #hd {
   background: rgba(255, 255, 255, 0.16);
 }
 
+.editor-link-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.62);
+}
+
+.editor-link-card {
+  width: min(460px, 100%);
+  padding: 24px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.editor-link-card h3,
+.editor-link-card p {
+  margin: 0 0 12px;
+}
+
+.editor-link-card input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+}
+
+.editor-link-error {
+  min-height: 20px;
+  margin-top: 8px !important;
+  color: #c62828;
+  font-size: 13px;
+}
+
+.editor-link-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.editor-link-actions button {
+  width: auto;
+  min-width: 72px;
+}
+
 .rich-editor figcaption,
 .rich-content figcaption {
   min-height: 12px;

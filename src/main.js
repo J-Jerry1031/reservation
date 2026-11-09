@@ -2027,34 +2027,63 @@ function setEditorImageLink(figure) {
   const image = figure.querySelector("img");
   if (!image) return;
   const currentLink = image.parentElement?.matches("a") ? image.parentElement : null;
-  const value = prompt("사진을 눌렀을 때 이동할 주소를 입력하세요.\n주소를 비우면 링크가 제거됩니다.", currentLink?.getAttribute("href") || "https://");
-  if (value === null) return;
-  const rawUrl = value.trim();
-  if (!rawUrl || rawUrl === "https://") {
+  document.querySelector("[data-image-link-dialog]")?.remove();
+  const dialog = document.createElement("div");
+  dialog.className = "editor-link-dialog";
+  dialog.dataset.imageLinkDialog = "1";
+  dialog.innerHTML = `
+    <form class="editor-link-card">
+      <h3>사진 링크 설정</h3>
+      <p>사진을 눌렀을 때 이동할 http 또는 https 주소를 입력하세요.</p>
+      <input type="url" name="url" placeholder="https://example.com" autocomplete="url">
+      <p class="editor-link-error" data-link-error></p>
+      <div class="editor-link-actions">
+        <button type="button" data-link-remove ${currentLink ? "" : "disabled"}>링크 제거</button>
+        <button type="button" data-link-cancel>취소</button>
+        <button type="submit">적용</button>
+      </div>
+    </form>
+  `;
+  const input = dialog.querySelector("input[name='url']");
+  input.value = currentLink?.getAttribute("href") || "https://";
+  const close = () => dialog.remove();
+  dialog.querySelector("[data-link-cancel]").addEventListener("click", close);
+  dialog.querySelector("[data-link-remove]").addEventListener("click", () => {
     if (currentLink) currentLink.replaceWith(image);
-    return;
-  }
-  let url;
-  try {
-    url = new URL(rawUrl, location.origin);
-  } catch {
-    alert("올바른 링크 주소를 입력해 주세요.");
-    return;
-  }
-  if (!['http:', 'https:'].includes(url.protocol)) {
-    alert("http 또는 https 주소만 사용할 수 있습니다.");
-    return;
-  }
-  const link = currentLink || document.createElement("a");
-  link.href = url.href;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.title = "연결된 링크 열기";
-  if (!currentLink) {
-    image.replaceWith(link);
-    link.append(image);
-  }
-  link.onclick = (event) => event.preventDefault();
+    close();
+  });
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) close();
+  });
+  dialog.querySelector("form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const rawUrl = input.value.trim();
+    let url;
+    try {
+      url = new URL(rawUrl);
+    } catch {
+      dialog.querySelector("[data-link-error]").textContent = "올바른 링크 주소를 입력해 주세요.";
+      return;
+    }
+    if (!["http:", "https:"].includes(url.protocol)) {
+      dialog.querySelector("[data-link-error]").textContent = "http 또는 https 주소만 사용할 수 있습니다.";
+      return;
+    }
+    const link = currentLink || document.createElement("a");
+    link.href = url.href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.title = "연결된 링크 열기";
+    if (!currentLink) {
+      image.replaceWith(link);
+      link.append(image);
+    }
+    link.onclick = (clickEvent) => clickEvent.preventDefault();
+    close();
+  });
+  document.body.append(dialog);
+  input.focus();
+  input.select();
 }
 
 function normalizeEditorImages(editor) {
