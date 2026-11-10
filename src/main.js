@@ -50,9 +50,9 @@ const defaultAdminState = {
     address: "분당 야탑역 도보 3분 직진 차병원 앞",
     hours: "AM 11:00~출근부 마감전까지",
     theme: "home",
-    metaTitle: "분당 Fox | 분당·야탑 키스방 실시간 출근부",
-    metaDescription: "분당·야탑 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 공식 안내 사이트입니다. 고액 알바, 단기 고액알바, 고액단기알바 관련 안내도 확인하세요.",
-    metaKeywords: "분당 Fox\n분당폭스\n분당 키스방\n분당키스방\n야탑 키스방\n야탑키스방\n성남 키스방\n성남키스방\n분당 야탑 키스방\n분당 키스방 실시간 출근부\n분당 매니저 프로필\n실시간 출근부\n고액 알바\n고액알바\n단기 고액알바\n단기고액알바\n고액단기알바\n단기 알바",
+    metaTitle: "분당 Fox | 분당·야탑 카페 실시간 출근부",
+    metaDescription: "분당·야탑 카페 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 공식 안내 사이트입니다. 고액 알바, 단기 고액알바, 고액단기알바 관련 안내도 확인하세요.",
+    metaKeywords: "분당 Fox\n분당폭스\n분당 카페\n분당카페\n야탑 카페\n야탑카페\n성남 카페\n성남카페\n분당 야탑 카페\n분당 카페 실시간 출근부\n분당 매니저 프로필\n실시간 출근부\n고액 알바\n고액알바\n단기 고액알바\n단기고액알바\n고액단기알바\n단기 알바",
     ogImage: "/assets/fox-og-20260609.png",
     canonicalUrl: "https://xn--she-vg3mw53b.com",
     robots: "index,follow",
@@ -258,10 +258,10 @@ const areaPages = {
     key: "bundang",
     label: "분당",
     roman: "BUNDANG",
-    title: "분당 키스방 실시간 출근부 | 분당 Fox",
-    description: "분당 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 지역 안내 페이지입니다. 분당 오늘의 출근 일정과 공지사항을 확인하세요.",
-    keywords: ["분당 키스방", "분당키스방", "분당 키스방 실시간 출근부", "분당 매니저 프로필", "분당 고액 알바"],
-    heading: "분당 키스방 실시간 출근부",
+    title: "분당 카페 실시간 출근부 | 분당 Fox",
+    description: "분당 카페 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 지역 안내 페이지입니다. 분당 오늘의 출근 일정과 공지사항을 확인하세요.",
+    keywords: ["분당 카페", "분당카페", "분당 카페 실시간 출근부", "분당 매니저 프로필", "분당 고액 알바"],
+    heading: "분당 카페 실시간 출근부",
     lead: "분당에서 오늘의 출근 일정과 매니저 프로필을 빠르게 확인할 수 있는 분당 Fox 안내 페이지입니다.",
     intro: "분당 인근 실시간 출근 정보, 매니저 프로필, 운영 공지와 이용후기를 기존 분당 Fox 게시판에서 바로 확인할 수 있습니다.",
   },
@@ -269,10 +269,10 @@ const areaPages = {
     key: "yatap",
     label: "야탑",
     roman: "YATAP",
-    title: "야탑 키스방 실시간 출근부 | 분당 Fox",
-    description: "야탑 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 지역 안내 페이지입니다. 야탑 인근 오늘의 일정과 공지를 확인하세요.",
-    keywords: ["야탑 키스방", "야탑키스방", "야탑 키스방 실시간 출근부", "야탑 매니저 프로필", "야탑 고액 알바"],
-    heading: "야탑 키스방 실시간 출근부",
+    title: "야탑 카페 실시간 출근부 | 분당 Fox",
+    description: "야탑 카페 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 지역 안내 페이지입니다. 야탑 인근 오늘의 일정과 공지를 확인하세요.",
+    keywords: ["야탑 카페", "야탑카페", "야탑 카페 실시간 출근부", "야탑 매니저 프로필", "야탑 고액 알바"],
+    heading: "야탑 카페 실시간 출근부",
     lead: "야탑 인근에서 오늘의 출근 일정과 매니저 프로필을 확인할 수 있는 분당 Fox 안내 페이지입니다.",
     intro: "야탑권 실시간 출근 정보와 매니저 프로필은 기존 분당 Fox 게시판과 동일하게 운영되며, 공지사항과 이용후기도 함께 확인할 수 있습니다.",
   },
@@ -280,10 +280,10 @@ const areaPages = {
     key: "seongnam",
     label: "성남",
     roman: "SEONGNAM",
-    title: "성남 키스방 실시간 출근부 | 분당 Fox",
-    description: "성남 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 지역 안내 페이지입니다. 성남 인근 오늘의 출근 안내를 확인하세요.",
-    keywords: ["성남 키스방", "성남키스방", "성남 키스방 실시간 출근부", "성남 매니저 프로필", "성남 고액 알바"],
-    heading: "성남 키스방 실시간 출근부",
+    title: "성남 카페 실시간 출근부 | 분당 Fox",
+    description: "성남 카페 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 지역 안내 페이지입니다. 성남 인근 오늘의 출근 안내를 확인하세요.",
+    keywords: ["성남 카페", "성남카페", "성남 카페 실시간 출근부", "성남 매니저 프로필", "성남 고액 알바"],
+    heading: "성남 카페 실시간 출근부",
     lead: "성남 인근에서 오늘의 출근 일정과 매니저 프로필을 확인할 수 있는 분당 Fox 안내 페이지입니다.",
     intro: "성남권 실시간 출근 정보, 매니저 프로필, 운영 공지는 기존 분당 Fox 게시판으로 연결되어 최신 내용으로 확인할 수 있습니다.",
   },
@@ -324,8 +324,8 @@ function currentPageSeo(config) {
   const siteName = config.siteName || "분당 Fox";
   const area = currentAreaPage();
   const home = {
-    title: config.metaTitle || `${siteName} | 분당·야탑 키스방 실시간 출근부`,
-    description: config.metaDescription || `분당·야탑 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 ${siteName} 공식 안내 사이트입니다.`,
+    title: config.metaTitle || `${siteName} | 분당·야탑 카페 실시간 출근부`,
+    description: config.metaDescription || `분당·야탑 카페 실시간 출근부와 매니저 프로필을 확인할 수 있는 ${siteName} 공식 안내 사이트입니다.`,
     canonical: `${origin}/`,
     robots: config.robots || "index,follow",
     type: "website",
@@ -347,19 +347,19 @@ function currentPageSeo(config) {
   const table = params.get("bo_table") || "day";
   const boardSeo = {
     day: {
-      title: `분당·야탑 키스방 실시간 출근부 | ${siteName}`,
-      description: `${siteName}의 오늘 키스방 실시간 출근 정보와 최신 일정을 확인하세요.`,
+      title: `분당·야탑 카페 실시간 출근부 | ${siteName}`,
+      description: `${siteName}의 오늘 카페 실시간 출근 정보와 최신 일정을 확인하세요.`,
     },
     gallery: {
       title: `분당·야탑 매니저 프로필 | ${siteName}`,
       description: `${siteName} 매니저의 최신 프로필과 출근 정보를 확인하세요.`,
     },
     notice: {
-      title: `${siteName} 공지사항 | 분당·야탑 키스방 이용 안내`,
+      title: `${siteName} 공지사항 | 분당·야탑 카페 이용 안내`,
       description: `${siteName}의 운영 소식과 이용 안내를 확인하세요.`,
     },
     review: {
-      title: `${siteName} 이용후기 | 분당·야탑 키스방`,
+      title: `${siteName} 이용후기 | 분당·야탑 카페`,
       description: `${siteName} 이용후기 게시판에서 최신 후기를 확인하세요.`,
     },
   }[table] || {
@@ -692,7 +692,8 @@ function migrateBrandState(value) {
       .replace(/분당\s*FOX/g, "분당 Fox")
       .replace(/분당FOX/g, "분당Fox")
       .replace(/Yellow\s*date\s*cafe/gi, "분당 Fox")
-      .replace(/옐로우데이트카페/g, "분당 Fox");
+      .replace(/옐로우데이트카페/g, "분당 Fox")
+      .replace(/키스방/g, "카페");
   }
   if (Array.isArray(value)) {
     return value.map((item) => migrateBrandState(item));
@@ -709,14 +710,14 @@ function ensureBundangSeoState(state) {
   config.description = "이성과 교감적인 데이트를 즐길 수 있는 대화 카페입니다.";
   config.address = "분당 야탑역 도보 3분 직진 차병원 앞";
   config.metaTitle = cleanMetaTitle(config.metaTitle, config.siteName || "분당 Fox");
-  if (["분당 Fox", "분당Fox"].includes(config.metaTitle) || /강남|NYX|역삼|선릉/.test(config.metaTitle) || !/키스방/.test(config.metaTitle)) {
-    config.metaTitle = "분당 Fox | 분당·야탑 키스방 실시간 출근부";
+  if (["분당 Fox", "분당Fox"].includes(config.metaTitle) || /강남|NYX|역삼|선릉|키스방/.test(config.metaTitle) || !/카페/.test(config.metaTitle)) {
+    config.metaTitle = "분당 Fox | 분당·야탑 카페 실시간 출근부";
   }
-  if (!config.metaDescription || /강남|NYX|역삼|선릉|매니저 안내/.test(config.metaDescription) || !/키스방/.test(config.metaDescription)) {
-    config.metaDescription = "분당·야탑 키스방 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 공식 안내 사이트입니다. 고액 알바, 단기 고액알바, 고액단기알바 관련 안내도 확인하세요.";
+  if (!config.metaDescription || /강남|NYX|역삼|선릉|키스방|매니저 안내/.test(config.metaDescription) || !/카페/.test(config.metaDescription)) {
+    config.metaDescription = "분당·야탑 카페 실시간 출근부와 매니저 프로필을 확인할 수 있는 분당 Fox 공식 안내 사이트입니다. 고액 알바, 단기 고액알바, 고액단기알바 관련 안내도 확인하세요.";
   }
-  const keywords = seoKeywords(config.metaKeywords).filter((keyword) => !/강남|NYX|엔와이엑스|역삼|선릉/.test(keyword));
-  ["분당 Fox", "분당폭스", "분당 키스방", "분당키스방", "야탑 키스방", "야탑키스방", "성남 키스방", "성남키스방", "분당 야탑 키스방", "분당 키스방 실시간 출근부", "분당 매니저 프로필", "실시간 출근부", "고액 알바", "고액알바", "단기 고액알바", "단기고액알바", "고액단기알바", "단기 알바"].forEach((keyword) => {
+  const keywords = seoKeywords(config.metaKeywords).filter((keyword) => !/강남|NYX|엔와이엑스|역삼|선릉|키스방/.test(keyword));
+  ["분당 Fox", "분당폭스", "분당 카페", "분당카페", "야탑 카페", "야탑카페", "성남 카페", "성남카페", "분당 야탑 카페", "분당 카페 실시간 출근부", "분당 매니저 프로필", "실시간 출근부", "고액 알바", "고액알바", "단기 고액알바", "단기고액알바", "고액단기알바", "단기 알바"].forEach((keyword) => {
     if (!keywords.includes(keyword)) keywords.push(keyword);
   });
   config.metaKeywords = keywords.join("\n");
@@ -936,7 +937,7 @@ function renderHome() {
       <div class="inner about-content">
         <h2>About ${escapeHtml(config.siteName)}</h2>
         <p>안녕하세요. ${escapeHtml(config.siteName)}입니다.<br>${escapeHtml(config.description)}</p>
-        <p class="local-seo-copy">분당 야탑역 인근 키스방 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
+        <p class="local-seo-copy">분당 야탑역 인근 카페 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
       </div>
     </section>
 
@@ -986,7 +987,7 @@ function renderAreaPage(area = currentAreaPage()) {
           <p class="section-label">${escapeHtml(area.roman)} AREA GUIDE</p>
           <h2>${escapeHtml(area.heading)}</h2>
           <p>${escapeHtml(area.intro)}</p>
-          <p>분당 Fox는 분당·야탑·성남 인근 키스방 실시간 출근부와 매니저 프로필을 한 곳에서 확인할 수 있도록 운영됩니다.</p>
+          <p>분당 Fox는 분당·야탑·성남 인근 카페 실시간 출근부와 매니저 프로필을 한 곳에서 확인할 수 있도록 운영됩니다.</p>
         </div>
         <nav class="home-guide-links area-cta-links" aria-label="${escapeHtml(area.label)} 주요 게시판 바로가기">
           <a href="/bbs/board.php?bo_table=day"><span>${escapeHtml(area.label)} 오늘의 일정</span><strong>실시간 출근부 보기</strong></a>
@@ -1018,7 +1019,7 @@ function renderAreaPage(area = currentAreaPage()) {
       <div class="inner about-content">
         <h2>About ${escapeHtml(config.siteName)}</h2>
         <p>안녕하세요. ${escapeHtml(config.siteName)}입니다.<br>${escapeHtml(config.description)}</p>
-        <p class="local-seo-copy">${escapeHtml(area.label)} 인근 키스방 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
+        <p class="local-seo-copy">${escapeHtml(area.label)} 인근 카페 정보를 확인할 수 있는 실시간 출근부와 매니저 프로필 안내 사이트입니다.</p>
       </div>
     </section>
 
@@ -1030,7 +1031,7 @@ function renderAreaPage(area = currentAreaPage()) {
           <p>${escapeHtml(area.label)} 외에도 분당 Fox의 분당·야탑·성남 실시간 출근부와 매니저 프로필 안내를 같은 사이트에서 확인할 수 있습니다.</p>
         </div>
         <nav class="area-link-list" aria-label="지역별 안내 링크">
-          ${relatedAreas.map((item) => `<a href="/area/${item.key}">${escapeHtml(item.label)} 키스방 실시간 출근부</a>`).join("")}
+          ${relatedAreas.map((item) => `<a href="/area/${item.key}">${escapeHtml(item.label)} 카페 실시간 출근부</a>`).join("")}
           <a href="/">분당 Fox 메인</a>
         </nav>
       </div>
@@ -1043,10 +1044,10 @@ function renderAreaPage(area = currentAreaPage()) {
 
 function areaLinkNav() {
   return `
-    <nav class="area-link-list home-area-links" aria-label="지역별 키스방 안내">
-      <a href="/area/bundang">분당 키스방 실시간 출근부</a>
-      <a href="/area/yatap">야탑 키스방 실시간 출근부</a>
-      <a href="/area/seongnam">성남 키스방 실시간 출근부</a>
+    <nav class="area-link-list home-area-links" aria-label="지역별 카페 안내">
+      <a href="/area/bundang">분당 카페 실시간 출근부</a>
+      <a href="/area/yatap">야탑 카페 실시간 출근부</a>
+      <a href="/area/seongnam">성남 카페 실시간 출근부</a>
     </nav>
   `;
 }
@@ -2481,7 +2482,7 @@ function configPanel() {
         <label>메타 타이틀<input name="metaTitle" value="${escapeHtml(config.metaTitle || config.siteName)}"></label>
         <label>메타 설명<textarea name="metaDescription">${escapeHtml(config.metaDescription || config.description)}</textarea></label>
         <label>키워드 태그
-          <textarea name="metaKeywords" data-seo-keywords placeholder="#분당Fox&#10;#분당키스방&#10;#야탑키스방&#10;#성남키스방&#10;#고액알바">${escapeHtml(seoKeywordValue(config.metaKeywords))}</textarea>
+          <textarea name="metaKeywords" data-seo-keywords placeholder="#분당Fox&#10;#분당카페&#10;#야탑카페&#10;#성남카페&#10;#고액알바">${escapeHtml(seoKeywordValue(config.metaKeywords))}</textarea>
         </label>
         <div>
           <strong class="seo-preview-title">등록된 키워드</strong>
